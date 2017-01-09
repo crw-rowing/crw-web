@@ -59,21 +59,21 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="inputDate">Date</label>
-                                        <input type="date" class="form-control" id="inputDate">
+                                        <input ng-model="healthDate" type="date" class="form-control" id="inputDate">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputHR">Resting Heart Rate</label>
-                                        <input type="number" class="form-control" id="inputHR" placeholder="HR">
+                                        <input ng-model="healthHR" type="number" class="form-control" id="inputHR" placeholder="HR">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputWeight">Weight</label>
-                                        <input type="number" class="form-control" id="inputWeight" placeholder="Weight">
+                                        <input ng-model="healthWeight" type="number" class="form-control" id="inputWeight" placeholder="Weight">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputFeeling">Feeling</label>
-                                        <textarea class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
+                                        <textarea ng-model="healthFeeling" class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button ng-click="submitHealth()" type="submit" class="btn btn-default">Submit</button>
                                 </form>
                             </div>
                         </div>

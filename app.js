@@ -1,6 +1,14 @@
 var crwApp = angular.module('crwApp', ['chart.js']);
 
 crwApp.controller('crwController', function($scope) {
+    $scope.healthDate = new Date;
+    $scope.submitHealth = function() {
+        var data = $scope.HRdata,
+            date = $scope.healthDate;
+        data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
+        data.data[0].push($scope.healthHR);
+        data.data[1].push($scope.healthWeight);
+    };
     $scope.HRdata = {
         labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
         series: ["heart rate", "weight"],
