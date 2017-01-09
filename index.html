@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <!--Chart JS-->
+	<script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        CRW
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Scheduling</a>
+                </li>
+                <li>
+                    <a href="#">Results</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                   <div class="col-lg-12">
+                      <!--  <h1>Simple Sidebar</h1>
+                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>-->
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a></br></br>
+                    </div>
+                </div>
+                <div class = "row">
+                	<div class="col-md-4">
+                		<div class="thumbnail">
+                			<div class="caption">
+                				<h3>Update Health info</h3>
+                				<form>
+                					<div class="form-group">
+										<label for="inputDate">Date</label>
+										<input type="date" class="form-control" id="inputDate">
+									</div>
+									<div class="form-group">
+										<label for="inputHR">Resting Heart Rate</label>
+										<input type="number" class="form-control" id="inputHR" placeholder="HR">
+									</div>
+									<div class="form-group">
+										<label for="inputWeight">Weight</label>
+										<input type="number" class="form-control" id="inputWeight" placeholder="Weight">
+									</div>
+									<div class="form-group">
+										<label for="inputFeeling">Feeling</label>
+										<textarea class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
+									</div>
+									<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+                			</div>
+                		</div>
+                	</div>
+                	<div class="col-md-8">
+                		<div class="thumbnail">
+                			<div class="caption">
+                			<h3>Health Overview</h3>
+							<canvas id="HrGraph"></canvas>
+							</div>
+						</div>
+                	</div>
+                </div>
+				
+				<div class="row">
+					<div class="col-md-4">
+                		<div class="thumbnail">
+                			<div class="caption">
+                				<h3>Log Training</h3>
+                				
+                				<ul class="nav nav-tabs">
+								  <li role="presentation" class="active"><a href="#">Interval 1</a></li>
+								  <li role="presentation"><a href="#">New Interval</a></li>
+								</ul>
+		
+                				<form>
+                					<div class="form-group">
+										<label for="inputTrainTime">Date & Time</label>
+										<input type="datetime-local" class="form-control" id="inputDate">
+									</div>
+									<div class="form-group">
+										<label for="inputType">Type Training</label>
+										<input type="text" class="form-control" id="inputType" placeholder="Type">
+									</div>
+								</form>
+								<form class="form-inline form-group-sm">
+									<div class="form-group">
+										<label for="inputDurance">Durance</label>
+										<input type="time" class="form-control" id="inputDurance">
+									</div>
+									<div class="form-group">
+										<label for="inputRest">Rest</label>
+										<input type="time" class="form-control" id="inputRest">
+									</div>
+									<div class="form-group">
+										<label for="inputRest">Pace</label>
+										<input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+									</div>
+								</form>
+								<form>
+               						<div class="form-group">
+               							<label for="inputWatt">watt</label>
+               							<input type="number" class="form-control" id="inputWatt" placeholder="watt">
+									</div>
+              						<div class="form-group">
+              							<label for="inputSplit">split</label>
+              							<input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+              						</div>
+              						<div class="form-group">
+              							<label for="inputDistance">distance</label>
+              							<input type="number" class="form-control" id="inputDistance" placeholder="m">
+              						</div>
+               							<button type="submit" class="btn btn-default">Submit</button>
+               					</form>
+                			</div>
+						</div>
+                	</div>
+					<div class="col-md-8">
+						<div class="thumbnail">
+							<div class="caption">
+								<h3>Performance</h3>
+								<canvas id="PerfGraph"></canvas>
+							</div>
+						</div>
+					</div>
+                	
+				</div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+		var HRdata = {
+    labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+    datasets: [
+        {
+            label: "heartrate",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [45, 59, 53, 51, 56, 55, 48],
+            spanGaps: false,
+        },
+		{
+            label: "weight",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(192,57,57,0.4)",
+            borderColor: "rgba(192,57,57,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(192,57,57,0.4)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(192,57,57,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [56.3, 55, 55.6, 54, 55.9, 55.3, 55],
+            spanGaps: false,
+        }
+    ]
+};
+		
+var Perfdata = {
+    labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+    datasets: [
+        {
+            label: "watt",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [210, 200, 215, 212, 208, 216, 211],
+            spanGaps: false,
+        }
+    ]
+};
+var HrGraph = new Chart(document.getElementById("HrGraph").getContext("2d"), {
+    type: 'line',
+    data: HRdata
+});
+var PerfGraph = new Chart(document.getElementById("PerfGraph").getContext("2d"), {
+	type: 'line',
+	data: Perfdata
+});
+    </script>
+
+</body>
+
+</html>
