@@ -1,9 +1,9 @@
-$("document").ready(function() {
+var crwApp = angular.module('crwApp', ['chart.js']);
 
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
+crwApp.controller('crwController', function($scope) {
 });
+
+$("document").ready(function() {
 var HRdata = {
     labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
     datasets: [
