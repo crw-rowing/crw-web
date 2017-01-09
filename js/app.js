@@ -1,4 +1,13 @@
-var crwApp = angular.module('crwApp', ['chart.js']);
+var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
+
+crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('!');
+    $routeProvider.when('/hoi', {
+        template: '<p>hoi</p>'
+    }).when('/foo', {
+        template: '<p>bar</p>'
+    }).otherwise('hoi');
+}]);
 
 crwApp.controller('crwController', function($scope) {
     $scope.healthDate = new Date;
