@@ -61,6 +61,9 @@ crwApp.controller('crwController', function($scope) {
             }
         ],
         options: {
+            legend: {
+                display: true
+            },
             scales: {
                 yAxes: [
                     {
@@ -109,6 +112,9 @@ crwApp.controller('crwController', function($scope) {
             }
         ],
         options: {
+            legend: {
+                display: true
+            },
             scales: {
                 yAxes: [
                     {
