@@ -106,41 +106,41 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="inputTrainTime">Date & Time</label>
-                                        <input type="datetime-local" class="form-control" id="inputDate">
+                                        <input ng-model="intervalDate" type="datetime-local" class="form-control" id="inputDate">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputType">Type Training</label>
-                                        <input type="text" class="form-control" id="inputType" placeholder="Type">
+                                        <input ng-model="intervalType" type="text" class="form-control" id="inputType" placeholder="Type">
                                     </div>
                                 </form>
                                 <form class="form-inline form-group-sm">
                                     <div class="form-group">
                                         <label for="inputDurance">Durance</label>
-                                        <input type="time" class="form-control" id="inputDurance">
+                                        <input ng-model="intervalDurance" type="time" class="form-control" id="inputDurance">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputRest">Rest</label>
-                                        <input type="time" class="form-control" id="inputRest">
+                                        <input ng-model="intervalRest" type="time" class="form-control" id="inputRest">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputRest">Pace</label>
-                                        <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+                                        <input ng-model="intervalPace" type="number" class="form-control" id="inputPace" placeholder="strokes/min">
                                     </div>
                                 </form>
                                 <form>
                                        <div class="form-group">
                                            <label for="inputWatt">watt</label>
-                                           <input type="number" class="form-control" id="inputWatt" placeholder="watt">
+                                           <input ng-model="intervalWatt" type="number" class="form-control" id="inputWatt" placeholder="watt">
                                     </div>
                                       <div class="form-group">
                                           <label for="inputSplit">split</label>
-                                          <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                                          <input ng-model="intervalSplit" type="time" class="form-control" id="inputSplit" placeholder="time/500m">
                                       </div>
                                       <div class="form-group">
                                           <label for="inputDistance">distance</label>
-                                          <input type="number" class="form-control" id="inputDistance" placeholder="m">
+                                          <input ng-model="intervalDistance" type="number" class="form-control" id="inputDistance" placeholder="m">
                                       </div>
-                                      <button type="submit" class="btn btn-default">Submit</button>
+                                      <button ng-click="submitInterval()" type="submit" class="btn btn-default">Submit</button>
                                    </form>
                             </div>
                         </div>
