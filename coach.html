@@ -63,24 +63,18 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
            
-           <div id="rowdash">
+           <div id="coachdash">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="well-lg well">
 									<div class="row">
-									<div class="col-md-9" ><h1>Welcome, rower!</h1>
-										<p>Here you can enter and view your personal and crew's performance.</p>
-									</div>
-										<div class="col-md-3">
-											<div class="row">
-												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#loghealth">Log health</button></div>
-												</div>
-											</br>
-											<div class="row">
-												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Log training</button></div>
-											</div>
-										</div>								   
+									<div class="col-md-9" ><h1>Welcome, coach!</h1>
+										<p>Here's an overview of your crew's health & performance</p>
+									</div>	
+									<div class="col-md-3">
+										<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Plan Training</button></div>
+									</div>						   
 								</div>
 							</div>
 						</div>
@@ -124,77 +118,10 @@
 						  </div>
 						</div>
 						<!--/loghealth-->
-						
-						<!--logtraining-->
-						<div class="modal fade" id="logtraining" tabindex="-1" role="dialog" aria-labelledby="logtraining">
-						  <div class="modal-dialog" role="document">
-							<div class="modal-content">
-							  <div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h3 class="modal-title" id="logtraining">Log Training</h3>
-							  </div>
-							  <div class="modal-body">
-							  	<div class="caption">
-                                
-                                <form>
-                                    <div class="form-group">
-                                        <label for="inputTrainTime">Date & Time</label>
-                                        <input type="datetime-local" class="form-control" id="inputDate">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputType">Type Training</label>
-                                        <input type="text" class="form-control" id="inputType" placeholder="Type">
-                                    </div>
-                                </form>
-                                
-                                <ul class="nav nav-tabs">
-                                  <li role="presentation" class="active"><a href="#">Interval 1</a></li>
-                                  <li role="presentation"><a href="#">New Interval</a></li>
-                                </ul>
-                                
-								</br>
-                               
-                                <form class="form-inline form-group-sm">
-                                    <div class="form-group">
-                                        <label for="inputDurance">Durance</label>
-                                        <input type="time" class="form-control" id="inputDurance">
-									</div>
-                                    <div class="form-group">
-                                        <label for="inputRest">Rest</label>
-                                        <input type="time" class="form-control" id="inputRest">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputRest">Pace</label>
-                                        <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
-                                    </div>
-                                </form>
-                                <form>
-                                       <div class="form-group">
-                                           <label for="inputWatt">watt</label>
-                                           <input type="number" class="form-control" id="inputWatt" placeholder="watt">
-                                    </div>
-                                      <div class="form-group">
-                                          <label for="inputSplit">split</label>
-                                          <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="inputDistance">distance</label>
-                                          <input type="number" class="form-control" id="inputDistance" placeholder="m">
-                                      </div>
-                                   </form>
-                            </div>
-							  </div>
-							  <div class="modal-footer">
-								<button type="button" class="btn btn-primary">Submit</button>
-							  </div>
-							</div>
-						  </div>
-						</div>
-						<!--/logtraining-->
 						<!--/Modals-->
 						<!--Graphs-->
 						<div class="row">
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<div class="thumbnail">
 									<div class="caption">
 											<h3>Health Overview</h3>
@@ -202,7 +129,42 @@
 										  <li role="presentation" class="active"><a href="#">graph</a></li>
 										  <li role="presentation"><a href="#">table</a></li>
 										</ul>
-										<canvas id="HrGraph"></canvas>
+										<div class="row">
+											<div class="col-xs-11">
+												<canvas id="HrGraph"></canvas>
+											</div>											
+											<div class="col-xs-1">
+												</br>
+												<div class="btn-group btn-group-vertical btn-group-md" data-toggle="buttons">
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 1
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 2
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 3
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 4
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 5
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 6
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 7
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 8
+												  </label>
+												</div>
+											</div>
+
+										</div>
+										
 										<div class="row">
 											<div class="col-lg-9">
 											</div>
@@ -223,51 +185,89 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6">
+						</div>
+						<!--/healthoverview-->
+						<div class="row">
+							<div class="col-lg-12">
 								<div class="thumbnail">
 									<div class="caption">
-									<h3>Performance overview</h3>
+											<h3>Performance</h3>
 										<ul class="nav nav-tabs">
 										  <li role="presentation" class="active"><a href="#">graph</a></li>
 										  <li role="presentation"><a href="#">table</a></li>
 										</ul>
-									<canvas id="PerfGraph"></canvas>
-									<div class="row">
-										<div class="col-xs-6"></div>
-											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
-													<label class="btn btn-default active">
-													<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
+										<div class="row">
+											<div class="col-xs-11">
+												<canvas id="PerfGraph"></canvas>
+											</div>											
+											<div class="col-xs-1">
+												</br>
+												<div class="btn-group btn-group-vertical btn-group-md" data-toggle="buttons">
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 1
 												  </label>
 												  <label class="btn btn-default">
-													<input type="radio" name="power" id="split" autocomplete="off">split/500m
+													<input type="checkbox" autocomplete="off" checked>rower 2
 												  </label>
-												</div>	
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 3
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 4
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 5
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 6
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 7
+												  </label>
+												  <label class="btn btn-default">
+													<input type="checkbox" autocomplete="off" checked>rower 8
+												  </label>
+												</div>
 											</div>
-											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
-												  <label class="btn btn-default active">
-													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
-												  </label>
-												  <label class="btn btn-default">
-													<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
-												  </label>
-												  <label class="btn btn-default">
-												  	<input type="radio" name="timespan" id="year" autocomplete="off">year
-												  </label>
-												</div>	
+
+										</div>
+										
+										<div class="row">
+											<div class="col-xs-6"></div>
+												<div class="col-xs-3">
+													<div class="btn-group btn-group-sm" data-toggle="buttons">
+														<label class="btn btn-default active">
+														<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="power" id="split" autocomplete="off">split/500m
+													  </label>
+													</div>	
+												</div>
+												<div class="col-xs-3">
+													<div class="btn-group btn-group-sm" data-toggle="buttons">
+													  <label class="btn btn-default active">
+														<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="timespan" id="year" autocomplete="off">year
+													  </label>
+													</div>	
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!--/Graphs-->
-						<!--Tables-->
-						<div class="row">
-
+						
 						</div>
-						<!---->
+						<!--/container-->
+						<!--/Graphs-->
+
 				</div>
 			</div>
        		<!--/#rowdash-->
