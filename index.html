@@ -82,7 +82,13 @@
                         <div class="thumbnail">
                             <div class="caption">
                             <h3>Health Overview</h3>
-                            <canvas id="HrGraph"></canvas>
+                            <canvas
+                            id="HrGraph" class="chart chart-line"
+                            chart-data="HRdata.data"
+                            chart-labels="HRdata.labels"
+                            chart-series="HRdata.series"
+                            chart-options="HRdata.options"
+                            chart-dataset-override="HRdata.datasetOverride"></canvas>
                             </div>
                         </div>
                     </div>
@@ -143,7 +149,13 @@
                         <div class="thumbnail">
                             <div class="caption">
                                 <h3>Performance</h3>
-                                <canvas id="PerfGraph"></canvas>
+                                <canvas
+                                id="PerfGraph" class="chart chart-line"
+                                chart-data="Perfdata.data"
+                                chart-labels="Perfdata.labels"
+                                chart-series="Perfdata.series"
+                                chart-options="Perfdata.options"
+                                chart-dataset-override="Perfdata.datasetOverride"></canvas>
                             </div>
                         </div>
                     </div>
