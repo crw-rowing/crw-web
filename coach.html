@@ -9,16 +9,18 @@
     <meta name="description" content="CRW rowing">
     <meta name="author" content="">
 
-    <title>CRW rowing</title>
+	<title>CRW rowing</title>
 
-    <!-- Bootstrap Core CSS -->
+    ><!-- Bootstrap Core CSS -->
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href= "css/crw.css"rel="stylesheet">    
     <script src="bower_components/chart.js/dist/Chart.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,11 +71,14 @@
 						<div class="col-lg-6">
 							<div class="well-lg well">
 									<div class="row">
-									<div class="col-md-9" ><h1>Welcome, coach!</h1>
+									<div class="col-xs-3">
+										<img src="favicon.ico" class="img-responsive">
+									</div>
+									<div class="col-sm-9" ><h1>Welcome, coach!</h1>
 										<p>Here's an overview of your crew's health & performance</p>
 									</div>	
-									<div class="col-md-3">
-										<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Plan Training</button></div>
+									<div class="col-sm-3">
+										<div><button class="btn btn-primary btn-lg btn-block" data-toggle="mxsal" data-target="#logtraining">Plan Training</button></div>
 									</div>						   
 								</div>
 							</div>
@@ -169,7 +174,7 @@
 											<div class="col-lg-9">
 											</div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 													<label class="btn btn-default active">
 													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
 												  </label>
@@ -202,7 +207,7 @@
 											</div>											
 											<div class="col-xs-1">
 												</br>
-												<div class="btn-group btn-group-vertical btn-group-md" data-toggle="buttons">
+												<div class="btn-group btn-group-vertical btn-group-xs" data-toggle="buttons">
 												  <label class="btn btn-default">
 													<input type="checkbox" autocomplete="off" checked>rower 1
 												  </label>
@@ -235,7 +240,7 @@
 										<div class="row">
 											<div class="col-xs-6"></div>
 												<div class="col-xs-3">
-													<div class="btn-group btn-group-sm" data-toggle="buttons">
+													<div class="btn-group btn-group-xs" data-toggle="buttons">
 														<label class="btn btn-default active">
 														<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
 													  </label>
@@ -245,7 +250,7 @@
 													</div>	
 												</div>
 												<div class="col-xs-3">
-													<div class="btn-group btn-group-sm" data-toggle="buttons">
+													<div class="btn-group btn-group-xs" data-toggle="buttons">
 													  <label class="btn btn-default active">
 														<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
 													  </label>
