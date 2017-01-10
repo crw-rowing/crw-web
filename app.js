@@ -98,6 +98,77 @@ var HRdata = {
         }
     ]
 };
+var weightData = {
+	labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+	datasets:[
+		{
+            label: "rower 1",
+            fill: false,
+            lineTension: 0.3,
+            backgroundColor: "rgba(192,57,57,0.15)",
+            borderColor: "rgba(192,57,57,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(192,57,57,0.4)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(192,57,57,.4)",
+            pointHoverBorderColor: "rgba(220,220,220,.4)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [56.3, 55, 55.6, 54, 55.9, 55.3, 55],
+            spanGaps: false,
+        },
+		{
+            label: "rower 2",
+            fill: false,
+            lineTension: 0.3,
+            backgroundColor: "rgba(57,192,57,0.15)",
+            borderColor: "rgba(57,192,57,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(57,192,57,0.4)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(57,192,57,.4)",
+            pointHoverBorderColor: "rgba(220,220,220,.4)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [58.5, 57.8, 57.9, 57.7, 58.1, 58.2, 58],
+            spanGaps: false,
+        },
+		{
+            label: "weight average",
+            fill: true,
+            lineTension: 0.3,
+            backgroundColor: "rgba(150,70,30,0.15)",
+            borderColor: "rgba(150,70,30,0.15)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(150,70,30,0.15)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(150,70,30,0.15)",
+            pointHoverBorderColor: "rgba(220,220,220,.4)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [56.7, 56, 55.8, 57, 58.1, 57.9, 58],
+            spanGaps: false,
+        }
+	]
+};
         
 var Perfdata = {
     labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
@@ -200,5 +271,9 @@ var PerfGraph = new Chart(document.getElementById("PerfGraph").getContext("2d"),
     type: 'line',
     data: Perfdata
 });
+var coachWeight = new Chart(document.getElementById("coachWeight").getContext("2d"), {
+	type:'line',
+	data: weightData
 
+});
 });
