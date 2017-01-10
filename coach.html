@@ -92,7 +92,7 @@
 										<p>Here's an overview of your crew's health & performance</p>
 									</div>	
 									<div class="col-sm-3">
-										<div><button class="btn btn-primary btn-lg btn-block" data-toggle="mxsal" data-target="#logtraining">Plan Training</button></div>
+										<div><button class="btn btn-crw btn-lg btn-block" data-toggle="mxsal" data-target="#logtraining">Plan Training</button></div>
 									</div>						   
 								</div>
 							</div>
@@ -151,39 +151,9 @@
 										<div class="table-content">
 										<div id="healthgraphcoach" class="tab-pane fade in active">
 										<div class="row">
-											<div class="col-xs-11">
+											<div class="col-xs-12">
 												<canvas id="HrGraph"></canvas>
-											</div>											
-											<div class="col-xs-1">
-												</br>
-												<div class="btn-group btn-group-vertical btn-group-md" data-toggle="buttons">
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 1
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 2
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 3
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 4
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 5
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 6
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 7
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 8
-												  </label>
-												</div>
 											</div>
-
 										</div>
 																		
 										<div class="row">
@@ -330,41 +300,10 @@
 										<div class="table-content">
 										<div id="perfgraphcoach" class="tab-pane fade in active">
 										<div class="row">
-											<div class="col-xs-11">
+											<div class="col-xs-12">
 												<canvas id="PerfGraph"></canvas>
 											</div>											
-											<div class="col-xs-1">
-												</br>
-												<div class="btn-group btn-group-vertical btn-group-xs" data-toggle="buttons">
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 1
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 2
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 3
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 4
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 5
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 6
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 7
-												  </label>
-												  <label class="btn btn-default">
-													<input type="checkbox" autocomplete="off" checked>rower 8
-												  </label>
-												</div>
-											</div>
-
 										</div>
-										
 										<div class="row">
 											<div class="col-xs-6"></div>
 												<div class="col-xs-3">
@@ -396,40 +335,18 @@
 										<!--Performance table coach-->
 												
 										<div id="perftablecoach" class="tab-pane fade">
-										
 										<div class ="table-responsive">
-										<div class="options clearfix">
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="name_rower" checked="checked"><span>Rower</span></label>
-											</div>
-
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="date_time" checked="checked"><span>Date and Time</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="type_training" checked="checked"><span>Type Training</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="interval"><span>Interval #</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="durance"><span>Durance</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="rest"><span>Rest</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="pace"><span>Pace</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="watt" checked="checked"><span>Watt</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="split"><span>Split</span></label>
-											</div>
-											<div class="ck-button">
-												<label><input type="checkbox" value="1" name="distance"><span>Distance</span></label>
-											</div>
+										<div class=" btn-group" data-toggle="buttons">
+												<label class="btn btn-default ck-button" autocomplete="off"><input type="checkbox" name="name_rower" checked autocomplete="off"><span>Rower</span></label>
+												<label class="btn-default btn"><input type="checkbox" name="date_time" checked autocomplete="off"><span>Date and Time</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="type_training" checked autocomplete="off"><span>Type Training</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="interval" autocomplete="off"><span>Interval #</span></label>
+												<label class="btn btn-default"><input type="checkbox"  name="durance" autocomplete="off"><span>Durance</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="rest" autocomplete="off"><span>Rest</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="pace"autocomplete="off"><span>Pace</span></label>
+												<label class="btn btn-default"><input  type="checkbox" name="watt" checked autocomplete="off"><span>Watt</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="split" autocomplete="off"><span>Split</span></label>				
+												<label class="btn btn-default"><input type="checkbox" name="distance" autocomplete="off"><span>Distance</span></label>
 										</div>
 										
 										<table id="ptablecoach" class="table table-bordered table-hover table-striped">

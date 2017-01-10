@@ -274,7 +274,7 @@ var PerfGraph = new Chart(document.getElementById("PerfGraph").getContext("2d"),
 var coachWeight = new Chart(document.getElementById("coachWeight").getContext("2d"), {
 	type:'line',
 	data: weightData
-
+});
 $('.nav-tabs a').click(function(){
     $(this).tab('show');
 });
@@ -331,4 +331,4 @@ $("input:checkbox").click(function(){
 	});
 
 });
-});
+
