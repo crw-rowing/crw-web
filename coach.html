@@ -14,12 +14,23 @@
     ><!-- Bootstrap Core CSS -->
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href= "css/crw.css"rel="stylesheet">    
+=======
+	<link href="css/tabel.css" rel="stylesheet">
+>>>>>>> ed6af95d6de66e0a510d570a3a144f0d646db745
     <script src="bower_components/chart.js/dist/Chart.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+	
+	<!-- LINKS VOOR TABELLEN PAGINERING ETC-->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -124,16 +135,18 @@
 						</div>
 						<!--/loghealth-->
 						<!--/Modals-->
-						<!--Graphs-->
+						<!--Health graph coach-->
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="thumbnail">
 									<div class="caption">
 											<h3>Health Overview</h3>
 										<ul class="nav nav-tabs">
-										  <li role="presentation" class="active"><a href="#">graph</a></li>
-										  <li role="presentation"><a href="#">table</a></li>
+											<li role="presentation" class="active"><a data-toggle="tab"href="#healthgraphcoach">graph</a></li>
+											<li role="presentation"><a data-toggle="tab"href="#healthtablecoach">table</a></li>
 										</ul>
+										<div class="table-content">
+										<div id="healthgraphcoach" class="tab-pane fade in active">
 										<div class="row">
 											<div class="col-xs-11">
 												<canvas id="HrGraph"></canvas>
@@ -169,7 +182,7 @@
 											</div>
 
 										</div>
-										
+																		
 										<div class="row">
 											<div class="col-lg-9">
 											</div>
@@ -188,6 +201,78 @@
 											</div>
 										</div>
 									</div>
+									
+									<!--/Healthgraph coach-->
+									<!--Health table-->
+									
+									<div id="healthtablecoach" class="tab-pane fade">
+										<div class ="table-responsive">
+										<div class="options clearfix">
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="rower" checked="checked"><span>Rower</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="date" checked="checked"><span>Date</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="weight" checked="checked"><span>Weight</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="feeling"><span>Feeling</span></label>
+											</div>
+										</div>
+										
+										<table id="htablecoach" class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+											<!-- CLASS TOEVOEGEN -->
+												<th class="rower">Rower</th>
+                                                <th class="date">Date</th>
+                                                <th class="heartrate">Resting Heart Rate</th>
+                                                <th class="weight">Weight</th>
+                                                <th class="feeling">Feeling</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+											<tr>
+												<th class="rower">Rower 1</th>
+												<th class="date">10-1-2017</th>
+												<th class="heartrate">56</th>
+												<th class="weight">54</th>
+												<th class="feeling">Good</th>
+											</tr>
+											<tr>
+												<th class="rower">Rower 1</th>
+												<th class="date">11-1-2017</th>
+												<th class="heartrate">59</th>
+												<th class="weight">55</th>
+												<th class="feeling">Good</th>
+											</tr>
+											<tr>
+												<th class="rower">Rower 2</th>
+												<th class="date">11-1-2017</th>
+												<th class="heartrate">59</th>
+												<th class="weight">55</th>
+												<th class="feeling">Good</th>
+											</tr>
+											<tr>
+												<th class="rower">Rower 3</th>
+												<th class="date">12-1-2017</th>
+												<th class="heartrate">60</th>
+												<th class="weight">55</th>
+												<th class="feeling">Good</th>
+											</tr>
+										</tbody>
+										</table>
+										</div>
+										</div>
+									
+									
+									</div>
+									<!--/Health table-->
 								</div>
 							</div>
 						</div>
@@ -235,9 +320,12 @@
 									<div class="caption">
 											<h3>Performance</h3>
 										<ul class="nav nav-tabs">
-										  <li role="presentation" class="active"><a href="#">graph</a></li>
-										  <li role="presentation"><a href="#">table</a></li>
+										  <li role="presentation" class="active"><a data-toggle="tab" href="#perfgraphcoach">graph</a></li>
+										  <li role="presentation"><a data-toggle="tab" href="#perftablecoach">table</a></li>
 										</ul>
+										<!-- performance graph coach-->
+										<div class="table-content">
+										<div id="perfgraphcoach" class="tab-pane fade in active">
 										<div class="row">
 											<div class="col-xs-11">
 												<canvas id="PerfGraph"></canvas>
@@ -300,6 +388,109 @@
 													</div>	
 												</div>
 											</div>
+										</div>
+										<!--/Performance graph coach-->		
+										<!--Performance table coach-->
+												
+										<div id="perftablecoach" class="tab-pane fade">
+										
+										<div class ="table-responsive">
+										<div class="options clearfix">
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="name_rower" checked="checked"><span>Rower</span></label>
+											</div>
+
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="date_time" checked="checked"><span>Date and Time</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="type_training" checked="checked"><span>Type Training</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="interval"><span>Interval #</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="durance"><span>Durance</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="rest"><span>Rest</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="pace"><span>Pace</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="watt" checked="checked"><span>Watt</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="split"><span>Split</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="distance"><span>Distance</span></label>
+											</div>
+										</div>
+										
+										<table id="ptablecoach" class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+												<th class="name_rower">Rower</th>
+												<th class="date_time">Date and Time</th>
+                                                <th class="type_training">Type Training</th>
+                                                <th class="interval">Interval #</th>
+                                                <th class="durance">Durance</th>
+												<th class="rest">Rest</th>
+												<th class="pace">Pace</th>
+												<th class="watt">Watt</th>
+												<th class="split">Split</th>
+												<th class="distance">Distance</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+											<tr>
+												<th class="name_rower">Rower 1</th>
+												<th class="date_time">10-1-2017 12.00</th>
+												<th class="type_training">AT</th>
+                                                <th class="interval">1</th>
+                                                <th class="durance">50</th>
+												<th class="rest">10</th>
+												<th class="pace">80</th>
+												<th class="watt">250</th>
+												<th class="split">100</th>
+												<th class="distance">5000</th>
+											</tr>
+											<tr>
+												<th class="name_rower">Rower 2</th>
+												<th class="date_time">10-2-2017 12.00</th>
+												<th class="type_training">AT</th>
+                                                <th class="interval">1</th>
+                                                <th class="durance">56</th>
+												<th class="rest">13</th>
+												<th class="pace">89</th>
+												<th class="watt">248</th>
+												<th class="split">150</th>
+												<th class="distance">5500</th>
+											</tr>
+											<tr>
+												<th class="name_rower">Rower 3</th>
+												<th class="date_time">14-2-2017 12.00</th>
+												<th class="type_training">AM</th>
+                                                <th class="interval">3</th>
+                                                <th class="durance">49</th>
+												<th class="rest">19</th>
+												<th class="pace">93</th>
+												<th class="watt">263</th>
+												<th class="split">140</th>
+												<th class="distance">4900</th>
+											</tr>
+										</tbody>
+										</table>
+										
+										</div>
+										</div>
+										<!--/Performance table coach-->
+										
+										</div>
+										
+										
 										</div>
 									</div>
 								</div>
