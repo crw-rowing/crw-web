@@ -43,7 +43,6 @@ crwApp.controller('loginController', function($scope, rpc) {
         $scope.loginError.show = false;
         rpc('login', [$scope.user, $scope.login_pass]).then(function(response) {
             if('result' in response) {
-                rpc.session = response.result;
                 localStorage.session = response.result;
                 window.location = "#!/rower";
             } else {
