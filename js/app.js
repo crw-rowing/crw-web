@@ -1,14 +1,16 @@
 var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
 
 var rpc = {
+    session: localStorage.getItem('session'),
+    user_id: null,
     req_id: 1,
-    call: function($http, method, params, user_id, session) {
+    call: function($http, method, params) {
         var obj;
         rpc.req_id++;
-        if (user_id == null && session == null)
+        if(rpc.user_id == null && rpc.session == null) // TODO && to ||
             obj = {"jsonrpc": "2.0", "method": method, "params": params, "id": rpc.req_id};
         else
-            obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : user_id, "session" : session, "id": rpc.req_id};
+            obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : rpc.user_id, "session" : rpc.session, "id": rpc.req_id};
         
         return new Promise(function(resolve, reject) {
             $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
@@ -31,12 +33,18 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
 crwApp.controller('loginController', function($scope, $http) {
     $scope.loginStatus = 'Not logged in';
     $scope.loginHandler = function() {
-        rpc.call($http, 'login', [$scope.user, $scope.login_pass], null, null).then(function(response) {
-            $scope.loginStatus = 'result' in response ? response.result : response.error.message;
+        rpc.call($http, 'login', [$scope.user, $scope.login_pass]).then(function(response) {
+            if('result' in response) {
+                $scope.loginStatus = 'Login successful!';
+                rpc.session = response.result;
+                localStorage.session = response.result;
+            } else {
+                $scope.loginStatus = response.error.message;
+            }
         });
     };
     $scope.registerHandler = function() {
-        rpc.call($http, 'create_account', [$scope.user, $scope.register_pass1], null, null).then(function(response) {
+        rpc.call($http, 'create_account', [$scope.user, $scope.register_pass1]).then(function(response) {
             $scope.registerStatus = 'result' in response ? response.result : response.error.message;
         });
     };
