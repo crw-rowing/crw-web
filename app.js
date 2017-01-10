@@ -275,5 +275,60 @@ var coachWeight = new Chart(document.getElementById("coachWeight").getContext("2
 	type:'line',
 	data: weightData
 
+$('.nav-tabs a').click(function(){
+    $(this).tab('show');
+});
+
+
+$('.nav-tabs a[href="#healthtable"]').on('shown.bs.tab', function(){
+        document.getElementById('healthgraph').style.display = 'none';
+    });
+	
+$('.nav-tabs a[href="#healthgraph"]').on('shown.bs.tab', function(){
+		document.getElementById('healthgraph').style.display = 'block';
+});
+
+$('.nav-tabs a[href="#perftable"]').on('shown.bs.tab', function(){
+        document.getElementById('perfgraph').style.display = 'none';
+    });
+	
+$('.nav-tabs a[href="#perfgraph"]').on('shown.bs.tab', function(){
+		document.getElementById('perfgraph').style.display = 'block';
+});
+
+$('.nav-tabs a[href="#healthtablecoach"]').on('shown.bs.tab', function(){
+        document.getElementById('healthgraphcoach').style.display = 'none';
+    });
+	
+$('.nav-tabs a[href="#healthgraphcoach"]').on('shown.bs.tab', function(){
+		document.getElementById('healthgraphcoach').style.display = 'block';
+});
+
+$('.nav-tabs a[href="#perftablecoach"]').on('shown.bs.tab', function(){
+        document.getElementById('perfgraphcoach').style.display = 'none';
+    });
+	
+$('.nav-tabs a[href="#perfgraphcoach"]').on('shown.bs.tab', function(){
+		document.getElementById('perfgraphcoach').style.display = 'block';
+});
+
+	
+	$('#htablerower').dataTable();
+	$('#ptablerower').dataTable();	
+	$('#htablecoach').dataTable();
+	$('#ptablecoach').dataTable();	
+	
+	$("input:checkbox:not(:checked)").each(function() {
+    var column = "table ." + $(this).attr("name");
+    $(column).hide();
+});
+
+$("input:checkbox").click(function(){
+    var column = "table ." + $(this).attr("name");
+    $(column).toggle();
+
+	
+	});
+
 });
 });
