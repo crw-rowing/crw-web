@@ -31,13 +31,13 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
 }]);
 
 crwApp.controller('loginController', function($scope, $http) {
-    $scope.loginStatus = 'Not logged in';
+    $scope.loginStatus = '';
     $scope.loginHandler = function() {
         rpc.call($http, 'login', [$scope.user, $scope.login_pass]).then(function(response) {
             if('result' in response) {
-                $scope.loginStatus = 'Login successful!';
                 rpc.session = response.result;
                 localStorage.session = response.result;
+                window.location = "#!/rower";
             } else {
                 $scope.loginStatus = response.error.message;
             }
@@ -48,6 +48,10 @@ crwApp.controller('loginController', function($scope, $http) {
             $scope.registerStatus = 'result' in response ? response.result : response.error.message;
         });
     };
+
+    // Navigate to /rower if already logged in.
+    if(localStorage.session)
+        window.location = "#!/rower";
 });
 
 crwApp.controller('crwController', function() {});
