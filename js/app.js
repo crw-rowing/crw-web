@@ -1,24 +1,23 @@
 var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
 
-var rpc = {
-    session: localStorage.getItem('session'),
-    user_id: null,
-    req_id: 1,
-    call: function($http, method, params) {
+crwApp.factory('rpc', function($http) {
+    var session = localStorage.getItem('session'),
+        user_id = null,
+        req_id = 1;
+
+    return function(method, params) {
         var obj;
-        rpc.req_id++;
-        if(rpc.user_id == null && rpc.session == null) // TODO && to ||
-            obj = {"jsonrpc": "2.0", "method": method, "params": params, "id": rpc.req_id};
+        req_id++;
+        if(user_id == null && session == null) // TODO && to ||
+            obj = {"jsonrpc": "2.0", "method": method, "params": params, "id": req_id};
         else
-            obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : rpc.user_id, "session" : rpc.session, "id": rpc.req_id};
-        
-        return new Promise(function(resolve, reject) {
-            $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
-                resolve(response.data);
-            }).catch(reject);
+            obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : user_id, "session" : session, "id": req_id};
+
+        return $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
+            return response.data;
         });
-    }
-};
+    };
+});
 
 crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
@@ -30,7 +29,7 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
     }).otherwise('home');
 }]);
 
-crwApp.controller('loginController', function($scope, $http) {
+crwApp.controller('loginController', function($scope, rpc) {
     $scope.loginError = {
         show: false,
         text: ''
@@ -42,7 +41,7 @@ crwApp.controller('loginController', function($scope, $http) {
     };
     $scope.loginHandler = function() {
         $scope.loginError.show = false;
-        rpc.call($http, 'login', [$scope.user, $scope.login_pass]).then(function(response) {
+        rpc('login', [$scope.user, $scope.login_pass]).then(function(response) {
             if('result' in response) {
                 rpc.session = response.result;
                 localStorage.session = response.result;
@@ -53,12 +52,11 @@ crwApp.controller('loginController', function($scope, $http) {
                     text: response.error.message
                 };
             }
-            $scope.$apply();
         });
     };
     $scope.registerHandler = function() {
         $scope.registerStatus.show = false;
-        rpc.call($http, 'create_account', [$scope.user, $scope.register_pass1]).then(function(response) {
+        rpc('create_account', [$scope.user, $scope.register_pass1]).then(function(response) {
             if('result' in response) {
                 $scope.registerStatus = {
                     show: true,
@@ -74,7 +72,6 @@ crwApp.controller('loginController', function($scope, $http) {
                     text: response.error.message
                 };
             }
-            $scope.$apply();
         });
     };
 
