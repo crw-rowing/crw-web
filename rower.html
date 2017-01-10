@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -38,24 +37,11 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
+                       <img class="img-rounded" width="20px" src="favicon.ico">
                         CRW
                     </a>
                 </li>
-                <li>
-                    <a href="#rowdash">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#rowhealth">Health Info</a>
-                </li>
-                <li>
-                    <a href="#rowperform">Performance info</a>
-                </li>
-                <li>
-                    <a href="#rowcal">Callendar</a>
-                </li>
-
-                    <a href="#">Contact</a>
-                </li>
+               <!-- hier komt account info-->
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -68,19 +54,23 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="well-lg well">
-									<div class="row">
-									<div class="col-md-9" ><h1>Welcome, rower!</h1>
-										<p>Here you can enter and view your personal and crew's performance.</p>
+								<div class="row">
+									<div class="col-xs-3">
+										<img src="favicon.ico" img class="img-responsive">
 									</div>
-										<div class="col-md-3">
-											<div class="row">
-												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#loghealth">Log health</button></div>
-												</div>
-											</br>
-											<div class="row">
-												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Log training</button></div>
-											</div>
-										</div>								   
+									<div class="col-xs-9" ><h1>Welcome, rower!</h1>
+										<div clas="row">
+											<p>Here you can enter and view your personal and crew's performance.</p>													
+									</div>
+									<div class="row">
+										<div class="col-sm-6">	
+											<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#loghealth">Log health</button></div>
+										</div>
+										<div class="col-sm-6">
+											<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Log training</button></div>
+										</div>
+									</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -207,7 +197,7 @@
 											<div class="col-lg-9">
 											</div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 													<label class="btn btn-default active">
 													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
 												  </label>
@@ -235,7 +225,7 @@
 									<div class="row">
 										<div class="col-xs-6"></div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 													<label class="btn btn-default active">
 													<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
 												  </label>
@@ -245,7 +235,7 @@
 												</div>	
 											</div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 												  <label class="btn btn-default active">
 													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
 												  </label>
