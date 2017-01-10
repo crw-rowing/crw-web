@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -14,7 +13,8 @@
     <!-- Bootstrap Core CSS -->
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
-	<link href="css/tabel.css" rel="stylesheet">
+    <link href="css/crw.css" rel="stylesheet">
+	  <link href="css/tabel.css" rel="stylesheet">
     <script src="bower_components/chart.js/dist/Chart.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -23,7 +23,7 @@
 	<!-- LINKS VOOR TABELLEN PAGINERING ETC-->
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 	<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
@@ -45,29 +45,16 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
+                       <img class="img-rounded" width="20px" src="favicon.ico">
                         CRW
                     </a>
                 </li>
-                <li>
-                    <a href="#rowdash">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#rowhealth">Health Info</a>
-                </li>
-                <li>
-                    <a href="#rowperform">Performance info</a>
-                </li>
-                <li>
-                    <a href="#rowcal">Callendar</a>
-                </li>
-
-                    <a href="#">Contact</a>
-                </li>
+               <!-- hier komt account info-->
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
+        <!--Page Content -->
         <div id="page-content-wrapper">
            
            <div id="rowdash">
@@ -75,10 +62,23 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="well-lg well">
-									<div class="row">
-									<div class="col-md-9" ><h1>Welcome, rower!</h1>
-										<p>Here you can enter and view your personal and crew's performance.</p>
+								<div class="row">
+									<div class="col-xs-3">
+										<img src="favicon.ico" img class="img-responsive">
 									</div>
+									<div class	="col-xs-9" ><h1>Welcome, rower!</h1>
+										<div clas="row">
+											<p>Here you can enter and view your personal and crew's performance.</p>													
+									</div>
+									<div class="row">
+										<div class="col-sm-6">	
+											<div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#loghealth"> Log health</button></div>
+										</div>
+										<div class="col-sm-6">
+											<div><button class="btn btn-crw btn-lg btn-block btn-default" data-toggle="modal" data-target="#logtraining">Log training</button></div>
+										</div>
+									</div>
+                        </div>
 										<div class="col-md-3">
 											<div class="row">
 												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#loghealth">Log health</button></div>
@@ -88,6 +88,7 @@
 												<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#logtraining">Log training</button></div>
 											</div>
 										</div>								   
+
 								</div>
 							</div>
 						</div>
@@ -219,7 +220,7 @@
 											<div class="col-lg-9">
 											</div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 													<label class="btn btn-default active">
 													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
 												  </label>
@@ -311,7 +312,7 @@
 										<div class="col-xs-6">
 										</div>
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
 													<label class="btn btn-default active">
 														<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
 													</label>
@@ -321,16 +322,16 @@
 												</div>	
 											</div>											
 											<div class="col-xs-3">
-												<div class="btn-group btn-group-sm" data-toggle="buttons">
-													<label class="btn btn-default active">
-														<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
-													</label>
-													<label class="btn btn-default">
-														<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
-													</label>
-													<label class="btn btn-default">
-														<input type="radio" name="timespan" id="year" autocomplete="off">year
-													</label>
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
+												  <label class="btn btn-default active">
+													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+												  </label>
+												  <label class="btn btn-default">
+													<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+												  </label>
+												  <label class="btn btn-default">
+												  	<input type="radio" name="timespan" id="year" autocomplete="off">year
+												  </label>
 												</div>	
 											</div>
 										</div>
@@ -411,8 +412,6 @@
        		<!--/#rowdash-->
         </div>
         <!-- /#page-content-wrapper -->
-
-    </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->
