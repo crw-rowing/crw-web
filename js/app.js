@@ -31,16 +31,24 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
 }]);
 
 crwApp.controller('loginController', function($scope, $http) {
-    $scope.loginStatus = '';
+    $scope.loginError = {
+        show: false,
+        text: ''
+    };
     $scope.loginHandler = function() {
+        $scope.loginError.show = false;
         rpc.call($http, 'login', [$scope.user, $scope.login_pass]).then(function(response) {
             if('result' in response) {
                 rpc.session = response.result;
                 localStorage.session = response.result;
                 window.location = "#!/rower";
             } else {
-                $scope.loginStatus = response.error.message;
+                $scope.loginError = {
+                    show: true,
+                    text: response.error.message
+                };
             }
+            $scope.$apply();
         });
     };
     $scope.registerHandler = function() {
