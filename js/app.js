@@ -35,6 +35,11 @@ crwApp.controller('loginController', function($scope, $http) {
         show: false,
         text: ''
     };
+    $scope.registerStatus = {
+        show: false,
+        clazz: 'danger',
+        text: ''
+    };
     $scope.loginHandler = function() {
         $scope.loginError.show = false;
         rpc.call($http, 'login', [$scope.user, $scope.login_pass]).then(function(response) {
@@ -52,8 +57,24 @@ crwApp.controller('loginController', function($scope, $http) {
         });
     };
     $scope.registerHandler = function() {
+        $scope.registerStatus.show = false;
         rpc.call($http, 'create_account', [$scope.user, $scope.register_pass1]).then(function(response) {
-            $scope.registerStatus = 'result' in response ? response.result : response.error.message;
+            if('result' in response) {
+                $scope.registerStatus = {
+                    show: true,
+                    clazz: 'success',
+                    strong: 'Success!',
+                    text: 'You can now log in.'
+                };
+            } else {
+                $scope.registerStatus = {
+                    show: true,
+                    clazz: 'danger',
+                    strong: 'Error:',
+                    text: response.error.message
+                };
+            }
+            $scope.$apply();
         });
     };
 
