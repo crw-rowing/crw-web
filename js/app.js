@@ -1,5 +1,6 @@
 var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
 
+// Routing
 crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
     $routeProvider.when('/home', {

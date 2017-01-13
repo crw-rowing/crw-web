@@ -1,8 +1,13 @@
+// Rower dashboard
 angular.module('crwApp').component('rowerOverview', {
     templateUrl: 'templates/rower.template.html',
     controller: function($scope) {
+        // Set date to today on forms
         $scope.healthDate = new Date;
         $scope.intervalDate = new Date;
+
+        // Submit handlers
+        // TODO send data to server
         $scope.submitHealth = function() {
             var data = $scope.HRdata,
                 date = $scope.healthDate;
@@ -16,6 +21,9 @@ angular.module('crwApp').component('rowerOverview', {
             data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
             data.data[0].push($scope.intervalWatt);
         };
+
+        // Chart settings and data
+        // TODO retrieve data from server
         $scope.HRdata = {
             labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
             series: ["heart rate", "weight"],

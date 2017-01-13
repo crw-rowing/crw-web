@@ -1,3 +1,4 @@
+// RPC service
 angular.module('crwApp').factory('rpc', function($http) {
     var session = localStorage.getItem('session'),
         user_id = null,
@@ -12,6 +13,7 @@ angular.module('crwApp').factory('rpc', function($http) {
             obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : user_id, "session" : session, "id": req_id};
 
         return $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
+            // Only pass the actual response to the next .then()
             return response.data;
         });
     };

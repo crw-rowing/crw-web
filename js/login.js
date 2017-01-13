@@ -1,4 +1,6 @@
+// Login & registration forms
 angular.module('crwApp').controller('loginController', function($scope, rpc) {
+    // Error message data
     $scope.loginError = {
         show: false,
         text: ''
@@ -8,10 +10,13 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
         clazz: 'danger',
         text: ''
     };
+
+    // Submit handlers
     $scope.loginHandler = function() {
         $scope.loginError.show = false;
         rpc('login', [$scope.user, $scope.login_pass]).then(function(response) {
             if('result' in response) {
+                // Success - store the new session key and open dashboard
                 localStorage.session = response.result;
                 window.location = "#!/rower";
             } else {
