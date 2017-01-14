@@ -9,9 +9,21 @@ angular.module('crwApp').factory('rpc', function($http) {
             var obj;
             req_id++;
             if(user_id == null && session == null) // TODO && to ||
-                obj = {"jsonrpc": "2.0", "method": method, "params": params, "id": req_id};
+                obj = {
+                    "jsonrpc": "2.0",
+                    "method": method,
+                    "params": params,
+                    "id": req_id
+                };
             else
-                obj = {"jsonrpc": "2.0", "method": method, "params": params, "user_id" : user_id, "session" : session, "id": req_id};
+                obj = {
+                    "jsonrpc": "2.0",
+                    "method": method,
+                    "params": params,
+                    "user_id" : user_id,
+                    "session" : session,
+                    "id": req_id
+                };
 
             return $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
                 // Only pass the actual response to the next .then()
