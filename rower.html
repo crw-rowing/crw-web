@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="CRW rowing">
+    <meta name="author" content="">
+
+    <title>CRW rowing</title>
+
+    <!-- Bootstrap Core CSS -->
+	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/crw.css" rel="stylesheet">
+	<link href="css/tabel.css" rel="stylesheet">
+	  <link href="css/tabel.css" rel="stylesheet">
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+	<!-- LINKS VOOR TABELLEN PAGINERING ETC-->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       <img class="img-rounded" width="20px" src="favicon.ico">
+                        CRW
+                    </a>
+                </li>
+               <!-- hier komt account info-->
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!--Page Content -->
+        <div id="page-content-wrapper">
+           
+           <div id="rowdash">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="well-lg well">
+								<div class="row">
+									<div class="col-xs-3">
+										<img src="favicon.ico" img class="img-responsive">
+									</div>
+									<div class	="col-xs-9" ><h1>Welcome, rower!</h1>
+										<div clas="row">
+											<p>Here you can enter and view your personal and crew's performance.</p>													
+									</div>
+									<div class="row">
+										<div class="col-sm-6">	
+											<div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#loghealth"> Log health</button></div>
+										</div>
+										<div class="col-sm-6">
+											<div><button class="btn btn-crw btn-lg btn-block btn-crw" data-toggle="modal" data-target="#logtraining">Log training</button></div>
+										</div>
+									</div>
+									</div>
+                        </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--Modals for entering data-->
+						<!--loghealth-->
+						<div class="modal fade" id="loghealth" tabindex="-1" role="dialog" aria-labelledby="loghealth">
+						  <div class="modal-dialog" role="document">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h3 class="modal-title" id="loghealth">Log health</h3>
+							  </div>
+							  <div class="modal-body">
+									<div class="caption">
+										<form>
+											<div class="form-group">
+												<label for="inputDate">Date</label>
+												<input type="date" class="form-control" id="inputDate">
+											</div>
+											<div class="form-group">
+												<label for="inputHR">Resting Heart Rate</label>
+												<input type="number" class="form-control" id="inputHR" placeholder="HR">
+											</div>
+											<div class="form-group">
+												<label for="inputWeight">Weight</label>
+												<input type="number" class="form-control" id="inputWeight" placeholder="Weight">
+											</div>
+											<div class="form-group">
+												<label for="inputFeeling">Feeling</label>
+												<textarea class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
+											</div>
+										</form>
+									</div>
+							  </div>
+							  <div class="modal-footer">
+								<button type="submit" class="btn btn-crw">Submit</button>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<!--/loghealth-->
+						
+						<!--logtraining-->
+						<div class="modal fade" id="logtraining" tabindex="-1" role="dialog" aria-labelledby="logtraining">
+						  <div class="modal-dialog" role="document">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h3 class="modal-title" id="logtraining">Log Training</h3>
+							  </div>
+							  <div class="modal-body">
+							  	<div class="caption">
+                                
+                                <form>
+                                    <div class="form-group">
+                                        <label for="inputTrainTime">Date & Time</label>
+                                        <input type="datetime-local" class="form-control" id="inputDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputType">Type Training</label>
+                                        <input type="text" class="form-control" id="inputType" placeholder="Type">
+                                    </div>
+                                </form>
+                                
+                                <ul class="nav nav-tabs">
+                                  <li role="presentation" class="active"><a href="#">Interval 1</a></li>
+                                  <li role="presentation"><a href="#">New Interval</a></li>
+                                </ul>
+                                
+								</br>
+                               
+                                <form class="form-inline form-group-sm">
+                                    <div class="form-group">
+                                        <label for="inputDurance">Durance</label>
+                                        <input type="time" class="form-control" id="inputDurance">
+									</div>
+                                    <div class="form-group">
+                                        <label for="inputRest">Rest</label>
+                                        <input type="time" class="form-control" id="inputRest">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputRest">Pace</label>
+                                        <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+                                    </div>
+                                </form>
+                                <form>
+									<div class="form-group">
+                                        <label for="inputWatt">watt</label>
+                                        <input type="number" class="form-control" id="inputWatt" placeholder="watt">
+									</div>
+									<div class="form-group">
+                                        <label for="inputSplit">split</label>
+                                        <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDistance">distance</label>
+                                        <input type="number" class="form-control" id="inputDistance" placeholder="m">
+                                    </div>
+                                </form>
+                            </div>
+							  </div>
+							  <div class="modal-footer">
+								<button type="button" class="btn btn-crw">Submit</button>
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<!--/logtraining-->
+						<!--/Modals-->
+						<!--Graph health-->
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="thumbnail">
+									<div class="caption">
+											<h3>Health Overview</h3>	
+									</div>
+										<ul class="nav nav-tabs">
+										  <li role="presentation" class="active"><a data-toggle="tab" href="#healthgraph">graph</a></li>
+										  <li role="presentation"><a data-toggle="tab" href="#healthtable">table</a></li>
+										</ul>
+										
+										<div class="table-content">
+										<div id="healthgraph" class="tab-pane fade in active">
+											<canvas id="HrGraph"></canvas>
+										<div class="row">
+											<div class="col-lg-9">
+											</div>
+											<div class="col-xs-3">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
+													<label class="btn btn-default active">
+													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+												  </label>
+												  <label class="btn btn-default">
+													<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+												  </label>
+												  <label class="btn btn-default">
+												  	<input type="radio" name="timespan" id="year" autocomplete="off">year
+												  </label>
+												</div>	
+											</div>
+										</div>
+										</div>
+										<!--/Graph health-->
+										<!--Table health-->
+										<div id="healthtable" class="tab-pane fade">
+										<div class ="table-responsive">
+										<div class="options clearfix">
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="date" checked="checked"><span>Date</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="weight" checked="checked"><span>Weight</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="feeling"><span>Feeling</span></label>
+											</div>
+										</div>
+										
+										<table id="htablerower" class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+											<!-- CLASS TOEVOEGEN -->
+                                                <th class="date">Date</th>
+                                                <th class="heartrate">Resting Heart Rate</th>
+                                                <th class="weight">Weight</th>
+                                                <th class="feeling">Feeling</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+											<tr>
+												<th class="date">10-1-2017</th>
+												<th class="heartrate">56</th>
+												<th class="weight">54</th>
+												<th class="feeling">Good</th>
+											</tr>
+											<tr>
+												<th class="date">11-1-2017</th>
+												<th class="heartrate">59</th>
+												<th class="weight">55</th>
+												<th class="feeling">Good</th>
+											</tr>
+											<tr>
+												<th class="date">12-1-2017</th>
+												<th class="heartrate">60</th>
+												<th class="weight">55</th>
+												<th class="feeling">Good</th>
+											</tr>
+										</tbody>
+										</table>
+										
+										
+										</div>
+										
+										</div>
+										</div>
+
+									
+								</div>
+							</div>
+							<!--/Table health-->
+							<!--Graph performance-->
+							<div class="col-lg-6">
+								<div class="thumbnail">
+									<div class="caption">
+									<h3>Performance overview</h3>
+										<ul class="nav nav-tabs">
+										  <li role="presentation" class="active"><a data-toggle="tab" href="#perfgraph">graph</a></li>
+										  <li role="presentation"><a data-toggle="tab" href="#perftable">table</a></li>
+										</ul>
+										
+									<div class="table-content">
+									<div id="perfgraph" class="tab-pane fade in active">
+									<canvas id="PerfGraph"></canvas>
+									<div class="row">
+										<div class="col-xs-6">
+										</div>
+											<div class="col-xs-3">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
+													<label class="btn btn-default active">
+														<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
+													</label>
+													<label class="btn btn-default">
+														<input type="radio" name="power" id="split" autocomplete="off">split/500m
+													</label>
+												</div>	
+											</div>											
+											<div class="col-xs-3">
+												<div class="btn-group btn-group-xs" data-toggle="buttons">
+												  <label class="btn btn-default active">
+													<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+												  </label>
+												  <label class="btn btn-default">
+													<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+												  </label>
+												  <label class="btn btn-default">
+												  	<input type="radio" name="timespan" id="year" autocomplete="off">year
+												  </label>	
+											</div>
+										</div>
+										</div>
+										<!--/Graph performance-->
+										<!--Table performance-->
+										<div id="perftable" class="tab-pane fade">
+										<div class ="table-responsive">
+										<div class="options clearfix">
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="date_time" checked="checked"><span>Date and Time</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="type_training" checked="checked"><span>Type Training</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="interval"><span>Interval #</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="durance"><span>Durance</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="rest"><span>Rest</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="pace"><span>Pace</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="watt" checked="checked"><span>Watt</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="split"><span>Split</span></label>
+											</div>
+											<div class="ck-button">
+												<label><input type="checkbox" value="1" name="distance"><span>Distance</span></label>
+											</div>
+										</div>
+										
+										<table id="ptablerower" class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+												<th class="date_time">Date and Time</th>
+                                                <th class="type_training">Type Training</th>
+                                                <th class="interval">Interval #</th>
+                                                <th class="durance">Durance</th>
+												<th class="rest">Rest</th>
+												<th class="pace">Pace</th>
+												<th class="watt">Watt</th>
+												<th class="split">Split</th>
+												<th class="distance">Distance</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+											<tr>
+												<th class="date_time">10-1-2017 12.00</th>
+												<th class="type_training">AT</th>
+                                                <th class="interval">1</th>
+                                                <th class="durance">50</th>
+												<th class="rest">10</th>
+												<th class="pace">80</th>
+												<th class="watt">250</th>
+												<th class="split">100</th>
+												<th class="distance">5000</th>
+											</tr>
+										</tbody>
+										</table>
+										
+										</div>
+										</div>
+										<!--/Table performance-->
+									</div>
+								</div>
+							</div>
+						</div>
+						
+				</div>
+			</div>
+       		<!--/#rowdash-->
+        </div>
+        <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+
+    <!-- Bootstrap Core JavaScript -->
+
+	
+
+
+</body>
+
+</html>
