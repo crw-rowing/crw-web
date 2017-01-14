@@ -1,27 +1,24 @@
 // RPC service
 angular.module('crwApp').factory('rpc', function($http) {
-    var session = localStorage.getItem('session'),
-        user_id = null,
-        req_id = 1;
+    var req_id = 1;
 
     var rpc = {
         call(method, params) {
             var obj;
             req_id++;
-            if(user_id == null && session == null) // TODO && to ||
+            if('session' in localStorage)
                 obj = {
                     "jsonrpc": "2.0",
                     "method": method,
                     "params": params,
-                    "id": req_id
+                    "id": req_id,
+                    "session" : session
                 };
             else
                 obj = {
                     "jsonrpc": "2.0",
                     "method": method,
                     "params": params,
-                    "user_id" : user_id,
-                    "session" : session,
                     "id": req_id
                 };
 
