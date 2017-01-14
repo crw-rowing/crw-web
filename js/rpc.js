@@ -4,23 +4,14 @@ angular.module('crwApp').factory('rpc', function($http) {
 
     var rpc = {
         call(method, params) {
-            var obj;
-            req_id++;
+            var obj = {
+                "jsonrpc": "2.0",
+                "method": method,
+                "params": params,
+                "id": req_id++
+            };
             if('session' in localStorage)
-                obj = {
-                    "jsonrpc": "2.0",
-                    "method": method,
-                    "params": params,
-                    "id": req_id,
-                    "session" : session
-                };
-            else
-                obj = {
-                    "jsonrpc": "2.0",
-                    "method": method,
-                    "params": params,
-                    "id": req_id
-                };
+                obj.session = localStorage.session;
 
             return $http.post('/rpc', JSON.stringify(obj)).then(function(response) {
                 // Only pass the actual response to the next .then()
