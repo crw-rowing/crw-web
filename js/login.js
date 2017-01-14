@@ -14,7 +14,7 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
     // Submit handlers
     $scope.loginHandler = function() {
         $scope.loginError.show = false;
-        rpc('login', [$scope.user, $scope.login_pass]).then(function(response) {
+        rpc.login($scope.user, $scope.login_pass).then(function(response) {
             if('result' in response) {
                 // Success - store the new session key and open dashboard
                 localStorage.session = response.result;
@@ -29,7 +29,7 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
     };
     $scope.registerHandler = function() {
         $scope.registerStatus.show = false;
-        rpc('create_account', [$scope.user, $scope.register_pass1]).then(function(response) {
+        rpc.create_account($scope.user, $scope.register_pass1).then(function(response) {
             if('result' in response) {
                 $scope.registerStatus = {
                     show: true,
