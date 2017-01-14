@@ -1,19 +1,28 @@
 // Rower dashboard
 angular.module('crwApp').component('rowerOverview', {
     templateUrl: 'templates/rower.template.html',
-    controller: function($scope) {
+    controller: function($scope, rpc) {
         // Set date to today on forms
         $scope.healthDate = new Date;
         $scope.intervalDate = new Date;
 
         // Submit handlers
-        // TODO send data to server
         $scope.submitHealth = function() {
             var data = $scope.HRdata,
                 date = $scope.healthDate;
             data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
             data.data[0].push($scope.healthHR);
             data.data[1].push($scope.healthWeight);
+
+            rpc.add_health_data($scope.healthDate, $scope.healthHR,
+                                $scope.healthWeight, $scope.healthFeeling)
+                .then(function(response) {
+                    if('result' in response) {
+                        // Succes, TODO: update the graph
+                    } else {
+                        alert('Error in submitting health data:\nResponse: ' + JSON.stringify(response));
+                    }
+                });
         };
         $scope.submitInterval = function() {
             var data = $scope.Perfdata,
