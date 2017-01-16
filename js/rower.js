@@ -31,7 +31,7 @@ angular.module('crwApp').component('rowerOverview', {
             data.data[0].push($scope.intervalWatt);
 
             rpc.add_training(
-                $scope.intervalDate, $scope.intervalType == 'ED',
+                $scope.intervalDate, $scope.intervalType === 'ED',
                 '' /* no comments yet */, [[$scope.intervalDurance, $scope.intervalWatt,
                                             $scope.intervalPace, $scope.intervalRest]])
                 .then(function(response) {
