@@ -175,13 +175,11 @@ angular.module('crwApp').component('rowerOverview', {
                                 $scope.healthWeight, $scope.healthFeeling)
                 .then(function(response) {
                     if('result' in response) {
-                        // Succes, TODO: update the graph
+                        refresh_health_data();
                     } else {
                         alert('Error in submitting health data: ' + JSON.stringify(response));
                     }
                 });
-
-            refresh_health_data();
         };
         $scope.submitInterval = function() {
             rpc.add_training(
@@ -190,13 +188,11 @@ angular.module('crwApp').component('rowerOverview', {
                                             $scope.intervalPace, $scope.intervalRest]])
                 .then(function(response) {
                     if('result' in response) {
-                        // Succes, TODO: update the graph
+                        refresh_training_data();
                     } else {
                         alert('Error in submitting training data: ' + JSON.stringify(response));
                     }
                 });
-
-            refresh_training_data();
         };
     }
 });
