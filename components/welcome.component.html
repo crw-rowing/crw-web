@@ -1,0 +1,114 @@
+<div class="well-lg well">
+    <div class="row">
+        <div class="col-xs-3">
+            <img src="favicon.ico" class="img-responsive">
+        </div>
+        <div class="col-xs-9">
+            <h1>Welcome, rower!</h1>
+            <div clas="row">
+                <p>Here you can enter and view your personal and crew's performance.</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">	
+                    <div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#loghealth"> Log health</button></div>
+                </div>
+                <div class="col-sm-6">
+                    <div><button class="btn btn-crw btn-lg btn-block btn-crw" data-toggle="modal" data-target="#logtraining">Log training</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="loghealth" tabindex="-1" role="dialog" aria-labelledby="loghealth">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="loghealth">Log health</h3>
+            </div>
+            <div class="modal-body">
+                <div class="caption">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputDate">Date</label>
+                            <input type="date" class="form-control" id="inputDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputHR">Resting Heart Rate</label>
+                            <input type="number" class="form-control" id="inputHR" placeholder="HR">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputWeight">Weight</label>
+                            <input type="number" class="form-control" id="inputWeight" placeholder="Weight">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFeeling">Feeling</label>
+                            <textarea class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-crw">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="logtraining" tabindex="-1" role="dialog" aria-labelledby="logtraining">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title" id="logtraining">Log Training</h3>
+        </div>
+        <div class="modal-body">
+            <div class="caption">
+                <form>
+                    <div class="form-group">
+                        <label for="inputTrainTime">Date & Time</label>
+                        <input type="datetime-local" class="form-control" id="inputDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputType">Type Training</label>
+                        <input type="text" class="form-control" id="inputType" placeholder="Type">
+                    </div>
+                </form>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#">Interval 1</a></li>
+                    <li role="presentation"><a href="#">New Interval</a></li>
+                </ul>
+            <br/>
+            <form class="form-inline form-group-sm">
+                <div class="form-group">
+                    <label for="inputDurance">Durance</label>
+                    <input type="time" class="form-control" id="inputDurance">
+                </div>
+                <div class="form-group">
+                    <label for="inputRest">Rest</label>
+                    <input type="time" class="form-control" id="inputRest">
+                </div>
+                <div class="form-group">
+                    <label for="inputRest">Pace</label>
+                    <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+                </div>
+            </form>
+            <form>
+                <div class="form-group">
+                    <label for="inputWatt">watt</label>
+                    <input type="number" class="form-control" id="inputWatt" placeholder="watt">
+                </div>
+                <div class="form-group">
+                    <label for="inputSplit">split</label>
+                    <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                </div>
+                <div class="form-group">
+                    <label for="inputDistance">distance</label>
+                    <input type="number" class="form-control" id="inputDistance" placeholder="m">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-crw">Submit</button>
+    </div>
+</div>

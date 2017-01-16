@@ -1,0 +1,89 @@
+<div class="thumbnail">
+    <div class="caption">
+        <h3>{{ $ctrl.type }} overview</h3>
+    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ $ctrl.type }}">graph</a></li>
+        <li role="presentation"><a data-toggle="tab" data-target="#table-{{ $ctrl.type }}">table</a></li>
+    </ul>
+    
+    <div class="table-content">
+        <div id="graph-{{ $ctrl.type }}" class="tab-pane fade in active">
+            <canvas
+            id="chart-{{ $ctrl.type }}"
+            class="chart chart-line"
+            chart-data="$ctrl.chartData.data"
+            chart-labels="$ctrl.chartData.labels"
+            chart-series="$ctrl.chartData.series"
+            chart-options="$ctrl.chartData.options"
+            chart-dataset-override="$ctrl.chartData.datasetOverride"
+            ></canvas>
+            <div class="row">
+                <div class="col-lg-9"></div>
+                <div class="col-xs-3">
+                    <div class="btn-group btn-group-xs" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="timespan" id="year" autocomplete="off">year
+                        </label>
+                    </div>	
+                </div>
+            </div>
+        </div>
+        <div id="table-{{ $ctrl.type }}" class="tab-pane fade">
+            <div class ="table-responsive">
+                <div class="options clearfix">
+                    <div class="ck-button">
+                        <label><input type="checkbox" value="1" name="date" checked="checked"><span>Date</span></label>
+                    </div>
+                    <div class="ck-button">
+                        <label><input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span></label>
+                    </div>
+                    <div class="ck-button">
+                        <label><input type="checkbox" value="1" name="weight" checked="checked"><span>Weight</span></label>
+                    </div>
+                    <div class="ck-button">
+                        <label><input type="checkbox" value="1" name="feeling"><span>Feeling</span></label>
+                    </div>
+                </div>
+                
+                <table id="htablerower" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                        <!-- CLASS TOEVOEGEN -->
+                            <th class="date">Date</th>
+                            <th class="heartrate">Resting Heart Rate</th>
+                            <th class="weight">Weight</th>
+                            <th class="feeling">Feeling</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="date">10-1-2017</th>
+                            <th class="heartrate">56</th>
+                            <th class="weight">54</th>
+                            <th class="feeling">Good</th>
+                        </tr>
+                        <tr>
+                            <th class="date">11-1-2017</th>
+                            <th class="heartrate">59</th>
+                            <th class="weight">55</th>
+                            <th class="feeling">Good</th>
+                        </tr>
+                        <tr>
+                            <th class="date">12-1-2017</th>
+                            <th class="heartrate">60</th>
+                            <th class="weight">55</th>
+                            <th class="feeling">Good</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
