@@ -1,0 +1,74 @@
+<div class="container">
+    <style type="text/css">
+        .nav-tabs li a {
+            cursor: pointer;
+        }
+    </style>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#home">Home</a></li>
+        <li><a data-toggle="tab" data-target="#login">Login</a></li>
+        <li><a data-toggle="tab" data-target="#register">Register</a></li>
+    </ul>
+        <div class = "tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h1>Welcome</h1>
+                </div>
+                
+                <div id="login" class="tab-pane fade">
+                <div class="col-md-4">
+                <h1>Login</h1>
+                <div class="alert alert-danger" ng-show="loginError.show"><strong>Error:</strong> {{ loginError.text }}</div>
+                <form id="login_form" class="form-horizontal">
+                    <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input ng-model="user" type="text" class="form-control" name="email" placeholder="Email">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input ng-model="login_pass" id="password" type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <button type="submit"  class="btn btn-default pull-right" ng-click="loginHandler()">Login</button>
+                    </div>
+                </form>
+                </div>
+                </div>
+                
+                <div id="register" class="tab-pane fade">
+                <div class="col-md-4">
+                <h1>Register</h1>
+                <div ng-class="['alert', 'alert-' + registerStatus.clazz]" ng-show="registerStatus.show"><strong>{{ registerStatus.strong }}</strong> {{ registerStatus.text }}</div>
+                <form name="registerForm" class="form-horizontal">
+                    <div class="form-group">
+                       <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input ng-model="user" name="user" type="email" class="form-control" placeholder="E-mail" required />
+                            <span ng-class="['form-control-feedback glyphicon', {'glyphicon-remove': registerForm.user.$touched && registerForm.user.$invalid, 'glyphicon-ok': registerForm.user.$touched && registerForm.user.$valid}]"></span>
+                        </div>
+                    </div>
+                    <div class= "form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input ng-model="register_pass1" name="pass1" type="password" class="form-control" name="password" placeholder="Password" required>
+                            <span ng-class="['form-control-feedback glyphicon', {'glyphicon-remove': registerForm.pass1.$touched && registerForm.pass1.$invalid, 'glyphicon-ok': registerForm.pass1.$touched && registerForm.pass1.$valid}]"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input ng-model="register_pass2" name="pass2" type="password" class="form-control" name="password" placeholder="Repeat password" required>
+                            <span ng-class="['form-control-feedback glyphicon', {'glyphicon-remove': registerForm.pass2.$touched && (registerForm.pass2.$invalid || register_pass1 !== register_pass2), 'glyphicon-ok': registerForm.pass2.$touched && registerForm.pass2.$valid && register_pass1 === register_pass2}]"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="registerHandler()" type="submit" class="btn btn-default pull-right">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
