@@ -85,13 +85,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th class="email">Voorbeeld@hotmail.com</th>
-							<th class="coach">Nee</th>
-						</tr>
-						<tr>
-							<th class="email">Voorbeeld2@gmail.com</th>
-							<th class="coach">Ja</th>
+						<tr ng-repeat="x in members">
+							<td class="email">{{x.Email}}</td>
+							<td class="coach">{{x.Coachstat}}</td>
 						</tr>
 					</tbody>
 				</table>

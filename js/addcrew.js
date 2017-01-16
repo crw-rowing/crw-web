@@ -10,12 +10,9 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 		text: ''
 	};
 	
-	
-	
 	//Submit handlers
 	$scope.addcrewHandler = function() {
 		$scope.addcrewStatus.show = false;
-		alert($scope.addroweremail);
 		rpc.add_to_team($scope.addroweremail).then(function(response) {
 			if('result' in response) {
 				$scope.addcrewStatus = {
@@ -32,6 +29,7 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
                     text: response.error.message
                 };
             }
+		refresh_team_info();
 		});
 	};
 	
@@ -59,6 +57,24 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
                     text: response.error.message
                 };
             }
+		
+		refresh_team_info();
 		});
 	};
+	refresh_team_info = function() {
+		rpc.team_info().then(function(response) {
+			$scope.members = [];
+			if('result' in response) {
+				for(i = 2; i < response.result.length; i++){
+					$scope.members.push(
+					{ "Email" : response.result[i][1],
+					"Coachstat": response.result[i][2]
+					}
+				)
+			}
+		
+		}
+		});
+	};
+	refresh_team_info();
 });
