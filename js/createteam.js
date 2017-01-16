@@ -1,4 +1,3 @@
-
 angular.module('crwApp').controller('createteamController', function($scope, rpc) {
 	 $scope.createteamStatus = {
         show: false,

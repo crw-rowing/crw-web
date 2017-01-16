@@ -1,0 +1,102 @@
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+			<div class="col-lg-6">
+				<div class="well-lg well">
+					<div class="row">
+						<div class="col-sm-7" ><h1>Welcome, coach!</h1>
+							<p>You can add your crew here.</p>
+						</div>
+						<div class="col-md-5">
+							<div class="row">
+								<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#addcrew">Add your crew</button></div>
+							</div>
+							<div class="row">
+								<div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#makecoach">Change status of member</button></div>
+							</div>
+						</div>								   
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="addcrew" tabindex="-1" role="dialog" aria-labelledby="addcrew">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h3 class="modal-title" id="addcrew">Add your crew</h3>
+					</div>
+
+				<div class="modal-body">
+					<div class="caption">
+						<div class="form-group">
+							<label for="inputcrewmember">E-mail adress</label>
+							<input type="text" class="inputcrewmember form-control" ng-model="addroweremail" placeholder="Enter the e-mail adress of the member you want to add here."></label>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" ng-click="addcrewHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal fade" id="makecoach" tabindex="-1" role="dialog" aria-labelledby="makecoach">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h3 class="modal-title" id="addcrew">Add coach</h3>
+					</div>
+					<div class="modal-body">
+						<div class="caption">
+							<form>
+								<div class="form-group">
+									<label for="inputcrewcoach">Make one of your crew members coach.</label>
+									<input type="text" class="inputcrewcoach form-control" ng-model="coachemail" placeholder="Enter the e-mail adress of the member you want to make coach here."></label>
+								</div>
+								<div class="form-group">
+									<label class="radio-inline"><input type="radio" name="optradio" id="rowerbtn" checked="checked">Rower</label>
+									<label class="radio-inline"><input type="radio" name="optradio" id="coachbtn">Coach</label>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary" ng-click="addcoachHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div ng-class="['alert', 'alert-' + addcrewStatus.clazz]" ng-show="addcrewStatus.show"><strong>{{ addcrewStatus.strong }}</strong> {{ addcrewStatus.text }}</div>
+		<div ng-class="['alert', 'alert-' + addcoachStatus.clazz]" ng-show="addcoachStatus.show"><strong>{{ addcoachStatus.strong }}</strong> {{ addcoachStatus.text }}</div>
+						
+		<div class="row">
+			<div class="col-md-6">
+				<table id="yourcrew" class="table table-bordered table-hover table-striped table-responsive">
+					<thead>
+						<tr>
+							<th class="email">Name</th>
+							<th class="coach">Coach</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th class="email">Voorbeeld@hotmail.com</th>
+							<th class="coach">Nee</th>
+						</tr>
+						<tr>
+							<th class="email">Voorbeeld2@gmail.com</th>
+							<th class="coach">Ja</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>			
+	</div>
+</div>
+
