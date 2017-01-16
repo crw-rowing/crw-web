@@ -134,10 +134,10 @@ angular.module('crwApp').component('rowerOverview', {
         });
 
         $scope.Perfdata = {
-            labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+            labels: [],
             series: ["watt"],
             data: [
-                [210, 200, 215, 212, 208, 216, 211],
+                [],
             ],
             datasetOverride: [
                 {
@@ -178,5 +178,22 @@ angular.module('crwApp').component('rowerOverview', {
                 }
             }
         };
+
+        rpc.get_training_data(7).then(function(response) {
+            if ('result' in response) {
+                for (var i = 0; i < response.result.length; i++) {
+                    entry = response.result[i];
+                    $scope.Perfdata.labels.push(entry[0].day + ' - ' +
+                                                entry[0].month + ' ' +
+                                                entry[0].hour + ':' +
+                                                (entry[0].second < 10 ? '0' : '') +
+                                                entry[0].second)
+                    $scope.Perfdata.data[0].push(entry[3][0][1])
+                }
+            } else {
+                alert('Error: unable to retreive health data from the server. Response: ' +
+                      JSON.stringify(response));
+            }
+        });
     }
 });
