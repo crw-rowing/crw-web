@@ -1,0 +1,44 @@
+<div id="page-content-wrapper">
+	<style type="text/css">
+        .nav-tabs li a {
+            cursor: pointer;
+        }
+    </style>
+	<div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Welcome!</h1>
+                <p>You don't have a team yet. If you are a coach create a team, else wait untill your coach has added you to his team.</p>
+				<div ng-class="['alert', 'alert-' + createteamStatus.clazz]" ng-show="createteamStatus.show"><strong>{{ createteamStatus.strong }}</strong> {{ createteamStatus.text }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div><button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#createteam">Create a team</button></div>
+            </div>
+        </div>
+        <div class="modal fade" id="createteam" tabindex="-1" role="dialog" aria-labelledby="createteam">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="createteam">Create a team</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="caption">
+                            <form>
+                                <div class="form-group">
+                                    <label for="inputTeamname">Team name</label>
+                                    <textarea class="inputTeamname form-control" rows="1" ng-model="teamname">Enter team name here.</textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="createteamHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,5 +8,8 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
         controller: 'loginController'
     }).when('/rower', {
         template: '<rower-overview></rower-overview>'
+	}).when('/createteam', {
+		templateUrl: 'templates/createteam.template.html',
+		controller: 'createteamController'
     }).otherwise('home');
 }]);
