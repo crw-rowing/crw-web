@@ -20,7 +20,7 @@ angular.module('crwApp').component('rowerOverview', {
                     if('result' in response) {
                         // Succes, TODO: update the graph
                     } else {
-                        alert('Error in submitting health data:\nResponse: ' + JSON.stringify(response));
+                        alert('Error in submitting health data: ' + JSON.stringify(response));
                     }
                 });
         };
@@ -29,16 +29,28 @@ angular.module('crwApp').component('rowerOverview', {
                 date = $scope.intervalDate;
             data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
             data.data[0].push($scope.intervalWatt);
+
+            rpc.add_training(
+                $scope.intervalDate, $scope.intervalType == 'ED',
+                '' /* no comments yet */, [[$scope.intervalDurance, $scope.intervalWatt,
+                                            $scope.intervalPace, $scope.intervalRest]])
+                .then(function(response) {
+                    if('result' in response) {
+                        // Succes, TODO: update the graph
+                    } else {
+                        alert('Error in submitting training data: ' + JSON.stringify(response));
+                    }
+                });
         };
 
         // Chart settings and data
         // TODO retrieve data from server
         $scope.HRdata = {
-            labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+            labels: [],
             series: ["heart rate", "weight"],
             data: [
-                [45, 59, 53, 51, 56, 55, 48],
-                [56.3, 55, 55.6, 54, 55.9, 55.3, 55]
+                [],
+                []
             ],
             datasetOverride: [
                 {
@@ -106,6 +118,21 @@ angular.module('crwApp').component('rowerOverview', {
                 }
             }
         };
+
+        rpc.get_health_data(7).then(function(response) {
+            if ('result' in response) {
+                for (var i = 0; i < response.result.length; i++) {
+                    entry = response.result[i];
+                    $scope.HRdata.labels.push(entry[0].day + ' - ' + entry[0].month)
+                    $scope.HRdata.data[0].push(entry[1])
+                    $scope.HRdata.data[1].push(entry[2])
+                }
+            } else {
+                alert('Error: unable to retreive health data from the server. Response: ' +
+                      JSON.stringify(response));
+            }
+        });
+
         $scope.Perfdata = {
             labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
             series: ["watt"],
