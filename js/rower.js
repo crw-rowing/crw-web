@@ -182,6 +182,8 @@ angular.module('crwApp').component('rowerOverview', {
                 });
         };
         $scope.submitInterval = function() {
+            intervalObject = {"__type__" : "timedelta"};
+            intervalObject.seconds = $scope.intervalRest;
             rpc.add_training(
                 $scope.intervalDate, $scope.intervalType === 'ED',
                 '' /* no comments yet */, [[$scope.intervalDurance, $scope.intervalWatt,
