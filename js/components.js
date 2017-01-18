@@ -13,9 +13,11 @@ app.component('overview', {
     templateUrl: 'components/overview.component.html',
     bindings: {
         'type': '@',
-        'chartData': '<'
+        'chartData': '<',
+        'view': '<'
     },
     bindToController: true,
     controller: function() {
+        this.timespan = 7;
    }
 });

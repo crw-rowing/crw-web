@@ -21,21 +21,26 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+                        <label class="btn btn-default">
+                            <input ng-model="$ctrl.timespan" type="radio" name="timespan" value="7" autocomplete="off">week
                         </label>
                         <label class="btn btn-default">
-                            <input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+                            <input ng-model="timespan" type="radio" name="timespan" value="30" autocomplete="off">30 days
                         </label>
                         <label class="btn btn-default">
-                            <input type="radio" name="timespan" id="year" autocomplete="off">year
+                            <input ng-model="timespan" type="radio" name="timespan" value="365" autocomplete="off">year
+                        </label>
+                    </div>
+                    <div style="margin-right: .5em" ng-show="$ctrl.view" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
+                        <label ng-repeat="t in $ctrl.view" class="btn btn-default">
+                            <input ng-model="view" type="radio" name="view" autocomplete="off" ng-value="t">{{ t }}
                         </label>
                     </div>
                 </div>
             </div>
         </div>
         <div id="table-{{ $ctrl.type }}" class="tab-pane fade">
-            <div class ="table-responsive">
+            <div class="table-responsive">
                 <div class="options clearfix">
                     <div class="ck-button">
                         <label><input type="checkbox" value="1" name="date" checked="checked"><span>Date</span></label>
