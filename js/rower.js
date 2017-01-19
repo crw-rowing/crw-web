@@ -6,39 +6,13 @@ angular.module('crwApp').component('rowerOverview', {
         $scope.healthDate = new Date;
         $scope.intervalDate = new Date;
 
-        // Submit handlers
-        $scope.submitHealth = function() {
-            var data = $scope.HRdata,
-                date = $scope.healthDate;
-            data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
-            data.data[0].push($scope.healthHR);
-            data.data[1].push($scope.healthWeight);
-
-            rpc.add_health_data($scope.healthDate, $scope.healthHR,
-                                $scope.healthWeight, $scope.healthFeeling)
-                .then(function(response) {
-                    if('result' in response) {
-                        // Succes, TODO: update the graph
-                    } else {
-                        alert('Error in submitting health data:\nResponse: ' + JSON.stringify(response));
-                    }
-                });
-        };
-        $scope.submitInterval = function() {
-            var data = $scope.Perfdata,
-                date = $scope.intervalDate;
-            data.labels.push(date.getDate() + '-' + (date.getMonth() + 1));
-            data.data[0].push($scope.intervalWatt);
-        };
-
         // Chart settings and data
-        // TODO retrieve data from server
         $scope.HRdata = {
-            labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
+            labels: [],
             series: ["heart rate", "weight"],
             data: [
-                [45, 59, 53, 51, 56, 55, 48],
-                [56, 54, 53, 55, 56, 52, 59],
+                [],
+                []
             ],
             datasetOverride: [
                 {
@@ -100,12 +74,12 @@ angular.module('crwApp').component('rowerOverview', {
                 }
             }
         };
+
         $scope.Perfdata = {
-            labels: ["8-12", "9-12", "10-12", "11-12", "12-12", "13-12", "14-12"],
-            series: ["AT", "ED"],
+            labels: [],
+            series: ["watt"],
             data: [
-                [210, 200, 215, 212, 208, 216, 211],
-                [215, 205, 212, 210, 211, 215, 213],
+                [],
             ],
             datasetOverride: [
                 {
@@ -166,6 +140,76 @@ angular.module('crwApp').component('rowerOverview', {
                     ]
                 }
             }
+        };
+
+        refresh_health_data = function() {
+            rpc.get_health_data(7).then(function(response) {
+                if ('result' in response) {
+                    $scope.HRdata.labels = [];
+                    $scope.HRdata.data = [ [], [] ]
+                    for (var i = 0; i < response.result.length; i++) {
+                        entry = response.result[i];
+                        $scope.HRdata.labels.push(entry[0].day + ' - ' + entry[0].month)
+                        $scope.HRdata.data[0].push(entry[1])
+                        $scope.HRdata.data[1].push(entry[2])
+                    }
+                } else {
+                    alert('Error: unable to retreive health data from the server. Response: ' +
+                          JSON.stringify(response));
+                }
+            });
+        }
+
+        refresh_training_data = function() {
+            rpc.get_training_data(7).then(function(response) {
+                if ('result' in response) {
+                    $scope.Perfdata.labels = [];
+                    $scope.Perfdata.data = [ [], ];
+                    for (var i = 0; i < response.result.length; i++) {
+                        entry = response.result[i];
+                        $scope.Perfdata.labels.push(entry[0].day + ' - ' +
+                                                    entry[0].month + ' ' +
+                                                    entry[0].hour + ':' +
+                                                    (entry[0].second < 10 ? '0' : '') +
+                                                    entry[0].second)
+                        $scope.Perfdata.data[0].push(entry[3][0][1])
+                    }
+                } else {
+                    alert('Error: unable to retreive health data from the server. Response: ' +
+                          JSON.stringify(response));
+                }
+            });
+        }
+
+        refresh_health_data();
+        refresh_training_data();
+
+        // Submit handlers
+        $scope.submitHealth = function() {
+            rpc.add_health_data($scope.healthDate, $scope.healthHR,
+                                $scope.healthWeight, $scope.healthFeeling)
+                .then(function(response) {
+                    if('result' in response) {
+                        refresh_health_data();
+                    } else {
+                        alert('Error in submitting health data: ' + JSON.stringify(response));
+                    }
+                });
+        };
+        $scope.submitInterval = function() {
+            intervalObject = {"__type__" : "timedelta"};
+            intervalObject.seconds = $scope.intervalRest;
+            rpc.add_training(
+                $scope.intervalDate, $scope.intervalType === 'ED',
+                '' /* no comments yet */, [[$scope.intervalDurance, $scope.intervalWatt,
+                                            $scope.intervalPace, $scope.intervalRest]])
+                .then(function(response) {
+                    if('result' in response) {
+                        refresh_training_data();
+                    } else {
+                        alert('Error in submitting training data: ' + JSON.stringify(response));
+                    }
+                });
         };
     }
 });
