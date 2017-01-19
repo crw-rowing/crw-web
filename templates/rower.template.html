@@ -57,10 +57,11 @@
                                 <label for="inputTrainTime">Date & Time</label>
                                 <input ng-model="intervalDate" type="datetime-local" class="form-control" id="inputDate">
                             </div>
-                            <div class="form-group">
-                                <label for="inputType">Type Training</label>
-                                <input ng-model="intervalType" type="text" class="form-control" id="inputType" placeholder="ED or AT">
-                            </div>
+							<div class="form-group">
+								<label for="inputType">Type Training</label>
+								<label class="radio-inline"><input type="radio" name="optradio" id="EDbtn" checked="checked">ED</label>
+								<label class="radio-inline"><input type="radio" name="optradio" id="ATbtn">AT</label>
+							</div>
                         </form>
                         <form class="form-inline form-group-sm">
                             <div class="form-group">
@@ -83,7 +84,8 @@
                             </div>
                               <div class="form-group">
                                   <label for="inputSplit">split</label>
-                                  <input ng-model="intervalSplit" type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                                  <input ng-model="intervalSplitmin" type="number" class="form-control" id="inputSplitmin" placeholder="minutes">
+								  <input ng-model="intervalSplitsec" type="number" class="form-control" id="inputSplitsec" placeholder="seconds">
                               </div>
                               <div class="form-group">
                                   <label for="inputDistance">distance</label>
