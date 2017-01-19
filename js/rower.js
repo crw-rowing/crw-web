@@ -187,6 +187,7 @@ angular.module('crwApp').component('rowerOverview', {
 			var Trainingtype;
 			var Watt;
 			var Splittime;
+			var Duration;
 			var Splittowatt = function(Splittime){
 				 return Math.round(2.8/((Splittime/500)*(Splittime/500)*(Splittime/500)));
 			};
@@ -194,7 +195,7 @@ angular.module('crwApp').component('rowerOverview', {
 			if(!$scope.intervalRest){
 				intervalObject = null;
 			}else	{
-				intervalObject.seconds = $scope.intervalRest;
+				intervalObject.seconds = $scope.intervalRestmin*60 + $scope.intervalRestsec;
 			}
 			
 			if(!$scope.intervalPace){
@@ -204,7 +205,8 @@ angular.module('crwApp').component('rowerOverview', {
 			}
 			
 			if(!$scope.intervalWatt && !$scope.intervalSplit){
-				Splittime = 500*($scope.intervalDurance/$scope.intervalDistance);
+				Duration = $scope.intervalDurancemin*60 + $scope.intervalDurancesec;
+				Splittime = 500*(Duration/$scope.intervalDistance);
 				Watt = Splittowatt(Splittime);
 				console.log(Watt);
 				
@@ -221,7 +223,14 @@ angular.module('crwApp').component('rowerOverview', {
 			}else if(document.getElementById('ATbtn').checked) {
 				Trainingtype = false;
 			}
-				
+			
+			if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDistance && !$scope.intervalDurance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			} else if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDistance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			} else if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDurance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			}
             rpc.add_training(
                 $scope.intervalDate, Trainingtype,
                 '' /* no comments yet */, [[$scope.intervalDurance, Watt,
