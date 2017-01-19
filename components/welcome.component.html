@@ -70,42 +70,43 @@
                     </div>
                     <div class="form-group">
                         <label for="inputType">Type Training</label>
-                        <input type="text" class="form-control" id="inputType" placeholder="Type">
+                        <input ng-model="$ctrl.inputTrainingType" type="text" class="form-control" id="inputType" placeholder="Type">
                     </div>
                 </form>
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Interval 1</a></li>
-                    <li role="presentation"><a href="#">New Interval</a></li>
+                    <li ng-repeat="interval in $ctrl.intervals" role="presentation" ng-class="{active: $ctrl.selectedInterval === interval.id}"><a ng-click="$ctrl.selectedInterval = interval.id;">Interval {{ interval.id + 1 }}<button ng-click="$ctrl.deleteInterval(interval.id)" ng-show="$ctrl.intervals.length > 1" class="close" style="margin-left: .5em;">&times;</button></a></li>
+                    <li role="presentation"><a ng-click="$ctrl.addInterval()">New Interval</a></li>
                 </ul>
-            <br/>
-            <form class="form-inline form-group-sm">
-                <div class="form-group">
-                    <label for="inputDurance">Durance</label>
-                    <input type="time" class="form-control" id="inputDurance">
+                <div style="margin-top: 1em;" class="tab-pane active" id="int{{ interval.id }}">
+                    <form class="form-inline form-group-sm">
+                        <div class="form-group">
+                            <label for="inputDuration">Duration</label>
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].duration" type="number" class="form-control" id="inputDuration">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRest">Rest</label>
+                            <input type="time" class="form-control" id="inputRest">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRest">Pace</label>
+                            <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+                        </div>
+                    </form>
+                    <form>
+                        <div class="form-group">
+                            <label for="inputWatt">watt</label>
+                            <input type="number" class="form-control" id="inputWatt" placeholder="watt">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSplit">split</label>
+                            <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDistance">distance</label>
+                            <input type="number" class="form-control" id="inputDistance" placeholder="m">
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="inputRest">Rest</label>
-                    <input type="time" class="form-control" id="inputRest">
-                </div>
-                <div class="form-group">
-                    <label for="inputRest">Pace</label>
-                    <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
-                </div>
-            </form>
-            <form>
-                <div class="form-group">
-                    <label for="inputWatt">watt</label>
-                    <input type="number" class="form-control" id="inputWatt" placeholder="watt">
-                </div>
-                <div class="form-group">
-                    <label for="inputSplit">split</label>
-                    <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
-                </div>
-                <div class="form-group">
-                    <label for="inputDistance">distance</label>
-                    <input type="number" class="form-control" id="inputDistance" placeholder="m">
-                </div>
-            </form>
         </div>
     </div>
     <div class="modal-footer">

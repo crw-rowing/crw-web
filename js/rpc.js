@@ -22,7 +22,7 @@ angular.module('crwApp').factory('rpc', function($http) {
         // Auth methods
         login: (user, pass) => rpc.call('login', [user, pass]),
         create_account: (user, pass) => rpc.call('create_account', [user, pass]),
-        logged_in: () => rpc.call('logged_in', []),
+        user_status: () => rpc.call('user_status', []),
         logout: () => rpc.call('logout', []),
 
         // Team management methods

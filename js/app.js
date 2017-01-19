@@ -24,8 +24,8 @@ crwApp.controller('mainController', function($scope, rpc) {
     };
 
     if('session' in localStorage)
-        rpc.logged_in().then(function(result) {
-            if(result.result) {
+        rpc.user_status().then(function(result) {
+            if(result.result[0]) {
                 $scope.loggedIn = true;
                 window.location = '#!/rower'; // TODO select based on rower/coach
             } else
