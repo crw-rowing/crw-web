@@ -3,13 +3,16 @@ var app = angular.module('crwApp');
 // Welcome message containing log data buttons
 app.component('welcome', {
     templateUrl: 'components/welcome.component.html',
+    // Event handlers
     bindings: {
         onSubmitHealth: '&',
         onSubmitPerformance: '&'
     },
     controller: function() {
+        // Set date inputs to today
         this.inputDate = new Date;
 
+        // Interval selection on training form
         this.intervals = [];
         this.selectedInterval = 0;
 
@@ -34,6 +37,7 @@ app.component('welcome', {
                 this.intervals[i].id = i;
         };
 
+        // One interval by default
         this.addInterval();
 
         this.submitHealth = function() {

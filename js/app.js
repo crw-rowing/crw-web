@@ -23,6 +23,7 @@ crwApp.controller('mainController', function($scope, rpc) {
         $scope.loggedIn = true;
     };
 
+    // Check if user is already logged in
     if('session' in localStorage)
         rpc.user_status().then(function(result) {
             if(result.result[0]) {
