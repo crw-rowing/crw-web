@@ -32,7 +32,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body ng-controller="mainController as ctrl">
     <div id="wrapper">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -42,7 +42,9 @@
                         CRW
                     </a>
                 </li>
-               <!-- hier komt account info-->
+                <li>
+                    <a href="#" ng-show="loggedIn" ng-click="logout()">Log out</a>
+                </li>
             </ul>
         </div>
 
