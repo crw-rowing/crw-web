@@ -185,9 +185,8 @@ angular.module('crwApp').component('rowerOverview', {
         refresh_training_data();
 
         // Submit handlers
-        $scope.submitHealth = function() {
-            rpc.add_health_data($scope.healthDate, $scope.healthHR,
-                                $scope.healthWeight, $scope.healthFeeling)
+        $scope.submitHealth = function(date, hr, weight, feeling) {
+            rpc.add_health_data(date, hr, weight, feeling)
                 .then(function(response) {
                     if('result' in response) {
                         refresh_health_data();

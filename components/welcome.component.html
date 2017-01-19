@@ -35,21 +35,21 @@
                         </div>
                         <div class="form-group">
                             <label for="inputHR">Resting Heart Rate</label>
-                            <input type="number" class="form-control" id="inputHR" placeholder="HR">
+                            <input ng-model="$ctrl.inputHR" type="number" class="form-control" id="inputHR" placeholder="HR">
                         </div>
                         <div class="form-group">
                             <label for="inputWeight">Weight</label>
-                            <input type="number" class="form-control" id="inputWeight" placeholder="Weight">
+                            <input ng-model="$ctrl.inputWeight" type="number" class="form-control" id="inputWeight" placeholder="Weight">
                         </div>
                         <div class="form-group">
                             <label for="inputFeeling">Feeling</label>
-                            <textarea class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
+                            <textarea ng-model="$ctrl.inputFeeling" class="inputFeeling form-control" rows="3">How do you feel today?</textarea>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-crw">Submit</button>
+                <button ng-click="$ctrl.submitHealth()" type="submit" class="btn btn-crw">Submit</button>
             </div>
         </div>
     </div>
@@ -109,6 +109,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-crw">Submit</button>
+        <button ng-click="$ctrl.submitPerformance()" type="button" class="btn btn-crw">Submit</button>
     </div>
 </div>
