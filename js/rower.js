@@ -87,7 +87,7 @@ angular.module('crwApp').component('rowerOverview', {
                     spanGaps: false
                 },
                 {
-                    yAxisID: 'y-axis-2',
+                    yAxisID: 'y-axis-1',
                     fill: false,
                     lineTension: 0.3,
                     backgroundColor: "rgba(192,57,57,0.15)",
@@ -108,7 +108,7 @@ angular.module('crwApp').component('rowerOverview', {
                     spanGaps: false
                 },
                 {
-                    yAxisID: 'y-axis-2',
+                    yAxisID: 'y-axis-1',
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(150,70,30,0.15)",
@@ -140,12 +140,6 @@ angular.module('crwApp').component('rowerOverview', {
                             type: 'linear',
                             display: true,
                             position: 'left',
-                        },
-                        {
-                            id: 'y-axis-2',
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
                         }
                     ]
                 }
@@ -204,7 +198,7 @@ angular.module('crwApp').component('rowerOverview', {
                     spanGaps: false,
                 },
                 {
-                    yAxisID: 'y-axis-2',
+                    yAxisID: 'y-axis-1',
                     fill: false,
                     lineTension: 0.3,
                     backgroundColor: "rgba(75,192,50,0.4)",
@@ -225,7 +219,7 @@ angular.module('crwApp').component('rowerOverview', {
                     spanGaps: false,
                 },
                 {
-                    yAxisID: 'y-axis-2',
+                    yAxisID: 'y-axis-1',
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(75,192,192,.15)",
@@ -257,12 +251,6 @@ angular.module('crwApp').component('rowerOverview', {
                             type: 'linear',
                             display: true,
                             position: 'left',
-                        },
-                        {
-                            id: 'y-axis-2',
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
                         }
                     ]
                 }
