@@ -3,12 +3,12 @@
         <h3>{{ $ctrl.type }} overview</h3>
     </div>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ $ctrl.type }}">graph</a></li>
-        <li role="presentation"><a data-toggle="tab" data-target="#table-{{ $ctrl.type }}">table</a></li>
+        <li ng-click="$ctrl.tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ $ctrl.type }}">graph</a></li>
+        <li ng-click="$ctrl.tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ $ctrl.type }}">table</a></li>
     </ul>
     
     <div class="table-content">
-        <div id="graph-{{ $ctrl.type }}" class="tab-pane fade in active">
+        <div ng-show="$ctrl.pane == 0" id="graph-{{ $ctrl.type }}" class="tab-pane fade in active">
             <canvas
             id="chart-{{ $ctrl.type }}"
             class="chart chart-line"
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div id="table-{{ $ctrl.type }}" class="tab-pane fade">
+        <div ng-show="$ctrl.pane == 1" id="table-{{ $ctrl.type }}" class="tab-pane fade">
             <div class="table-responsive">
                 <div class="options clearfix">
                     <div class="ck-button">

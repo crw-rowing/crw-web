@@ -19,5 +19,9 @@ app.component('overview', {
     bindToController: true,
     controller: function() {
         this.timespan = 7;
+        this.pane = 0;
+        this.tabClick = function(index) {
+            this.pane = index;
+        };
    }
 });
