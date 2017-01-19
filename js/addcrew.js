@@ -32,7 +32,6 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 		refresh_team_info();
 		});
 	};
-	
 	$scope.addcoachHandler = function() {
 		$scope.addcoachStatus.show = false;
 		var coach = false;
@@ -57,7 +56,6 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
                     text: response.error.message
                 };
             }
-		
 		refresh_team_info();
 		});
 	};
