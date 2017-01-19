@@ -9,6 +9,11 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 		clazz: 'danger',
 		text: ''
 	};
+	$scope.deleterowerStatus = {
+		show: false,
+		clazz: 'danger',
+		text: ''
+	};
 	
 	//Submit handlers
 	$scope.addcrewHandler = function() {
@@ -59,6 +64,31 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 		refresh_team_info();
 		});
 	};
+	
+	$scope.deleterowerHandler = function() {
+		$scope.deleterowerStatus.show = false;
+		rpc.remove_from_team($scope.deleteroweremail).then(function(response) {
+			if('result' in response) {
+				alert('deleted')
+				$scope.deleterowerStatus = {
+                    show: true,
+                    clazz: 'success',
+                    strong: 'Success!',
+                    text: 'The rower has been removed from your crew.'
+				};
+			} else {
+                $scope.deleterowerStatus = {
+                    show: true,
+                    clazz: 'danger',
+                    strong: 'Error:',
+                    text: response.error.message
+                };
+            }
+		refresh_team_info();
+		});
+	};
+	
+	
 	refresh_team_info = function() {
 		rpc.team_info().then(function(response) {
 			$scope.members = [];
