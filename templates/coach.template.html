@@ -26,8 +26,8 @@
 					<div class="caption">
 						<h3>Health Overview</h3>
 						<ul class="nav nav-tabs">
-							<li role="presentation" class="active"><a data-toggle="tab"href="#healthgraphcoach">graph</a></li>
-							<li role="presentation"><a data-toggle="tab"href="#healthtablecoach">table</a></li>
+							<li role="presentation" class="active"><a data-toggle="tab" data-target="#healthgraphcoach">graph</a></li>
+							<li role="presentation"><a data-toggle="tab" data-target="#healthtablecoach">table</a></li>
 						</ul>
 						<div class="table-content">
 							<div id="healthgraphcoach" class="tab-pane fade in active">
@@ -101,39 +101,16 @@
 												<th class="rower">Rower</th>
 												<th class="date">Date</th>
 												<th class="heartrate">Resting Heart Rate</th>
-												<th class="weight">Weight</th>
 												<th class="feeling">Feeling</th>
-												</tr>
+											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<th class="rower">Rower 1</th>
-												<th class="date">10-1-2017</th>
-												<th class="heartrate">56</th>
-												<th class="weight">54</th>
-												<th class="feeling">Good</th>
-											</tr>
-											<tr>
-												<th class="rower">Rower 1</th>
-												<th class="date">11-1-2017</th>
-												<th class="heartrate">59</th>
-												<th class="weight">55</th>
-												<th class="feeling">Good</th>
-											</tr>
-											<tr>
-												<th class="rower">Rower 2</th>
-												<th class="date">11-1-2017</th>
-												<th class="heartrate">59</th>
-												<th class="weight">55</th>
-												<th class="feeling">Good</th>
-											</tr>
-											<tr>
-												<th class="rower">Rower 3</th>
-												<th class="date">12-1-2017</th>
-												<th class="heartrate">60</th>
-												<th class="weight">55</th>
-												<th class="feeling">Good</th>
-											</tr>
+											<tr ng-repeat="x in HRdata.table">
+                                                <td class="member">{{x.member}}</td>
+                                                <td class="date">{{x.date}}</td>
+                                                <td class="hr">{{x.hr}}</td>
+                                                <td class="comment">{{x.comment}}</td>
+                                            </tr>
 										</tbody>
 									</table>
 								</div>
@@ -149,8 +126,8 @@
 						<div class="caption">
 							<h3>Weight</h3>
 							<ul class="nav nav-tabs">
-								<li role="presentation" class="active"><a href="#">graph</a></li>
-								<li role="presentation"><a href="#">table</a></li>
+								<li role="presentation" class="active"><a data-target="#">graph</a></li>
+								<li role="presentation"><a data-target="#">table</a></li>
 							</ul>
 							<div class="row">
 								<div class="col-xs-12">
@@ -185,8 +162,8 @@
 						<div class="caption">
 							<h3>Performance</h3>
 							<ul class="nav nav-tabs">
-								<li role="presentation" class="active"><a data-toggle="tab" href="#perfgraphcoach">graph</a></li>
-								<li role="presentation"><a data-toggle="tab" href="#perftablecoach">table</a></li>
+								<li role="presentation" class="active"><a data-toggle="tab" data-target="#perfgraphcoach">graph</a></li>
+								<li role="presentation"><a data-toggle="tab" data-target="#perftablecoach">table</a></li>
 							</ul>
 							<!-- performance graph coach-->
 								<div class="table-content">

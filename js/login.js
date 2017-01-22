@@ -58,7 +58,6 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
     // Navigate to /rower if already logged in.
     if(localStorage.session) {
         rpc.logged_in().then(function(response) {
-            console.log(response);
             if(response.result[0] && response.result[1]) {
                 window.location = "#!/coach";
             } else if(response.result[0]) {

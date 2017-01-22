@@ -79,8 +79,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                         date.setDate(date.getDate() - i);
                         $scope.HRdata.labels.push(date.getDate() + ' - ' + (date.getMonth() + 1))
                     }
-                    $scope.HRdata.data = []
-                    $scope.HRdata.data.push([])
+                    $scope.HRdata.data = [[]]
+                    $scope.HRdata.table = []
                     console.log($scope.HRdata.data);
                     $scope.HRdata.series = [$scope.HRdata.series[0]]
                     $scope.HRdata.datasetOverride = [$scope.HRdata.datasetOverride[0]]
@@ -95,6 +95,12 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                             index = $scope.HRdata.labels.indexOf(healthentry[0].day + ' - ' + healthentry[0].month);
                             if (index != -1) {
                                 $scope.HRdata.data[i+1][index] = healthentry[1]
+                                $scope.HRdata.table.push(
+                                    { "member" : userentry[0],
+                                      "date" : $scope.HRdata.labels[index],
+                                      "hr" : healthentry[1],
+                                      "comment" : healthentry[3]
+                                    })
                             }
                             else {
                                 continue;
