@@ -18,7 +18,14 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
             if('result' in response) {
                 // Success - store the new session key and open dashboard
                 localStorage.session = response.result;
-                window.location = "#!/rower";
+                rpc.logged_in().then(function(response) {
+                    if(response.result[1]) {
+                        window.location = "#!/coach"
+                    } else {
+                        window.location = "#!/rower";
+                    }
+                });
+                
             } else {
                 $scope.loginError = {
                     show: true,
@@ -49,8 +56,16 @@ angular.module('crwApp').controller('loginController', function($scope, rpc) {
     };
 
     // Navigate to /rower if already logged in.
-    if(localStorage.session)
-        window.location = "#!/rower";
+    if(localStorage.session) {
+        rpc.logged_in().then(function(response) {
+            console.log(response);
+            if(response.result[0] && response.result[1]) {
+                window.location = "#!/coach";
+            } else if(response.result[0]) {
+                window.location = "#!/rower";
+            } else {
+                localStorage.clear();
+            }
+        });
+    }
 });
-
-
