@@ -186,55 +186,22 @@ angular.module('crwApp').component('rowerOverview', {
 
         // Submit handlers
         $scope.submitHealth = function(date, hr, weight, feeling) {
-            rpc.add_health_data(date, hr, weight, feeling)
-                .then(function(response) {
-                    if('result' in response) {
-                        refresh_health_data();
-                    } else {
-                        alert('Error in submitting health data: ' + JSON.stringify(response));
-                    }
-                });
-        };
-        $scope.submitInterval = function() {
-            var intervalObject = {"__type__" : "timedelta"};
-            var pace = $scope.intervalPace || null,
-                trainingType = document.getElementById('EDbtn').checked,
-                watt,
-                splitTime,
-                duration;
-            
-            if(!$scope.intervalWatt && !$scope.intervalSplit && (!$scope.intervalDistance || !$scope.intervalDurance))
-                alert('You need to add watt, split or distance and duration to your training before you submit it.');
-            
-            if($scope.intervalRest)
-                intervalObject.seconds = $scope.intervalRestMinutes * 60 + $scope.intervalRestSeconds;
-            else
-                intervalObject = null;
-            
-            if($scope.intervalWatt)
-                watt = $scope.intervalWatt;
-            else {
-                if($scope.intervalSplit)
-                    splitTime = $scope.intervalSplitMinutes * 60 + $scope.intervalSplitSeconds;
-                else {
-                    duration = $scope.intervalDurationMinutes * 60 + $scope.intervalDurationSeconds;
-                    splitTime = 500 * (duration / $scope.intervalDistance);
+            rpc.add_health_data(date, hr, weight, feeling).then(function(response) {
+                if('result' in response) {
+                    refresh_health_data();
+                } else {
+                    alert('Error in submitting health data: ' + JSON.stringify(response));
                 }
+            });
+        };
 
-                var t = splitTime / 500;
-                watt = Math.round(2.8 / (t*t*t));
-            }
-
-            rpc.add_training(
-                $scope.intervalDate, Trainingtype,
-                '' /* no comments yet */, [[$scope.intervalDurance, Watt,
-                                            Pace, intervalObject]])
-                .then(function(response) {
-                    if('result' in response)
-                        refresh_training_data();
-                    else
-                        alert('Error in submitting training data: ' + JSON.stringify(response));
-                });
+        $scope.submitInterval = function(date, type, comment, intervals) {
+            rpc.add_training(date, type, comment, intervals).then(function(response) {
+                if('result' in response)
+                    refresh_training_data();
+                else
+                    alert('Error in submitting training data: ' + JSON.stringify(response));
+            });
         };
     }
 });

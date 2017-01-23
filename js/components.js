@@ -49,12 +49,21 @@ app.component('welcome', {
             $('#loghealth').modal('toggle');
         };
         this.submitPerformance = function() {
+            this.intervals = this.intervals.map(function(i) {
+                var power = i.power;
+                if(!power) {
+                    var splitTime = i.splitTime ? i.splitTime / 500
+                        : splitTime = i.duration / i.distance;
+                    power = Math.round(2.8 / (splitTime * splitTime * splitTime));
+                }
+                return [i.duration, power, i.pace, i.rest]; 
+            });
             if(this.onSubmitPerformance)
                 this.onSubmitPerformance({
                     date: this.inputDate,
                     type: this.inputTrainingType === 'ED',
                     comment: '',
-                    intervals: this.intervals.map(i => [i.duration, i.power, i.pace, i.rest])
+                    intervals: this.intervals
                 });
             $('#logtraining').modal('toggle');
         };

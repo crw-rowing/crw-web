@@ -94,16 +94,16 @@
                     </form>
                     <form>
                         <div class="form-group">
-                            <label for="inputWatt">watt</label>
+                            <label for="inputWatt">Power (W)</label>
                             <input ng-model"$ctrl.intervals[$ctrl.selectedInterval].power" type="number" class="form-control" id="inputWatt" placeholder="watt">
                         </div>
                         <div class="form-group">
                             <label for="inputSplit">split</label>
-                            <input type="time" class="form-control" id="inputSplit" placeholder="time/500m">
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].splitTime" type="time" class="form-control" id="inputSplit" placeholder="time/500m">
                         </div>
                         <div class="form-group">
                             <label for="inputDistance">distance</label>
-                            <input type="number" class="form-control" id="inputDistance" placeholder="m">
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].distance" type="number" class="form-control" id="inputDistance" placeholder="m">
                         </div>
                     </form>
                 </div>
