@@ -39,8 +39,11 @@ app.component('welcome', {
         this.addInterval();
 
         this.changePower = function(i) {
-            if(this.intervals[i].power)
+            if(this.intervals[i].power) {
                 this.intervals[i].splitTime = null;
+                this.intervals[i].duration = null;
+                this.intervals[i].distance = null;
+            }
         };
 
         this.changeSplitTime = function(i) {
@@ -48,6 +51,19 @@ app.component('welcome', {
             if(t) {
                 var s = t/500;
                 this.intervals[i].power = Math.round(2.8 / (s*s*s));
+                this.intervals[i].duration = null;
+                this.intervals[i].distance = null;
+            }
+        };
+
+        this.changeSplitData = function(i) {
+            var duration = this.intervals[i].duration,
+                distance = this.intervals[i].distance;
+
+            if(duration && distance) {
+                var t = duration / distance;
+                this.intervals[i].splitTime = Math.round(500 * t);
+                this.intervals[i].power = Math.round(2.8 / (t*t*t));
             }
         };
 
