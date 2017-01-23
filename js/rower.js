@@ -2,6 +2,21 @@
 angular.module('crwApp').component('rowerOverview', {
     templateUrl: 'templates/rower.template.html',
     controller: function($scope, rpc) {
+        // Error message
+        $scope.error = {
+            show: false,
+            msg: ''
+        };
+
+        $scope.showError = function(msg) {
+            $scope.error.show = true;
+            $scope.error.msg = msg;
+        };
+
+        $scope.hideError = function() {
+            $scope.error.show = false;
+        };
+
         // Set date to today on forms
         $scope.healthDate = new Date;
         $scope.intervalDate = new Date;
@@ -143,6 +158,7 @@ angular.module('crwApp').component('rowerOverview', {
         };
 
         refresh_health_data = function() {
+            $scope.hideError();
             rpc.get_health_data(7).then(function(response) {
                 if ('result' in response) {
                     $scope.HRdata.labels = [];
@@ -153,14 +169,13 @@ angular.module('crwApp').component('rowerOverview', {
                         $scope.HRdata.data[0].push(entry[1])
                         $scope.HRdata.data[1].push(entry[2])
                     }
-                } else {
-                    alert('Error: unable to retreive health data from the server. Response: ' +
-                          JSON.stringify(response));
-                }
+                } else
+                    $scope.showError(response.error.message);
             });
         };
 
         refresh_training_data = function() {
+            $scope.hideError();
             rpc.get_training_data(7).then(function(response) {
                 if ('result' in response) {
                     $scope.Perfdata.labels = [];
@@ -174,10 +189,8 @@ angular.module('crwApp').component('rowerOverview', {
                                                     entry[0].second)
                         $scope.Perfdata.data[0].push(entry[3][0][1])
                     }
-                } else {
-                    alert('Error: unable to retreive health data from the server. Response: ' +
-                          JSON.stringify(response));
-                }
+                } else
+                    $scope.showError(response.error.message);
             });
         };
 
@@ -186,21 +199,22 @@ angular.module('crwApp').component('rowerOverview', {
 
         // Submit handlers
         $scope.submitHealth = function(date, hr, weight, feeling) {
+            $scope.hideError();
             rpc.add_health_data(date, hr, weight, feeling).then(function(response) {
                 if('result' in response) {
                     refresh_health_data();
-                } else {
-                    alert('Error in submitting health data: ' + JSON.stringify(response));
-                }
+                } else
+                    $scope.showError(response.error.message);
             });
         };
 
         $scope.submitPerformance = function(date, type, comment, intervals) {
+            $scope.hideError();
             rpc.add_training(date, type, comment, intervals).then(function(response) {
                 if('result' in response)
                     refresh_training_data();
                 else
-                    alert('Error in submitting training data: ' + JSON.stringify(response));
+                    $scope.showError(response.error.message);
             });
         };
     }
