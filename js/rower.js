@@ -82,7 +82,7 @@ angular.module('crwApp').component('rowerOverview', {
                         type: 'time',
                         time: {
                             displayFormats: {
-                                Day: 'll'
+                                day: 'ddd, MMM D'
                             }
                         }
                     }]
@@ -131,7 +131,16 @@ angular.module('crwApp').component('rowerOverview', {
                             display: true,
                             position: 'left',
                         }
-                    ]
+                    ],
+
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                day: 'MMM D HH:mm'
+                            }
+                        }
+                    }]
                 }
             }
         };
@@ -144,7 +153,7 @@ angular.module('crwApp').component('rowerOverview', {
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
                         var date = new Date(entry[0].year, entry[0].month, entry[0].day);
-                        $scope.HRdata.labels.push(date.toLocaleDateString())
+                        $scope.HRdata.labels.push(date.toISOString())
                         $scope.HRdata.data[0].push(entry[1])
                         $scope.HRdata.data[1].push(entry[2])
                     }
@@ -162,11 +171,10 @@ angular.module('crwApp').component('rowerOverview', {
                     $scope.Perfdata.data = [ [], ];
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
-                        $scope.Perfdata.labels.push(entry[0].day + ' - ' +
-                                                    entry[0].month + ' ' +
-                                                    entry[0].hour + ':' +
-                                                    (entry[0].second < 10 ? '0' : '') +
-                                                    entry[0].second)
+                        var time = new Date(entry[0].year, entry[0].month,
+                                            entry[0].day, entry[0].hour,
+                                            entry[0].second);
+                        $scope.Perfdata.labels.push(time.toISOString());
                         $scope.Perfdata.data[0].push(entry[3][0][1])
                     }
                 } else {
