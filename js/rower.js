@@ -197,17 +197,19 @@ angular.module('crwApp').component('rowerOverview', {
         };
         $scope.submitInterval = function() {
             var intervalObject = {"__type__" : "timedelta"};
-            var pace, trainingType, watt, splitTime, duration;
+            var pace = $scope.intervalPace || null,
+                trainingType = document.getElementById('EDbtn').checked,
+                watt,
+                splitTime,
+                duration;
             
-            if(!$scope.intervalRest)
-                intervalObject = null;
-            else
+            if(!$scope.intervalWatt && !$scope.intervalSplit && (!$scope.intervalDistance || !$scope.intervalDurance))
+                alert('You need to add watt, split or distance and duration to your training before you submit it.');
+            
+            if($scope.intervalRest)
                 intervalObject.seconds = $scope.intervalRestMinutes * 60 + $scope.intervalRestSeconds;
-            
-            if(!$scope.intervalPace)
-                pace = null;
             else
-                pace = $scope.intervalPace;
+                intervalObject = null;
             
             if($scope.intervalWatt)
                 watt = $scope.intervalWatt;
@@ -222,15 +224,6 @@ angular.module('crwApp').component('rowerOverview', {
                 var t = splitTime / 500;
                 watt = Math.round(2.8 / (t*t*t));
             }
-            
-            if(document.getElementById('EDbtn').checked) {
-                trainingType = true;
-            } else if(document.getElementById('ATbtn').checked) {
-                trainingType = false;
-            }
-            
-            if(!$scope.intervalWatt && !$scope.intervalSplit && (!$scope.intervalDistance || !$scope.intervalDurance))
-                alert('You need to add watt, split or distance and duration to your training before you submit it.');
 
             rpc.add_training(
                 $scope.intervalDate, Trainingtype,
