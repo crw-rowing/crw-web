@@ -14,7 +14,7 @@ angular.module('crwApp').directive('loginPage', function(rpc) {
             };
             scope.registerStatus = {
                 show: false,
-                clazz: 'danger',
+                type: 'danger',
                 text: ''
             };
 
@@ -41,14 +41,14 @@ angular.module('crwApp').directive('loginPage', function(rpc) {
                     if('result' in response) {
                         scope.registerStatus = {
                             show: true,
-                            clazz: 'success',
+                            type: 'success',
                             strong: 'Success!',
                             text: 'You can now log in.'
                         };
                     } else {
                         scope.registerStatus = {
                             show: true,
-                            clazz: 'danger',
+                            type: 'danger',
                             strong: 'Error:',
                             text: response.error.message
                         };
