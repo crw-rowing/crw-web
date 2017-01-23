@@ -41,3 +41,9 @@ crwApp.controller('mainController', function($scope, rpc) {
         });
     };
 });
+
+$(document).ready(function() {
+    $('#toggleMenu').click(function() {
+        $('#wrapper').toggleClass('toggled');
+    });
+});
