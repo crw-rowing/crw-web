@@ -158,7 +158,7 @@ angular.module('crwApp').component('rowerOverview', {
                           JSON.stringify(response));
                 }
             });
-        }
+        };
 
         refresh_training_data = function() {
             rpc.get_training_data(7).then(function(response) {
@@ -179,7 +179,7 @@ angular.module('crwApp').component('rowerOverview', {
                           JSON.stringify(response));
                 }
             });
-        }
+        };
 
         refresh_health_data();
         refresh_training_data();
@@ -196,12 +196,58 @@ angular.module('crwApp').component('rowerOverview', {
                 });
         };
         $scope.submitInterval = function() {
-            intervalObject = {"__type__" : "timedelta"};
-            intervalObject.seconds = $scope.intervalRest;
+            var intervalObject = {"__type__" : "timedelta"};
+			var Pace;
+			var Trainingtype;
+			var Watt;
+			var Splittime;
+			var Duration;
+			var Splittowatt = function(Splittime){
+				 return Math.round(2.8/((Splittime/500)*(Splittime/500)*(Splittime/500)));
+			};
+			
+			if(!$scope.intervalRest){
+				intervalObject = null;
+			}else	{
+				intervalObject.seconds = $scope.intervalRestmin*60 + $scope.intervalRestsec;
+			}
+			
+			if(!$scope.intervalPace){
+				Pace = null;
+			}else	{
+				Pace = $scope.intervalPace;
+			}
+			
+			if(!$scope.intervalWatt && !$scope.intervalSplit){
+				Duration = $scope.intervalDurancemin*60 + $scope.intervalDurancesec;
+				Splittime = 500*(Duration/$scope.intervalDistance);
+				Watt = Splittowatt(Splittime);
+				console.log(Watt);
+				
+			}else if(!$scope.intervalWatt){
+				Splittime = $scope.intervalSplitmin*60 + $scope.intervalSplitsec;
+				Watt = Splittowatt(Splittime);
+			}else	{
+				 Watt = $scope.intervalWatt;
+			}
+			
+			if(document.getElementById('EDbtn').checked) {
+				Trainingtype = true;
+			}else if(document.getElementById('ATbtn').checked) {
+				Trainingtype = false;
+			}
+			
+			if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDistance && !$scope.intervalDurance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			} else if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDistance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			} else if(!$scope.intervalWatt && !$scope.intervalSplit && !$scope.intervalDurance)	{
+				alert('You need to add watt, split or distance and duration to your training before you submit it.');
+			}
             rpc.add_training(
-                $scope.intervalDate, $scope.intervalType === 'ED',
-                '' /* no comments yet */, [[$scope.intervalDurance, $scope.intervalWatt,
-                                            $scope.intervalPace, $scope.intervalRest]])
+                $scope.intervalDate, Trainingtype,
+                '' /* no comments yet */, [[$scope.intervalDurance, Watt,
+                                            Pace, intervalObject]])
                 .then(function(response) {
                     if('result' in response) {
                         refresh_training_data();
