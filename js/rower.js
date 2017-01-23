@@ -195,7 +195,7 @@ angular.module('crwApp').component('rowerOverview', {
             });
         };
 
-        $scope.submitInterval = function(date, type, comment, intervals) {
+        $scope.submitPerformance = function(date, type, comment, intervals) {
             rpc.add_training(date, type, comment, intervals).then(function(response) {
                 if('result' in response)
                     refresh_training_data();

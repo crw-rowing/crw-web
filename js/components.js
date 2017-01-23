@@ -38,6 +38,19 @@ app.component('welcome', {
         // One interval by default
         this.addInterval();
 
+        this.changePower = function(i) {
+            if(this.intervals[i].power)
+                this.intervals[i].splitTime = null;
+        };
+
+        this.changeSplitTime = function(i) {
+            var t = this.intervals[i].splitTime;
+            if(t) {
+                var s = t/500;
+                this.intervals[i].power = Math.round(2.8 / (s*s*s));
+            }
+        };
+
         this.submitHealth = function() {
             if(this.onSubmitHealth)
                 this.onSubmitHealth({
@@ -46,6 +59,12 @@ app.component('welcome', {
                     weight: this.inputWeight,
                     feeling: this.inputFeeling
                 });
+
+            this.inputDate = new Date;
+            this.inputHR = null;
+            this.inputWeight = null;
+            this.inputFeeling = null;
+
             $('#loghealth').modal('toggle');
         };
         this.submitPerformance = function() {
@@ -56,7 +75,15 @@ app.component('welcome', {
                         : splitTime = i.duration / i.distance;
                     power = Math.round(2.8 / (splitTime * splitTime * splitTime));
                 }
-                return [i.duration, power, i.pace, i.rest]; 
+                return [
+                    i.duration,
+                    power,
+                    i.pace || null,
+                    {
+                        '__type__': 'timedelta',
+                        seconds: i.rest
+                    }
+                ]; 
             });
             if(this.onSubmitPerformance)
                 this.onSubmitPerformance({
@@ -65,6 +92,12 @@ app.component('welcome', {
                     comment: '',
                     intervals: this.intervals
                 });
+
+            this.intervals = [];
+            this.addInterval();
+            this.inputDate = new Date;
+            this.inputTrainingType = null;
+
             $('#logtraining').modal('toggle');
         };
     }
