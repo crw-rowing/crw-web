@@ -85,17 +85,17 @@
                         </div>
                         <div class="form-group">
                             <label for="inputRest">Rest</label>
-                            <input type="time" class="form-control" id="inputRest">
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].rest" type="number" class="form-control" id="inputRest">
                         </div>
                         <div class="form-group">
-                            <label for="inputRest">Pace</label>
-                            <input type="number" class="form-control" id="inputRest" placeholder="strokes/min">
+                            <label for="inputPace">Pace</label>
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].pace" type="number" class="form-control" id="inputPace" placeholder="strokes/min">
                         </div>
                     </form>
                     <form>
                         <div class="form-group">
                             <label for="inputWatt">watt</label>
-                            <input type="number" class="form-control" id="inputWatt" placeholder="watt">
+                            <input ng-model"$ctrl.intervals[$ctrl.selectedInterval].power" type="number" class="form-control" id="inputWatt" placeholder="watt">
                         </div>
                         <div class="form-group">
                             <label for="inputSplit">split</label>

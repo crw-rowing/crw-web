@@ -23,9 +23,7 @@ app.component('welcome', {
                 duration: 0,
                 rest: 0,
                 pace: 0,
-                watt: 0,
-                split: 0,
-                distance: 0
+                power: 0
             });
             this.selectedInterval = count;
         };
@@ -54,9 +52,11 @@ app.component('welcome', {
             if(this.onSubmitPerformance)
                 this.onSubmitPerformance({
                     date: this.inputDate,
-                    type: this.inputTrainingType,
-                    intervals: this.intervals
+                    type: this.inputTrainingType === 'ED',
+                    comment: '',
+                    intervals: this.intervals.map(i => [i.duration, i.power, i.pace, i.rest])
                 });
+            $('#logtraining').modal('toggle');
         };
     }
 });
