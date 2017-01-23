@@ -76,7 +76,16 @@ angular.module('crwApp').component('rowerOverview', {
                             display: true,
                             position: 'right',
                         }
-                    ]
+                    ],
+
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                Day: 'll'
+                            }
+                        }
+                    }]
                 }
             }
         };
@@ -134,7 +143,8 @@ angular.module('crwApp').component('rowerOverview', {
                     $scope.HRdata.data = [ [], [] ]
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
-                        $scope.HRdata.labels.push(entry[0].day + ' - ' + entry[0].month)
+                        var date = new Date(entry[0].year, entry[0].month, entry[0].day);
+                        $scope.HRdata.labels.push(date.toLocaleDateString())
                         $scope.HRdata.data[0].push(entry[1])
                         $scope.HRdata.data[1].push(entry[2])
                     }
