@@ -120,19 +120,22 @@ app.component('welcome', {
 });
 
 // Health/performance overview
-app.component('overview', {
-    templateUrl: 'components/overview.component.html',
-    bindings: {
-        'type': '@',
-        'chartData': '<',
-        'view': '<'
-    },
-    bindToController: true,
-    controller: function() {
-        this.timespan = 7;
-        this.pane = 0;
-        this.tabClick = function(index) {
-            this.pane = index;
-        };
-   }
+app.directive('overview', function() {
+    return {
+        templateUrl: 'components/overview.component.html',
+        scope: {
+            type: '@',
+            chartData: '<',
+            view: '<',
+//          onUpdateView: '&'
+            updateView: '&onUpdateView'
+        },
+        restrict: 'E',
+        link: function(scope, el, attrs) {
+            scope.pane = 0;
+            scope.tabClick = function(index) {
+                scope.pane = index;
+            };
+        }
+    }
 });

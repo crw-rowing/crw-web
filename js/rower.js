@@ -157,9 +157,11 @@ angular.module('crwApp').component('rowerOverview', {
             }
         };
 
+        health_timespan = 7;
+
         refresh_health_data = function() {
             $scope.hideError();
-            rpc.get_health_data(7).then(function(response) {
+            rpc.get_health_data(health_timespan).then(function(response) {
                 if ('result' in response) {
                     $scope.HRdata.labels = [];
                     $scope.HRdata.data = [ [], [] ]
@@ -172,6 +174,11 @@ angular.module('crwApp').component('rowerOverview', {
                 } else
                     $scope.showError(response.error.message);
             });
+        };
+
+        updateHealthTimespan = function(n) {
+            health_timespan = n;
+            refresh_health_data();
         };
 
         refresh_training_data = function() {

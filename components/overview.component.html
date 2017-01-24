@@ -1,45 +1,45 @@
 <div class="thumbnail">
     <div class="caption">
-        <h3>{{ $ctrl.type }} overview</h3>
+        <h3>{{ type }} overview</h3>
     </div>
     <ul class="nav nav-tabs">
-        <li ng-click="$ctrl.tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ $ctrl.type }}">graph</a></li>
-        <li ng-click="$ctrl.tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ $ctrl.type }}">table</a></li>
+        <li ng-click="tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ type }}">graph</a></li>
+        <li ng-click="tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ type }}">table</a></li>
     </ul>
     
     <div class="table-content">
-        <div ng-show="$ctrl.pane == 0" id="graph-{{ $ctrl.type }}" class="tab-pane fade in active">
+        <div ng-show="pane == 0" id="graph-{{ type }}" class="tab-pane fade in active">
             <canvas
-            id="chart-{{ $ctrl.type }}"
+            id="chart-{{ type }}"
             class="chart chart-line"
-            chart-data="$ctrl.chartData.data"
-            chart-labels="$ctrl.chartData.labels"
-            chart-series="$ctrl.chartData.series"
-            chart-options="$ctrl.chartData.options"
-            chart-dataset-override="$ctrl.chartData.datasetOverride"
+            chart-data="chartData.data"
+            chart-labels="chartData.labels"
+            chart-series="chartData.series"
+            chart-options="chartData.options"
+            chart-dataset-override="chartData.datasetOverride"
             ></canvas>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                            <input ng-model="$ctrl.timespan" type="radio" name="timespan" value="7" autocomplete="off" checked>week
+                        <label class="active btn btn-default" ng-click="updateView({timespan:7})">
+                            <input checked name="timespan" type="radio" value="7">week
                         </label>
-                        <label class="btn btn-default">
-                            <input ng-model="timespan" type="radio" name="timespan" value="30" autocomplete="off">30 days
+                        <label class="btn btn-default" ng-click="updateView({timespan:30})">
+                            <input name="timespan" type="radio" value="30">30 days
                         </label>
-                        <label class="btn btn-default">
-                            <input ng-model="timespan" type="radio" name="timespan" value="365" autocomplete="off">year
+                        <label class="btn btn-default" ng-click="updateView({timespan:365})">
+                            <input name="timespan" type="radio" value="365">year
                         </label>
                     </div>
-                    <div style="margin-right: .5em" ng-show="$ctrl.view" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
-                        <label ng-repeat="t in $ctrl.view" class="btn btn-default">
+                    <div style="margin-right: .5em" ng-show="view" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
+                        <label ng-repeat="t in view" class="btn btn-default">
                             <input ng-model="view" type="radio" name="view" autocomplete="off" ng-value="t">{{ t }}
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-        <div ng-show="$ctrl.pane == 1" id="table-{{ $ctrl.type }}" class="tab-pane fade">
+        <div ng-show="pane == 1" id="table-{{ type }}" class="tab-pane fade">
             <div class="table-responsive">
                 <div class="options clearfix">
                     <div class="ck-button">

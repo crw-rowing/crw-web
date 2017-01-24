@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <overview type="Health" chart-data="HRdata"></overview>
+                <overview on-update-view="updateHealthTimespan(timespan)" type="Health" chart-data="HRdata"></overview>
             </div>
             <div class="col-lg-6">
                 <overview type="Performance" view="['watt', 'split']" chart-data="Perfdata"></overview>
