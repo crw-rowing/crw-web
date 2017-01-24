@@ -69,8 +69,9 @@
                         <input ng-model="$ctrl.inputDate" type="datetime-local" class="form-control" id="inputDate">
                     </div>
                     <div class="form-group">
-                        <label for="inputType">Type Training</label>
-                        <input ng-model="$ctrl.inputTrainingType" type="text" class="form-control" id="inputType" placeholder="Type">
+                        <label style="margin-right: 1em;">Type Training:</label>
+                        <label class="radio-inline" title="Endurance"><input type="radio" ng-model="$ctrl.inputTrainingType" value="ED">ED</label>
+                        <label class="radio-inline" title="Anaerobic Threshold"><input type="radio" ng-model="$ctrl.inputTrainingType" value="AT">AT</label>
                     </div>
                 </form>
                 <ul class="nav nav-tabs">

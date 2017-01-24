@@ -11,6 +11,8 @@ app.component('welcome', {
     controller: function() {
         // Set date inputs to today
         this.inputDate = new Date;
+        this.inputDate.setMilliseconds(0);
+        this.inputDate.setSeconds(0);
 
         // Interval selection on training form
         this.intervals = [];
