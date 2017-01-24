@@ -21,19 +21,19 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="btn-group btn-group-xs pull-right" data-toggle="buttons">
-                        <label class="active btn btn-default" ng-click="updateView({timespan:7})">
+                        <label class="active btn btn-default" ng-click="updateView({timespan:7, view:null})">
                             <input checked name="timespan" type="radio" value="7">week
                         </label>
-                        <label class="btn btn-default" ng-click="updateView({timespan:30})">
+                        <label class="btn btn-default" ng-click="updateView({timespan:30, view:null})">
                             <input name="timespan" type="radio" value="30">30 days
                         </label>
-                        <label class="btn btn-default" ng-click="updateView({timespan:365})">
+                        <label class="btn btn-default" ng-click="updateView({timespan:365, view:null})">
                             <input name="timespan" type="radio" value="365">year
                         </label>
                     </div>
                     <div style="margin-right: .5em" ng-show="view" class="btn-group btn-group-xs pull-right" data-toggle="buttons">
-                        <label ng-repeat="t in view" class="btn btn-default">
-                            <input ng-model="view" type="radio" name="view" autocomplete="off" ng-value="t">{{ t }}
+                        <label ng-repeat="t in view" class="btn btn-default" ng-class="{active: t==view[0]}" ng-click="updateView({timespan:null, view:t})">
+                            <input ng-value="t==view[0]" ng-model="view" type="radio" name="view" autocomplete="off" ng-value="t">{{ t }}
                         </label>
                     </div>
                 </div>

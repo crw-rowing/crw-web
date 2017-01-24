@@ -158,7 +158,10 @@ angular.module('crwApp').component('rowerOverview', {
         };
 
         $scope.health_timespan = 7;
+
         $scope.performance_timespan = 7;
+        $scope.performanceView = 'watt';
+        $scope.performanceData = [];
 
         refresh_health_data = function() {
             $scope.hideError();
@@ -177,9 +180,21 @@ angular.module('crwApp').component('rowerOverview', {
             });
         };
 
-        $scope.updateHealthTimespan = function(n) {
-            $scope.health_timespan = n;
+        $scope.updateHealthTimespan = function(n, v) {
+            if(n)
+                $scope.health_timespan = n;
             refresh_health_data();
+        };
+
+        convert_performance_data = function() {
+            if($scope.Perfdata.data[0].length !== $scope.performanceData.length)
+                $scope.Perfdata.data[0] = new Array($scope.performanceData.length);
+            for(var i=0; i<$scope.Perfdata.data[0].length; ++i) {
+                if($scope.performanceView === 'watt')
+                    $scope.Perfdata.data[0][i] = $scope.performanceData[i];
+                else
+                    $scope.Perfdata.data[0][i] = Math.pow(3.5*1e9/$scope.performanceData[i], 1/3);
+            }
         };
 
         refresh_training_data = function() {
@@ -195,16 +210,25 @@ angular.module('crwApp').component('rowerOverview', {
                                                     entry[0].hour + ':' +
                                                     (entry[0].second < 10 ? '0' : '') +
                                                     entry[0].second)
+                        $scope.performanceData.push(entry[3][0][1])
                         $scope.Perfdata.data[0].push(entry[3][0][1])
                     }
+                    convert_performance_data();
                 } else
                     $scope.showError(response.error.message);
             });
         };
 
-        $scope.updatePerformanceView = function(n) {
-            $scope.performance_timespan = n;
-            refresh_training_data();
+        $scope.updatePerformanceView = function(n, v) {
+            if(v) {
+                $scope.performanceView = v;
+                if(!n)
+                    convert_performance_data();
+            }
+            if(n) {
+                $scope.performance_timespan = n;
+                refresh_training_data();
+            }
         };
 
         refresh_health_data();
