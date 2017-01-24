@@ -92,7 +92,7 @@ angular.module('crwApp').component('rowerOverview', {
 
         $scope.Perfdata = {
             labels: [],
-            series: ["watt"],
+            series: ["power"],
             data: [
                 [],
             ],
