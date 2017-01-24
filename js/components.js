@@ -127,7 +127,6 @@ app.directive('overview', function() {
             type: '@',
             chartData: '<',
             view: '<',
-//          onUpdateView: '&'
             updateView: '&onUpdateView'
         },
         restrict: 'E',
