@@ -4,10 +4,12 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     $scope.healthData = {
             labels: [],
             series: ["average"],
-            heartrateData: [[]],
-            weightData: [[]],
+            heartrateData: [],
+            weightData: [],
+            heartrateDatasetOverride: [],
+            weightDatasetOverride: [],
             datasetOverride: [
-                {
+                /* {
                     yAxisID: 'y-axis-1',
                     fill: true,
                     lineTension: 0.3,
@@ -28,9 +30,9 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                     pointRadius: 1,
                     pointHitRadius: 10,
                     spanGaps: false,
-                }
+                } */
             ],
-            datasetDefault:
+            /* datasetDefault:
                 {
                     yAxisID: 'y-axis-1',
                     fill: false,
@@ -51,7 +53,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                     pointRadius: 1,
                     pointHitRadius: 10,
                     spanGaps: false,
-                },
+                } ,*/
             options: {
                 legend: {
                     display: true
@@ -64,58 +66,132 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                             display: true,
                             position: 'left',
                         }
-                    ]
-                }
+                    ],
+                     xAxes: [{
+                        type: 'time',
+                        unit: 'day',
+                        unitStepSize: 1,
+                        time: {
+                            displayFormats: {
+                            day: 'MMM DD'
+                            }
+                        }
+                    }]
             }
+        }
     };
+    
+    $scope.trainingData = {
+            labels: [],
+            series: [],
+            data: [],
+            datasetOverride: [],
+            options: {
+                legend: {
+                    display: true
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            id: 'y-axis-1',
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        }
+                    ],
+                     xAxes: [{
+                        type: 'time',
+                        unit: 'day',
+                        unitStepSize: 1,
+                            time: {
+                                displayFormats: {
+                                    day: 'MMM DD'
+                                }
+                            }
+                    }]
+            }
+        }
+    };
+    
+    $scope.colors = [{
+        backgroundColor: "rgba(75,192,192,.2)",
+        borderColor: "rgba(75,192,192,1)",
+        pointBorderColor: "rgba(75,192,192,.2)",
+        pointBackgroundColor: "#fff",
+        pointHoverBackgroundColor: "rgba(75,192,192,.2)",
+        pointHoverBorderColor: "rgba(220,220,220,.4)",
+        }, '#00ADF9', '#FDB45C', 'deepPink'];
+    
     
     refresh_health_data = function(days) {
         rpc.get_team_health_data(days).then(function(response) {
                 if ('result' in response) {
                     //[(member_email, [(date, resting_heart_rate, weight, comment)])]
-                    $scope.healthData.labels = []
-                    for (var i = (days - 1); i >= 0; i--) {
-                        var date = new Date();
-                        date.setDate(date.getDate() - i);
-                        $scope.healthData.labels.push(date.getDate() + ' - ' + (date.getMonth() + 1))
-                    }
-                    $scope.healthData.heartrateData = [[]]
+                    $scope.healthData.heartrateDatasetOverride = []
                     $scope.healthData.heartrateTable = []
-                    $scope.healthData.weightData = [[]]
+                    $scope.healthData.weightDatasetOverride = []
                     $scope.healthData.weightTable = []
-                    $scope.healthData.series = [$scope.healthData.series[0]]
-                    $scope.healthData.datasetOverride = [$scope.healthData.datasetOverride[0]]
                     for (var i = 0; i < response.result.length; i++) {
-                        userentry = response.result[i];
-                        $scope.healthData.datasetOverride.push($scope.healthData.datasetDefault)
-                        $scope.healthData.series.push(userentry[0])
-                        $scope.healthData.weightData.push([])
+                        var userEntry = response.result[i];
                         $scope.healthData.heartrateData.push([])
-                        for (var j = 0; j < userentry[1].length; j++) {
-                            healthentry = userentry[1][j];
-                            index = $scope.healthData.labels.indexOf(healthentry[0].day + ' - ' + healthentry[0].month);
-                            if (index != -1) {
-                                $scope.healthData.heartrateData[i+1][index] = healthentry[1]
-                                $scope.healthData.heartrateTable.push(
-                                    { "member" : userentry[0],
-                                      "date" : $scope.healthData.labels[index],
-                                      "hr" : healthentry[1],
-                                      "comment" : healthentry[3]
+                        $scope.healthData.weightData.push([])
+                        $scope.healthData.heartrateDatasetOverride.push(
+                        {
+                            yAxisID: 'y-axis-1',
+                            lineTension: 0.3,
+                            lineDash: true,
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            spanGaps: false,
+                            fill: false,
+                        })
+                        $scope.healthData.weightDatasetOverride.push(
+                        {
+                            yAxisID: 'y-axis-1',
+                            lineTension: 0.3,
+                            lineDash: true,
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            spanGaps: false,
+                            fill: false,
+                        })
+                        $scope.healthData.heartrateDatasetOverride[i].label = userEntry[0]
+                        $scope.healthData.heartrateDatasetOverride[i].data = []
+                        $scope.healthData.weightDatasetOverride[i].label = userEntry[0]
+                        $scope.healthData.weightDatasetOverride[i].data = []
+                        for (var j = 0; j < userEntry[1].length; j++) {
+                            var healthEntry = userEntry[1][j];
+                            date = new Date(healthEntry[0].year, healthEntry[0].month -1, healthEntry[0].day);
+                            $scope.healthData.heartrateDatasetOverride[i].data.push({x: date, y: healthEntry[1]})
+                            $scope.healthData.heartrateTable.push(
+                                { "member" : userEntry[0],
+                                  "date" : date,
+                                  "hr" : healthEntry[1],
+                                  "comment" : healthEntry[3]
+                                })
+                            $scope.healthData.weightDatasetOverride[i].data.push({x: date, y: healthEntry[2]})
+                            $scope.healthData.weightTable.push(
+                                    { "member" : userEntry[0],
+                                      "date" : date,
+                                      "weight" : healthEntry[2],
+                                      "comment" : healthEntry[3]
                                     })
-                                $scope.healthData.weightData[i+1][index] = healthentry[2]
-                                $scope.healthData.weightTable.push(
-                                    { "member" : userentry[0],
-                                      "date" : $scope.healthData.labels[index],
-                                      "weight" : healthentry[2],
-                                      "comment" : healthentry[3]
-                                    })
-                            }
-                            else {
-                                continue;
-                            }
                         }
                     }
-                    set_average(days);
                 }
                 else {
                     alert('Error: unable to retreive health data from the server. Response: ' +
@@ -125,22 +201,55 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             });
     }
     
-    set_average = function(days) {
-        //[[],[],[]]
-        for(var i = 0; i < days; i++) {
-            var heartrateTotal = 0.0;
-            var weightTotal = 0.0;
-            for(var j = 0; j < ($scope.healthData.heartrateData.length - 1); j++) {
-                heartrateTotal += $scope.healthData.heartrateData[j+1][i];
-                weightTotal += $scope.healthData.weightData[j+1][i];
-            }
-            $scope.healthData.heartrateData[0][i] = heartrateTotal / ($scope.healthData.heartrateData.length - 1)
-            $scope.healthData.weightData[0][i] = weightTotal / ($scope.healthData.weightData.length - 1)
-        }
+    refresh_training_data = function(days) {
+        rpc.get_team_training_data(days).then(function(response) {
+                if ('result' in response) {
+                /* [(member_email,
+                     [(time, type_is_ed, comment,
+                        [(duration, power, pace, rest)]
+                     )] 
+                   )] */
+                   for(var i = 0; i < response.result.length; i++) {
+                       var userEntry = response.result[i];
+                       $scope.trainingData.data.push([])
+                       $scope.trainingData.datasetOverride.push(
+                       {
+                             yAxisID: 'y-axis-1',
+                             lineTension: 0.3,
+                             lineDash: true,
+                             borderCapStyle: 'butt',
+                             borderDash: [],
+                             borderDashOffset: 0.0,
+                             borderJoinStyle: 'miter',
+                             pointBorderWidth: 1,
+                             pointHoverRadius: 5,
+                             pointHoverBorderWidth: 2,
+                             pointRadius: 1,
+                             pointHitRadius: 10,
+                             spanGaps: false,
+                             fill: false,
+                       })
+                       $scope.trainingData.datasetOverride[i].label = userEntry[0]
+                       $scope.trainingData.datasetOverride[i].data = []
+                       for(var j = 0; j < userEntry[1].length; j++) {
+                           var trainingEntry = userEntry[1][j];
+                           var powerTotal = 0.0;
+                           for(var k = 0; k < trainingEntry[3].length; k++) {
+                               intervalEntry = trainingEntry[3][k];
+                               powerTotal += intervalEntry[1];
+                           }
+                           var powerAverage = powerTotal / (trainingEntry[3].length);
+                           var date = new Date(trainingEntry[0].year, trainingEntry[0].month -1, trainingEntry[0].day, trainingEntry[0].hour, trainingEntry[0].minute);
+                           $scope.trainingData.datasetOverride[i].data.push({x: date, y: powerAverage})
+                       }
+                   }
+                }
+        })
     }
-
+   
         
     refresh_health_data(7);
+    refresh_training_data(7);
     
 });  
     /*$scope.Weightdata = {
