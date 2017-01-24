@@ -157,26 +157,46 @@ angular.module('crwApp').component('rowerOverview', {
             }
         };
 
+        $scope.health_data = [];
         $scope.health_timespan = 7;
 
         $scope.performance_timespan = 7;
         $scope.performanceView = 'watt';
         $scope.performanceData = [];
+        $scope.performance_table_data = [];
+
+        convert_datetime = function(d) {
+            if(d.__type__ === 'date')
+                return d.day + '-' + d.month;
+            else if(d.__type__ === 'datetime')
+                return d.day + '-' + d.month + ' ' + d.hour + ':'
+                             + (d.second < 10 ? '0' : '') + d.second;
+            else return d;
+        };
 
         refresh_health_data = function() {
             $scope.hideError();
             rpc.get_health_data($scope.health_timespan).then(function(response) {
-                if ('result' in response) {
+                if('result' in response) {
                     $scope.HRdata.labels = [];
                     $scope.HRdata.data = [ [], [] ]
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
-                        $scope.HRdata.labels.push(entry[0].day + ' - ' + entry[0].month)
-                        $scope.HRdata.data[0].push(entry[1])
-                        $scope.HRdata.data[1].push(entry[2])
+                        $scope.HRdata.labels.push(convert_datetime(entry[0]));
+                        $scope.HRdata.data[0].push(entry[1]);
+                        $scope.HRdata.data[1].push(entry[2]);
                     }
                 } else
                     $scope.showError(response.error.message);
+            });
+            // TODO maybe both in one request
+            rpc.get_health_data(365).then(function(response) {
+                if('result' in response) {
+                    $scope.health_data = response.result.reverse().map(function(h) {
+                        h[0] = convert_datetime(h[0]);
+                        return h;
+                    });
+                }
             });
         };
 
@@ -193,29 +213,51 @@ angular.module('crwApp').component('rowerOverview', {
                 if($scope.performanceView === 'watt')
                     $scope.Perfdata.data[0][i] = $scope.performanceData[i];
                 else
-                    $scope.Perfdata.data[0][i] = Math.pow(3.5*1e9/$scope.performanceData[i], 1/3);
+                    $scope.Perfdata.data[0][i] = Math.pow(3.5e9/$scope.performanceData[i], 1/3);
             }
         };
 
         refresh_training_data = function() {
             $scope.hideError();
             rpc.get_training_data($scope.performance_timespan).then(function(response) {
-                if ('result' in response) {
+                if('result' in response) {
                     $scope.Perfdata.labels = [];
                     $scope.Perfdata.data = [ [], ];
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
-                        $scope.Perfdata.labels.push(entry[0].day + ' - ' +
-                                                    entry[0].month + ' ' +
-                                                    entry[0].hour + ':' +
-                                                    (entry[0].second < 10 ? '0' : '') +
-                                                    entry[0].second)
-                        $scope.performanceData.push(entry[3][0][1])
-                        $scope.Perfdata.data[0].push(entry[3][0][1])
+                        $scope.Perfdata.labels.push(convert_datetime(entry[0]));
+                        $scope.performanceData.push(entry[3][0][1]);
+                        $scope.Perfdata.data[0].push(entry[3][0][1]);
                     }
                     convert_performance_data();
                 } else
                     $scope.showError(response.error.message);
+            });
+
+            format_time = function(s) {
+                var m = s % 60;
+                return Math.floor(s / 60) + ':' + (m < 10 ? '0' : '') + m;
+            };
+
+            //TODO
+            rpc.get_training_data(365).then(function(response) {
+                if('result' in response) {
+                    console.log(response.result);
+                    $scope.performance_table_data = [];
+                    for(var t of response.result) {
+                        for(var i of t[3]) {
+                            $scope.performance_table_data.push([
+                                convert_datetime(t[0]),
+                                t[1] ? 'ED' : 'AT',
+                                format_time(i[0]),
+                                i[1],
+                                Math.round(Math.pow(3.5e9 / i[1], 1/3)),
+                                i[2],
+                                format_time(i[3].seconds)
+                            ]);
+                        }
+                    }
+                }
             });
         };
 

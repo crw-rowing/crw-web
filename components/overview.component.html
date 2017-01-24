@@ -3,12 +3,12 @@
         <h3>{{ type }} overview</h3>
     </div>
     <ul class="nav nav-tabs">
-        <li ng-click="tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ type }}">graph</a></li>
-        <li ng-click="tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ type }}">table</a></li>
+        <li ng-click="$ctrl.tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ type }}">graph</a></li>
+        <li ng-show="tableColumns" ng-click="$ctrl.tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ type }}">table</a></li>
     </ul>
     
     <div class="table-content">
-        <div ng-show="pane == 0" id="graph-{{ type }}" class="tab-pane fade in active">
+        <div ng-show="$ctrl.pane == 0" id="graph-{{ type }}" class="tab-pane fade in active">
             <canvas
             id="chart-{{ type }}"
             class="chart chart-line"
@@ -39,54 +39,30 @@
                 </div>
             </div>
         </div>
-        <div ng-show="pane == 1" id="table-{{ type }}" class="tab-pane fade">
+        <div ng-show="$ctrl.pane == 1" id="table-{{ type }}" class="tab-pane fade">
             <div class="table-responsive">
-                <div class="options clearfix">
-                    <div class="ck-button">
-                        <label><input type="checkbox" value="1" name="date" checked="checked"><span>Date</span></label>
-                    </div>
-                    <div class="ck-button">
-                        <label><input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span></label>
-                    </div>
-                    <div class="ck-button">
-                        <label><input type="checkbox" value="1" name="weight" checked="checked"><span>Weight</span></label>
-                    </div>
-                    <div class="ck-button">
-                        <label><input type="checkbox" value="1" name="feeling"><span>Feeling</span></label>
-                    </div>
-                </div>
-                
-                <table id="htablerower" class="table table-bordered table-hover table-striped">
+                <table class="table table-condensed table-hover table-striped">
                     <thead>
                         <tr>
-                        <!-- CLASS TOEVOEGEN -->
-                            <th class="date">Date</th>
-                            <th class="heartrate">Resting Heart Rate</th>
-                            <th class="weight">Weight</th>
-                            <th class="feeling">Feeling</th>
+                            <th class="text-center" ng-repeat="h in tableColumns">{{ h }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th class="date">10-1-2017</th>
-                            <th class="heartrate">56</th>
-                            <th class="weight">54</th>
-                            <th class="feeling">Good</th>
-                        </tr>
-                        <tr>
-                            <th class="date">11-1-2017</th>
-                            <th class="heartrate">59</th>
-                            <th class="weight">55</th>
-                            <th class="feeling">Good</th>
-                        </tr>
-                        <tr>
-                            <th class="date">12-1-2017</th>
-                            <th class="heartrate">60</th>
-                            <th class="weight">55</th>
-                            <th class="feeling">Good</th>
+                        <tr ng-repeat="r in $ctrl.tableView">
+                            <td class="text-center" ng-repeat="d in r">
+                                {{ d }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="btn-group btn-group-sm pull-right">
+                        <button ng-disabled="$ctrl.tablePage === 0" ng-click="$ctrl.prev()" class="btn btn-default glyphicon glyphicon-arrow-left"></button>
+                        <button ng-disabled="$ctrl.tablePage >= $ctrl.numPages - 1" ng-click="$ctrl.next()" class="btn btn-default glyphicon glyphicon-arrow-right"></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

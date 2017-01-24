@@ -118,23 +118,3 @@ app.component('welcome', {
         };
     }
 });
-
-// Health/performance overview
-app.directive('overview', function() {
-    return {
-        templateUrl: 'components/overview.component.html',
-        scope: {
-            type: '@',
-            chartData: '<',
-            view: '<',
-            updateView: '&onUpdateView'
-        },
-        restrict: 'E',
-        link: function(scope, el, attrs) {
-            scope.pane = 0;
-            scope.tabClick = function(index) {
-                scope.pane = index;
-            };
-        }
-    }
-});

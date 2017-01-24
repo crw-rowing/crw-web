@@ -16,10 +16,21 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <overview on-update-view="updateHealthTimespan(timespan)" type="Health" chart-data="HRdata"></overview>
+                <overview
+                    on-update-view="updateHealthTimespan(timespan)"
+                    type="Health"
+                    chart-data="HRdata"
+                    table-columns="['Date', 'Heart Rate (bpm)', 'Weight (kg)', 'Feeling']"
+                    table-data="health_data"></overview>
             </div>
             <div class="col-lg-6">
-                <overview on-update-view="updatePerformanceView(timespan, view)" type="Performance" view="['watt', 'split']" chart-data="Perfdata"></overview>
+                <overview
+                    on-update-view="updatePerformanceView(timespan, view)"
+                    type="Performance"
+                    view="['watt', 'split']"
+                    chart-data="Perfdata"
+                    table-columns="['Date', 'Type', 'Duration', 'Power', 'Split', 'Pace', 'Rest']"
+                    table-data="performance_table_data"></overview>
             </div>
         </div>
     </div>
