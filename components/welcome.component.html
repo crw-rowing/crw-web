@@ -78,35 +78,31 @@
                     <li ng-repeat="interval in $ctrl.intervals" role="presentation" ng-class="{active: $ctrl.selectedInterval === interval.id}"><a ng-click="$ctrl.selectedInterval = interval.id;">Interval {{ interval.id + 1 }}<button ng-click="$ctrl.deleteInterval(interval.id)" ng-show="$ctrl.intervals.length > 1" class="close" style="margin-left: .5em;">&times;</button></a></li>
                     <li role="presentation"><a ng-click="$ctrl.addInterval()">New Interval</a></li>
                 </ul>
-                <div style="margin-top: 1em;" class="tab-pane active" id="int{{ interval.id }}">
-                    <form class="form-inline form-group-sm">
-                        <div class="form-group">
-                            <label for="inputDuration">Duration</label>
+                <div style="margin-top: 1em;" class="row tab-pane active" id="int{{ interval.id }}">
+                        <div class="form-group col-sm-6">
+                            <label for="inputDuration">Duration (s)</label>
                             <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].duration" type="number" class="form-control" id="inputDuration">
                         </div>
-                        <div class="form-group">
-                            <label for="inputRest">Rest</label>
+                        <div class="form-group col-sm-6">
+                            <label for="inputRest">Rest (s)</label>
                             <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].rest" type="number" class="form-control" id="inputRest">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-sm-6">
                             <label for="inputPace">Pace</label>
                             <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].pace" type="number" class="form-control" id="inputPace" placeholder="strokes/min">
                         </div>
-                    </form>
-                    <form>
-                        <div class="form-group">
+                        <div class="form-group col-sm-6">
                             <label for="inputWatt">Power (W)</label>
                             <input ng-change="$ctrl.changePower($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].power" type="number" class="form-control" id="inputWatt" placeholder="watt">
                         </div>
-                        <div class="form-group">
-                            <label for="inputSplit">split</label>
+                        <div class="form-group col-sm-6">
+                            <label for="inputSplit">Split (s/500m)</label>
                             <input ng-change="$ctrl.changeSplitTime($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].splitTime" type="number" class="form-control" id="inputSplit" placeholder="time/500m">
                         </div>
-                        <div class="form-group">
-                            <label for="inputDistance">distance</label>
+                        <div class="form-group col-sm-6">
+                            <label for="inputDistance">Distance (m)</label>
                             <input ng-change="$ctrl.changeDistance($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].distance" type="number" class="form-control" id="inputDistance" placeholder="m">
                         </div>
-                    </form>
                 </div>
         </div>
     </div>
