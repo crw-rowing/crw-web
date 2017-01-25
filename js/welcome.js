@@ -42,31 +42,29 @@ app.component('welcome', {
 
         this.changePower = function(i) {
             if(this.intervals[i].power) {
-                this.intervals[i].splitTime = null;
+                this.intervals[i].splitTime = Math.round(Math.pow(3.5e9/this.intervals[i].power, 1/3));
                 this.intervals[i].duration = null;
                 this.intervals[i].distance = null;
             }
         };
 
         this.changeSplitTime = function(i) {
-            var t = this.intervals[i].splitTime;
+            var t = this.intervals[i].splitTime,
+                d = this.intervals[i].distance;
             if(t) {
                 var s = t/500;
                 this.intervals[i].power = Math.round(2.8 / (s*s*s));
-                this.intervals[i].duration = null;
-                this.intervals[i].distance = null;
+                if(d)
+                    this.intervals[i].duration = Math.round(t * d / 500);
             }
         };
 
-        this.changeSplitData = function(i) {
-            var duration = this.intervals[i].duration,
+        this.changeDistance = function(i) {
+            var splitTime = this.intervals[i].splitTime;
                 distance = this.intervals[i].distance;
 
-            if(duration && distance) {
-                var t = duration / distance;
-                this.intervals[i].splitTime = Math.round(500 * t);
-                this.intervals[i].power = Math.round(2.8 / (t*t*t));
-            }
+            if(splitTime && distance)
+                this.intervals[i].duration = Math.round(splitTime * distance / 500);
         };
 
         this.submitHealth = function() {

@@ -82,7 +82,7 @@
                     <form class="form-inline form-group-sm">
                         <div class="form-group">
                             <label for="inputDuration">Duration</label>
-                            <input ng-change="$ctrl.changeSplitData($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].duration" type="number" class="form-control" id="inputDuration">
+                            <input ng-model="$ctrl.intervals[$ctrl.selectedInterval].duration" type="number" class="form-control" id="inputDuration">
                         </div>
                         <div class="form-group">
                             <label for="inputRest">Rest</label>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group">
                             <label for="inputDistance">distance</label>
-                            <input ng-change="$ctrl.changeSplitData($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].distance" type="number" class="form-control" id="inputDistance" placeholder="m">
+                            <input ng-change="$ctrl.changeDistance($ctrl.selectedInterval)" ng-model="$ctrl.intervals[$ctrl.selectedInterval].distance" type="number" class="form-control" id="inputDistance" placeholder="m">
                         </div>
                     </form>
                 </div>
