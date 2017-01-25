@@ -246,7 +246,6 @@ angular.module('crwApp').component('rowerOverview', {
             //TODO
             rpc.get_training_data(365).then(function(response) {
                 if('result' in response) {
-                    console.log(response.result);
                     $scope.performance_table_data = [];
                     for(var t of response.result) {
                         for(var i of t[3]) {
