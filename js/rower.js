@@ -227,12 +227,16 @@ angular.module('crwApp').component('rowerOverview', {
             rpc.get_training_data($scope.performance_timespan).then(function(response) {
                 if('result' in response) {
                     $scope.Perfdata.labels = [];
-                    $scope.Perfdata.data = [ [], ];
-                    for (var i = 0; i < response.result.length; i++) {
-                        entry = response.result[i];
-                        $scope.Perfdata.labels.push(convert_datetime(entry[0]));
-                        $scope.performanceData.push(entry[3][0][1]);
-                        $scope.Perfdata.data[0].push(entry[3][0][1]);
+                    $scope.Perfdata.data = [[]];
+                    for(var j in response.result) {
+                        var training = response.result[j],
+                             date = convert_datetime(training[0]);
+                        for(var i in training[3]) {
+                            var interval = training[3][i];
+                            $scope.Perfdata.labels.push(date);
+                            $scope.Perfdata.data[0].push(interval[1]);
+                            $scope.performanceData.push(interval[1]);
+                        }
                     }
                     convert_performance_data();
                 } else
