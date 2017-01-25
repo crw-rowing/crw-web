@@ -217,6 +217,11 @@ angular.module('crwApp').component('rowerOverview', {
             }
         };
 
+        format_time = function(s) {
+            var m = s % 60;
+            return Math.floor(s / 60) + ':' + (m < 10 ? '0' : '') + m;
+        };
+
         refresh_training_data = function() {
             $scope.hideError();
             rpc.get_training_data($scope.performance_timespan).then(function(response) {
@@ -233,11 +238,6 @@ angular.module('crwApp').component('rowerOverview', {
                 } else
                     $scope.showError(response.error.message);
             });
-
-            format_time = function(s) {
-                var m = s % 60;
-                return Math.floor(s / 60) + ':' + (m < 10 ? '0' : '') + m;
-            };
 
             //TODO
             rpc.get_training_data(365).then(function(response) {
