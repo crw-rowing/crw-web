@@ -28,12 +28,20 @@ crwApp.controller('mainController', function($scope, rpc) {
 
     // Check if user is already logged in
     if('session' in localStorage)
-        rpc.user_status().then(function(result) {
-            if(result.result[0]) {
+        rpc.user_status().then(function(response) {
+            if(response.result[0]) {
                 $scope.loggedIn = true;
-                window.location = '#!/rower'; // TODO select based on rower/coach
-            } else
+                if(response.result[1]) {
+                    if(response.result[2])
+                        window.location = '#!/coach';
+                    else
+                        window.location = '#!/rower';
+                } else
+                    window.location = '#!/createteam';
+            } else {
                 localStorage.removeItem('session');
+                window.location = '#!/home';
+            }
         });
 
     $scope.logout = function() {
