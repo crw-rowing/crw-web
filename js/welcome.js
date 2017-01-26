@@ -1,6 +1,6 @@
 var app = angular.module('crwApp');
 
-// Welcome message containing log data buttons
+// Welcome message containing log data buttons and modals
 app.component('welcome', {
     templateUrl: 'components/welcome.component.html',
     // Event handlers
@@ -40,6 +40,7 @@ app.component('welcome', {
         // One interval by default
         this.addInterval();
 
+        // Change event handlers on interval input, to automate calculation of some of the fields
         this.changePower = function(i) {
             if(this.intervals[i].power) {
                 this.intervals[i].splitTime = Math.round(Math.pow(3.5e9/this.intervals[i].power, 1/3));

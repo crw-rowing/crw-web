@@ -25,10 +25,7 @@ angular.module('crwApp').component('rowerOverview', {
         $scope.HRdata = {
             labels: [],
             series: ["heart rate", "weight"],
-            data: [
-                [],
-                []
-            ],
+            data: [[], []],
             datasetOverride: [
                 {
                     yAxisID: 'y-axis-1',
@@ -50,8 +47,7 @@ angular.module('crwApp').component('rowerOverview', {
                     pointRadius: 1,
                     pointHitRadius: 10,
                     spanGaps: false,
-                },
-                {
+                }, {
                     yAxisID: 'y-axis-1',
                     fill: false,
                     lineTension: 0.3,
@@ -93,9 +89,7 @@ angular.module('crwApp').component('rowerOverview', {
         $scope.Perfdata = {
             labels: [],
             series: ["power"],
-            data: [
-                [],
-            ],
+            data: [[]],
             datasetOverride: [
                 {
                     yAxisID: 'y-axis-1',
@@ -117,8 +111,7 @@ angular.module('crwApp').component('rowerOverview', {
                     pointRadius: 1,
                     pointHitRadius: 10,
                     spanGaps: false,
-                },
-                {
+                }, {
                     yAxisID: 'y-axis-1',
                     fill: false,
                     lineTension: 0.3,
@@ -157,6 +150,7 @@ angular.module('crwApp').component('rowerOverview', {
             }
         };
 
+        // Table data. TODO change it so it's the same dataset
         $scope.health_data = [];
         $scope.health_timespan = 7;
 
@@ -165,7 +159,8 @@ angular.module('crwApp').component('rowerOverview', {
         $scope.performanceData = [];
         $scope.performance_table_data = [];
 
-        convert_datetime = function(d) {
+        // Helper method
+        format_datetime = function(d) {
             if(d.__type__ === 'date')
                 return d.day + '-' + d.month;
             else if(d.__type__ === 'datetime')
@@ -182,18 +177,19 @@ angular.module('crwApp').component('rowerOverview', {
                     $scope.HRdata.data = [ [], [] ]
                     for (var i = 0; i < response.result.length; i++) {
                         entry = response.result[i];
-                        $scope.HRdata.labels.push(convert_datetime(entry[0]));
+                        $scope.HRdata.labels.push(format_datetime(entry[0]));
                         $scope.HRdata.data[0].push(entry[1]);
                         $scope.HRdata.data[1].push(entry[2]);
                     }
                 } else
                     $scope.showError(response.error.message);
             });
+
             // TODO maybe both in one request
             rpc.get_health_data(365).then(function(response) {
                 if('result' in response) {
                     $scope.health_data = response.result.reverse().map(function(h) {
-                        h[0] = convert_datetime(h[0]);
+                        h[0] = format_datetime(h[0]);
                         return h;
                     });
                 }
@@ -206,6 +202,7 @@ angular.module('crwApp').component('rowerOverview', {
             refresh_health_data();
         };
 
+        // Change the shown graph values according to the selected view (watt/split)
         convert_performance_data = function() {
             if($scope.Perfdata.data[0].length !== $scope.performanceData.length)
                 $scope.Perfdata.data[0] = new Array($scope.performanceData.length);
@@ -217,6 +214,7 @@ angular.module('crwApp').component('rowerOverview', {
             }
         };
 
+        // Helper method
         format_time = function(s) {
             var m = s % 60;
             return Math.floor(s / 60) + ':' + (m < 10 ? '0' : '') + m;
@@ -230,7 +228,7 @@ angular.module('crwApp').component('rowerOverview', {
                     $scope.Perfdata.data = [[]];
                     for(var j in response.result) {
                         var training = response.result[j],
-                             date = convert_datetime(training[0]);
+                             date = format_datetime(training[0]);
                         for(var i in training[3]) {
                             var interval = training[3][i];
                             $scope.Perfdata.labels.push(date);
@@ -250,7 +248,7 @@ angular.module('crwApp').component('rowerOverview', {
                     for(var t of response.result) {
                         for(var i of t[3]) {
                             $scope.performance_table_data.push([
-                                convert_datetime(t[0]),
+                                format_datetime(t[0]),
                                 t[1] ? 'ED' : 'AT',
                                 format_time(i[0]),
                                 i[1],
@@ -264,6 +262,8 @@ angular.module('crwApp').component('rowerOverview', {
             });
         };
 
+        // Event handler from overview component.
+        // Updates graph data based on selected view
         $scope.updatePerformanceView = function(n, v) {
             if(v) {
                 $scope.performanceView = v;

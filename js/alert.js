@@ -1,4 +1,4 @@
-// Alert directive
+// Bootstrap alert directive
 angular.module('crwApp').directive('alert', function() {
     return {
         templateUrl: 'components/alert.component.html',
@@ -8,6 +8,7 @@ angular.module('crwApp').directive('alert', function() {
         transclude: true,
         restrict: 'E',
         link: function(scope, el, attrs) {
+            // Bold header to be shown based on alert type
             scope.strong = {
                 danger: 'Error:',
                 warning: 'Warning:',

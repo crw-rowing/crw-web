@@ -1,17 +1,17 @@
 angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 	$scope.addcrewStatus = {
         show: false,
-        clazz: 'danger',
+        type: 'danger',
         text: ''
     };
 	$scope.addcoachStatus = {
 		show: false,
-		clazz: 'danger',
+		type: 'danger',
 		text: ''
 	};
 	$scope.deleterowerStatus = {
 		show: false,
-		clazz: 'danger',
+		type: 'danger',
 		text: ''
 	};
 	
@@ -22,19 +22,19 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 			if('result' in response) {
 				$scope.addcrewStatus = {
                     show: true,
-                    clazz: 'success',
+                    type: 'success',
                     strong: 'Success!',
                     text: 'The rower has been added to your crew.'
 				};
 			} else {
                 $scope.addcrewStatus = {
                     show: true,
-                    clazz: 'danger',
+                    type: 'danger',
                     strong: 'Error:',
                     text: response.error.message
                 };
             }
-		refresh_team_info();
+            refresh_team_info();
 		});
 	};
 	$scope.addcoachHandler = function() {
@@ -49,19 +49,19 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 			if('result' in response) {
 				$scope.addcoachStatus = {
                     show: true,
-                    clazz: 'success',
+                    type: 'success',
                     strong: 'Success!',
                     text: 'The status of this member has been changed.'
 				};
 			} else {
                 $scope.createteamStatus = {
                     show: true,
-                    clazz: 'danger',
+                    type: 'danger',
                     strong: 'Error:',
                     text: response.error.message
                 };
             }
-		refresh_team_info();
+            refresh_team_info();
 		});
 	};
 	
@@ -69,22 +69,21 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 		$scope.deleterowerStatus.show = false;
 		rpc.remove_from_team($scope.deleteroweremail).then(function(response) {
 			if('result' in response) {
-				alert('deleted')
 				$scope.deleterowerStatus = {
                     show: true,
-                    clazz: 'success',
+                    type: 'success',
                     strong: 'Success!',
                     text: 'The rower has been removed from your crew.'
 				};
 			} else {
                 $scope.deleterowerStatus = {
                     show: true,
-                    clazz: 'danger',
+                    type: 'danger',
                     strong: 'Error:',
                     text: response.error.message
                 };
             }
-		refresh_team_info();
+            refresh_team_info();
 		});
 	};
 	
@@ -94,14 +93,12 @@ angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
 			$scope.members = [];
 			if('result' in response) {
 				for(i = 2; i < response.result.length; i++){
-					$scope.members.push(
-					{ "Email" : response.result[i][1],
-					"Coachstat": response.result[i][2]
-					}
-				)
-			}
-		
-		}
+					$scope.members.push({
+                        "Email" : response.result[i][1],
+                        "Coachstat": response.result[i][2]
+					});
+                }
+            }
 		});
 	};
 	refresh_team_info();

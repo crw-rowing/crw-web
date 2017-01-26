@@ -33,6 +33,7 @@ angular.module('crwApp').directive('loginPage', function(rpc) {
                     }
                 });
             };
+
             scope.registerHandler = function() {
                 scope.registerStatus.show = false;
                 rpc.create_account(scope.user, scope.register_pass1).then(function(response) {

@@ -1,8 +1,8 @@
 // RPC service
 angular.module('crwApp').factory('rpc', function($http) {
-    var req_id = 1;
-
-    var rpc = {
+    // Request ID is really not necessary, though it is required by the JSON-RPC spec.
+    var req_id = 1,
+        rpc = {
         call(method, params) {
             var obj = {
                 "jsonrpc": "2.0",
@@ -10,6 +10,8 @@ angular.module('crwApp').factory('rpc', function($http) {
                 "params": params,
                 "id": req_id++
             };
+            
+            // Extension value. Used for authentication
             if('session' in localStorage)
                 obj.session = localStorage.session;
 
@@ -18,6 +20,8 @@ angular.module('crwApp').factory('rpc', function($http) {
                 return response.data;
             });
         },
+
+        // RPC methods
 
         // Auth methods
         login: (user, pass) => rpc.call('login', [user, pass]),

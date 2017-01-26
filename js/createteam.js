@@ -1,9 +1,10 @@
 angular.module('crwApp').controller('createteamController', function($scope, rpc) {
-	 $scope.createteamStatus = {
+    $scope.createteamStatus = {
         show: false,
-        clazz: 'danger',
+        type: 'danger',
         text: ''
     };
+
 	//Submit handler
 	$scope.createteamHandler = function() {
 		$scope.createteamStatus.show = false;
@@ -11,14 +12,14 @@ angular.module('crwApp').controller('createteamController', function($scope, rpc
 			if('result' in response) {
 				$scope.createteamStatus = {
                     show: true,
-                    clazz: 'success',
+                    type: 'success',
                     strong: 'Success!',
                     text: 'Your team has been created.'
 				};
 			} else {
                 $scope.createteamStatus = {
                     show: true,
-                    clazz: 'danger',
+                    type: 'danger',
                     strong: 'Error:',
                     text: response.error.message
                 };

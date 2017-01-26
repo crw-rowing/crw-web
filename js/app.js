@@ -4,8 +4,10 @@ var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
 crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
     $routeProvider.when('/home', {
+        // TODO make this a normal template, no need for component (?)
         template: '<login-page onlogin="onlogin(session)"></login-page>',
     }).when('/rower', {
+        // TODO make this a normal template, no need for component
         template: '<rower-overview></rower-overview>'
     }).when('/coach', {
         templateUrl: 'templates/coach.template.html',
@@ -47,6 +49,7 @@ crwApp.controller('mainController', function($scope, rpc) {
     if('session' in localStorage)
         $scope.onlogin(localStorage.session);
 
+    // Logout button handler
     $scope.logout = function() {
         rpc.logout().then(function(result) {
             $scope.loggedIn = false;
@@ -56,6 +59,7 @@ crwApp.controller('mainController', function($scope, rpc) {
     };
 });
 
+// TODO don't use jquery for this
 $(document).ready(function() {
     $('#toggleMenu').click(function() {
         $('#wrapper').toggleClass('toggled');

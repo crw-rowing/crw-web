@@ -15,12 +15,14 @@ app.directive('overview', function() {
         restrict: 'E',
         controllerAs: '$ctrl',
         controller: function() {
+            // 0: graph, 1: table
             this.pane = 0;
             this.tabClick = function(index) {
                 this.pane = index;
                 this.updateTableView();
             };
 
+            // Subset of tableData, the $ROWS_PER_PAGE records to be shown in the table
             this.tableView = [];
             this.tablePage = 0;
             this.ROWS_PER_PAGE = 7;
@@ -37,6 +39,7 @@ app.directive('overview', function() {
 
             this.updateTableView();
 
+            // Navigate table pages
             this.next = function() {
                 this.tablePage++;
                 this.updateTableView();

@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <h1>Welcome!</h1>
                 <p>You don't have a team yet. If you are a coach create a team, else wait until your coach has added you to his team.</p>
-				<div ng-class="['alert', 'alert-' + createteamStatus.clazz]" ng-show="createteamStatus.show"><strong>{{ createteamStatus.strong }}</strong> {{ createteamStatus.text }}</div>
+				<div ng-class="['alert', 'alert-' + createteamStatus.type]" ng-show="createteamStatus.show"><strong>{{ createteamStatus.strong }}</strong> {{ createteamStatus.text }}</div>
             </div>
         </div>
         <div class="col-md-3">

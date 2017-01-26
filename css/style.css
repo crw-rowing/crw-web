@@ -67,9 +67,9 @@ fieldset[disabled] .btn-crw.focus {
 }
 
 .form-control-feedback {
-      z-index: 3;
+    z-index: 3;
 }
 
 .nav-tabs li a {
-      cursor: pointer;
+    cursor: pointer;
 }
