@@ -23,10 +23,8 @@ angular.module('crwApp').directive('loginPage', function(rpc) {
                 scope.loginError.show = false;
                 rpc.login(scope.user, scope.login_pass).then(function(response) {
                     if('result' in response) {
-                        // Success - store the new session key and open dashboard
-                        localStorage.session = response.result;
-                        scope.onlogin();
-                        window.location = "#!/rower";
+                        // Success - let the app controller know our new session key
+                        scope.onlogin({session: response.result});
                     } else {
                         scope.loginError = {
                             show: true,

@@ -4,7 +4,7 @@ var crwApp = angular.module('crwApp', ['chart.js', 'ngRoute']);
 crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
     $routeProvider.when('/home', {
-        template: '<login-page onlogin="onlogin()"></login-page>',
+        template: '<login-page onlogin="onlogin(session)"></login-page>',
     }).when('/rower', {
         template: '<rower-overview></rower-overview>'
     }).when('/coach', {
@@ -22,15 +22,13 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
 // Main controller
 crwApp.controller('mainController', function($scope, rpc) {
     $scope.loggedIn = false;
-    $scope.onlogin = function() {
-        $scope.loggedIn = true;
-    };
-
-    // Check if user is already logged in
-    if('session' in localStorage)
+    $scope.onlogin = function(session) {
+        // Check if user is logged in
+        localStorage.session = session;
         rpc.user_status().then(function(response) {
             if(response.result[0]) {
                 $scope.loggedIn = true;
+
                 if(response.result[1]) {
                     if(response.result[2])
                         window.location = '#!/coach';
@@ -40,9 +38,14 @@ crwApp.controller('mainController', function($scope, rpc) {
                     window.location = '#!/createteam';
             } else {
                 localStorage.removeItem('session');
+                $scope.loggedIn = false;
                 window.location = '#!/home';
             }
         });
+    };
+
+    if('session' in localStorage)
+        $scope.onlogin(localStorage.session);
 
     $scope.logout = function() {
         rpc.logout().then(function(result) {
