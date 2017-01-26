@@ -1,0 +1,344 @@
+<div id="page-content-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="well-lg well">
+						<div class="row">
+						<div class="col-xs-3">
+							<img src="favicon.ico" class="img-responsive">
+						</div>
+						<div class="col-sm-9" ><h1>Welcome, coach!</h1>
+						<p>Here's an overview of your crew's health & performance</p>
+						</div>						   
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Health graph coach-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>Health Overview</h3>
+						<ul class="nav nav-tabs">
+							<li role="presentation" class="active"><a data-toggle="tab" data-target="#healthgraphcoach">graph</a></li>
+							<li role="presentation"><a data-toggle="tab" data-target="#healthtablecoach">table</a></li>
+						</ul>
+						<div class="table-content">
+							<div id="healthgraphcoach" class="tab-pane fade in active">
+								<div class="row">
+									<div class="col-xs-12">
+									<canvas id="HrGraph" class="chart chart-line"
+										chart-data="healthData.heartrateData"
+										chart-options="healthData.options"
+                                        chart-dataset-override="healthData.heartrateDatasetOverride"
+                                        chart-colors="colors"
+										>
+									</canvas>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-9">
+									</div>
+									<div class="col-xs-3">
+										<div class="btn-group btn-group-xs" data-toggle="buttons">
+											<label class="btn btn-default active">
+												<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+											</label>
+											<label class="btn btn-default">
+												<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+											</label>
+											<label class="btn btn-default">
+												<input type="radio" name="timespan" id="year" autocomplete="off">year
+											</label>
+										</div>	
+									</div>
+								</div>
+							</div>
+									
+							<!--/Healthgraph coach-->
+							<!--Health table-->
+									
+							<div id="healthtablecoach" class="tab-pane fade">
+								<div class ="table-responsive">
+									<div class="options clearfix">
+										<div class="ck-button">
+											<label>
+												<input type="checkbox" value="1" name="rower" checked="checked"><span>Rower</span>
+											</label>
+										</div>
+										<div class="ck-button">
+											<label>
+												<input type="checkbox" value="1" name="date" checked="checked"><span>Date</span>
+											</label>
+										</div>
+										<div class="ck-button">
+											<label>
+												<input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span>
+											</label>
+										</div>
+										<div class="ck-button">
+											<label>
+												<input type="checkbox" value="1" name="feeling"><span>Feeling</span>
+											</label>
+										</div>
+									</div>
+										
+									<table id="htablecoach" class="table table-bordered table-hover table-striped">
+										<thead>
+											<tr>
+											<!-- CLASS TOEVOEGEN -->
+												<th class="rower">Rower</th>
+												<th class="date">Date</th>
+												<th class="heartrate">Resting Heart Rate</th>
+												<th class="feeling">Feeling</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="x in healthData.heartrateTable">
+                                                <td class="member">{{x.member}}</td>
+                                                <td class="date">{{x.date}}</td>
+                                                <td class="hr">{{x.hr}}</td>
+                                                <td class="comment">{{x.comment}}</td>
+                                            </tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+                            <!--/Health table-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="thumbnail">
+						<div class="caption">
+							<h3>Weight Overview</h3>
+							<ul class="nav nav-tabs">
+								<li role="presentation" class="active"><a data-toggle="tab" data-target="#weightgraphcoach">graph</a></li>
+								<li role="presentation"><a data-toggle="tab" data-target="#weighttablecoach">table</a></li>
+							</ul>
+                            <div class="table-content">
+                                <div id="weightgraphcoach" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <canvas id="weightGraph" class="chart chart-line"
+                                                chart-data="healthData.weightData"
+                                                chart-options="healthData.options"
+                                                chart-dataset-override="healthData.weightDatasetOverride"
+                                                chart-colors="colors">
+                                            </canvas>
+                                        </div>								
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="btn-group btn-group-xs" data-toggle="buttons">
+                                                <label class="btn btn-default active">
+                                                    <input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    <input type="radio" name="timespan" id="year" autocomplete="off">year
+                                                   </label>
+                                            </div>
+                                        </div>
+									</div>	
+								</div>
+                                <!--Weight table-->
+                                <div id="weighttablecoach" class="tab-pane fade">
+                                    <div class ="table-responsive">
+                                        <div class="options clearfix">
+                                            <div class="ck-button">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="rower" checked="checked"><span>Rower</span>
+                                                </label>
+                                            </div>
+                                            <div class="ck-button">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="date" checked="checked"><span>Date</span>
+                                                </label>
+                                            </div>
+                                            <div class="ck-button">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="heartrate" checked="checked"><span>Resting Heart Rate</span>
+                                                </label>
+                                            </div>
+                                            <div class="ck-button">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="weight" checked="checked"><span>Weight</span>
+                                                </label>
+                                            </div>
+                                            <div class="ck-button">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="feeling"><span>Feeling</span>
+                                                </label>
+                                            </div>
+                                        </div>
+										
+                                        <table id="wtablecoach" class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                <!-- CLASS TOEVOEGEN -->
+                                                    <th class="rower">Rower</th>
+                                                    <th class="date">Date</th>
+                                                    <th class="weight">Weight</th>
+                                                    <th class="feeling">Feeling</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in healthData.weightTable">
+                                                    <td class="member">{{x.member}}</td>
+                                                    <td class="date">{{x.date}}</td>
+                                                    <td class="weight">{{x.weight}}</td>
+                                                    <td class="comment">{{x.comment}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--/Weight table-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!--/healthoverview-->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="thumbnail">
+						<div class="caption">
+							<h3>Performance</h3>
+							<ul class="nav nav-tabs">
+								<li role="presentation" class="active"><a data-toggle="tab" data-target="#perfgraphcoach">graph</a></li>
+								<li role="presentation"><a data-toggle="tab" data-target="#perftablecoach">table</a></li>
+							</ul>
+                                <div class="table-content">
+                                    <!-- performance graph coach-->
+									<div id="perfgraphcoach" class="tab-pane fade in active">
+										<div class="row">
+											<div class="col-xs-12">
+												<canvas id="trainingGraph" class="chart chart-line"
+                                                    chart-data="trainingData.data"
+                                                    chart-options="trainingData.options"
+                                                    chart-dataset-override="trainingData.datasetOverride"
+                                                    chart-colors="colors">
+                                                </canvas>
+											</div>											
+										</div>
+										<div class="row">
+											<div class="col-xs-6"></div>
+												<div class="col-xs-3">
+													<div class="btn-group btn-group-xs" data-toggle="buttons">
+														<label class="btn btn-default active">
+														<input type="radio" name="power" id="watt" autocomplete="off" checked>watt
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="power" id="split" autocomplete="off">split/500m
+													  </label>
+													</div>	
+												</div>
+												<div class="col-xs-3">
+													<div class="btn-group btn-group-xs" data-toggle="buttons">
+													  <label class="btn btn-default active">
+														<input type="radio" name="timespan" id="week" autocomplete="off" checked>week
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="timespan" id="30days" autocomplete="off">30 days
+													  </label>
+													  <label class="btn btn-default">
+														<input type="radio" name="timespan" id="year" autocomplete="off">year
+													  </label>
+													</div>	
+												</div>
+										</div>
+									</div>
+									<!--/Performance graph coach-->		
+									<!--Performance table coach-->
+												
+									<div id="perftablecoach" class="tab-pane fade">
+										<div class ="table-responsive">
+											<div class=" btn-group" data-toggle="buttons">
+												<label class="btn btn-default ck-button" autocomplete="off"><input type="checkbox" name="name_rower" checked autocomplete="off"><span>Rower</span></label>
+												<label class="btn-default btn"><input type="checkbox" name="date_time" checked autocomplete="off"><span>Date and Time</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="type_training" checked autocomplete="off"><span>Type Training</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="interval" autocomplete="off"><span>Interval #</span></label>
+												<label class="btn btn-default"><input type="checkbox"  name="durance" autocomplete="off"><span>Durance</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="rest" autocomplete="off"><span>Rest</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="pace"autocomplete="off"><span>Pace</span></label>
+												<label class="btn btn-default"><input  type="checkbox" name="watt" checked autocomplete="off"><span>Watt</span></label>
+												<label class="btn btn-default"><input type="checkbox" name="split" autocomplete="off"><span>Split</span></label>				
+												<label class="btn btn-default"><input type="checkbox" name="distance" autocomplete="off"><span>Distance</span></label>
+											</div>
+										
+											<table id="ptablecoach" class="table table-bordered table-hover table-striped">
+												<thead>
+													<tr>
+														<th class="name_rower">Rower</th>
+														<th class="date_time">Date and Time</th>
+														<th class="type_training">Type Training</th>
+														<th class="interval">Interval #</th>
+														<th class="durance">Durance</th>
+														<th class="rest">Rest</th>
+														<th class="pace">Pace</th>
+														<th class="watt">Watt</th>
+														<th class="split">Split</th>
+														<th class="distance">Distance</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<th class="name_rower">Rower 1</th>
+														<th class="date_time">10-1-2017 12.00</th>
+														<th class="type_training">AT</th>
+														<th class="interval">1</th>
+														<th class="durance">50</th>
+														<th class="rest">10</th>
+														<th class="pace">80</th>
+														<th class="watt">250</th>
+														<th class="split">100</th>
+														<th class="distance">5000</th>
+													</tr>
+													<tr>
+														<th class="name_rower">Rower 2</th>
+														<th class="date_time">10-2-2017 12.00</th>
+														<th class="type_training">AT</th>
+														<th class="interval">1</th>
+														<th class="durance">56</th>
+														<th class="rest">13</th>
+														<th class="pace">89</th>
+														<th class="watt">248</th>
+														<th class="split">150</th>
+														<th class="distance">5500</th>
+													</tr>
+													<tr>
+														<th class="name_rower">Rower 3</th>
+														<th class="date_time">14-2-2017 12.00</th>
+														<th class="type_training">AM</th>
+														<th class="interval">3</th>
+														<th class="durance">49</th>
+														<th class="rest">19</th>
+														<th class="pace">93</th>
+														<th class="watt">263</th>
+														<th class="split">140</th>
+														<th class="distance">4900</th>
+													</tr>
+												</tbody>
+											</table>
+										
+										</div>
+									</div>
+									<!--/Performance table coach-->
+										
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

@@ -57,10 +57,17 @@ angular.module('crwApp').directive('loginPage', function(rpc) {
             };
 
             // Navigate to /rower if already logged in.
-            if(localStorage.session)
-                window.location = "#!/rower";
+            if(localStorage.session) {
+                rpc.user_status().then(function(response) {
+                    if(response.result[0] && response.result[1]) {
+                        window.location = "#!/coach";
+                    } else if(response.result[0]) {
+                        window.location = "#!/rower";
+                    } else {
+                        localStorage.clear();
+                    }
+                });
+            }
         }
     };
 });
-
-

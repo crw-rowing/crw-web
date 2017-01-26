@@ -40,6 +40,7 @@ angular.module('crwApp').factory('rpc', function($http) {
         // Training methods
         add_training: (time, type_is_ed, comment, intervals) => rpc.call('add_training', [time, type_is_ed, comment, intervals]),
         get_training_data: (days) => rpc.call('get_my_training_data', [days]),
+        get_team_training_data: (days) => rpc.call('get_team_training_data', [days]),
     };
     return rpc;
 });
