@@ -24,20 +24,22 @@ crwApp.config(['$locationProvider', '$routeProvider', function($locationProvider
 // Main controller
 crwApp.controller('mainController', function($scope, rpc) {
     $scope.loggedIn = false;
+    $scope.hasTeam = false;
+    $scope.isCoach = false;
+
     $scope.onlogin = function(session) {
         // Check if user is logged in
         localStorage.session = session;
         rpc.user_status().then(function(response) {
             if(response.result[0]) {
                 $scope.loggedIn = true;
+                $scope.hasTeam = response.result[1];
+                $scope.isCoach = response.result[2];
 
-                if(response.result[1]) {
-                    if(response.result[2])
-                        window.location = '#!/coach';
-                    else
-                        window.location = '#!/rower';
-                } else
-                    window.location = '#!/createteam';
+                if(response.result[2])
+                    window.location = '#!/coach';
+                else
+                    window.location = '#!/rower';
             } else {
                 localStorage.removeItem('session');
                 $scope.loggedIn = false;

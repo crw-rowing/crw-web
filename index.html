@@ -49,6 +49,10 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#!/rower" ng-show="loggedIn && !isCoach">Rower</a>
+                    <a href="#!/coach" ng-show="loggedIn && hasTeam && isCoach">Coach</a>
+                    <a href="#!/createteam" ng-show="loggedIn && !hasTeam">Create a team</a>
+                    <a href="#!/addcrew" ng-show="loggedIn && hasTeam && isCoach">Manage your team</a>
                     <a href="#" ng-show="loggedIn" ng-click="logout()">Log out</a>
                 </li>
             </ul>
