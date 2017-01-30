@@ -95,6 +95,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     };
 
     $scope.updateHealthData = function() {
+        $scope.crew.push('average');
         $scope.HRdata.series = $scope.crew;
 
         var dates = [];
@@ -105,6 +106,13 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
 
         dates = mergeAndSortDateList(dates);
         $scope.HRdata.labels = dates.map(d => d.day + '-' + d.month);
+
+        var avgs = [];
+        for(var i in dates)
+            avgs.push({
+                total: 0,
+                count: 0
+            });
 
         $scope.HRdata.data = [];
         $scope.HRdata.datasetOverride = [];
@@ -123,8 +131,11 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                 for(var i = 0; i < row.length; ++i) {
                     if(dates[i].year === date.year &&
                        dates[i].month === date.month &&
-                       dates[i].day === date.day)
+                       dates[i].day === date.day) {
                         row[i] = hr;
+                        avgs[i].count++;
+                        avgs[i].total += hr;
+                    }
                 }
             }
             $scope.HRdata.data.push(row);
@@ -139,6 +150,17 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             dOverride.pointHoverBackgroundColor = 'hsla(' + hue + ', 100%, 70%, 0.4)';
             $scope.HRdata.datasetOverride.push(dOverride);
         }
+
+        avgs = avgs.map(x => x.count > 0 ? x.total / x.count : null);
+        $scope.HRdata.data.push(avgs);
+        var dOverride = angular.copy($scope.datasetOverride);
+        dOverride.borderColor = 'rgba(0,0,0,0.8)';
+        dOverride.backgroundColor = 'rgba(0,0,0,0.8)';
+        dOverride.pointBorderColor = 'rgba(0,0,0,0.4)';
+        dOverride.pointHoverBorderColor = 'rgba(0,0,0,0.4)';
+        dOverride.pointHoverBackgroundColor = 'rgba(0,0,0,0.4)';
+        dOverride.borderDash = [10, 10];
+        $scope.HRdata.datasetOverride.push(dOverride);
     };
 
     $scope.refreshHealthData();
