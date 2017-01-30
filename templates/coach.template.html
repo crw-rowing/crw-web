@@ -262,27 +262,14 @@
 												
 									<div id="perftablecoach" class="tab-pane fade">
 										<div class ="table-responsive">
-											<div class=" btn-group" data-toggle="buttons">
-												<label class="btn btn-default ck-button" autocomplete="off"><input type="checkbox" name="name_rower" checked autocomplete="off"><span>Rower</span></label>
-												<label class="btn-default btn"><input type="checkbox" name="date_time" checked autocomplete="off"><span>Date and Time</span></label>
-												<label class="btn btn-default"><input type="checkbox" name="type_training" checked autocomplete="off"><span>Type Training</span></label>
-												<label class="btn btn-default"><input type="checkbox" name="interval" autocomplete="off"><span>Interval #</span></label>
-												<label class="btn btn-default"><input type="checkbox"  name="durance" autocomplete="off"><span>Durance</span></label>
-												<label class="btn btn-default"><input type="checkbox" name="rest" autocomplete="off"><span>Rest</span></label>
-												<label class="btn btn-default"><input type="checkbox" name="pace"autocomplete="off"><span>Pace</span></label>
-												<label class="btn btn-default"><input  type="checkbox" name="watt" checked autocomplete="off"><span>Watt</span></label>
-												<label class="btn btn-default"><input type="checkbox" name="split" autocomplete="off"><span>Split</span></label>				
-												<label class="btn btn-default"><input type="checkbox" name="distance" autocomplete="off"><span>Distance</span></label>
-											</div>
-										
 											<table id="ptablecoach" class="table table-bordered table-hover table-striped">
 												<thead>
 													<tr>
-														<th class="name_rower">Rower</th>
+														<th class="rower">Rower</th>
 														<th class="date_time">Date and Time</th>
 														<th class="type_training">Type Training</th>
 														<th class="interval">Interval #</th>
-														<th class="durance">Durance</th>
+														<th class="duration">Duration</th>
 														<th class="rest">Rest</th>
 														<th class="pace">Pace</th>
 														<th class="watt">Watt</th>
@@ -291,41 +278,16 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<th class="name_rower">Rower 1</th>
-														<th class="date_time">10-1-2017 12.00</th>
-														<th class="type_training">AT</th>
-														<th class="interval">1</th>
-														<th class="durance">50</th>
-														<th class="rest">10</th>
-														<th class="pace">80</th>
-														<th class="watt">250</th>
-														<th class="split">100</th>
-														<th class="distance">5000</th>
-													</tr>
-													<tr>
-														<th class="name_rower">Rower 2</th>
-														<th class="date_time">10-2-2017 12.00</th>
-														<th class="type_training">AT</th>
-														<th class="interval">1</th>
-														<th class="durance">56</th>
-														<th class="rest">13</th>
-														<th class="pace">89</th>
-														<th class="watt">248</th>
-														<th class="split">150</th>
-														<th class="distance">5500</th>
-													</tr>
-													<tr>
-														<th class="name_rower">Rower 3</th>
-														<th class="date_time">14-2-2017 12.00</th>
-														<th class="type_training">AM</th>
-														<th class="interval">3</th>
-														<th class="durance">49</th>
-														<th class="rest">19</th>
-														<th class="pace">93</th>
-														<th class="watt">263</th>
-														<th class="split">140</th>
-														<th class="distance">4900</th>
+													<tr ng-repeat = "x in trainingData.trainingTable">
+														<td class="rower">{{x.member}}</td>
+														<td class="date_time">{{x.date}}</td>
+														<td class="type_training">{{x.typetraining}}</td>
+														<td class="duration">{x.duration}}</td>
+														<td class="rest">{{x.rest}}</td>
+														<td class="pace">{{x.pace}}</td>
+														<td class="watt">{{x.watt}}</td>
+														<td class="split">{{x.split}}</td>
+														<td class="distance">{{x.distance}}</td>
 													</tr>
 												</tbody>
 											</table>

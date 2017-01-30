@@ -241,6 +241,17 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                            var powerAverage = powerTotal / (trainingEntry[3].length);
                            var date = new Date(trainingEntry[0].year, trainingEntry[0].month -1, trainingEntry[0].day, trainingEntry[0].hour, trainingEntry[0].minute);
                            $scope.trainingData.datasetOverride[i].data.push({x: date, y: powerAverage})
+						   $scope.trainingData.trainingTable.push(
+                                    { "member" : userEntry[0],
+                                      "date" : "x",
+                                      "typetraining" : "x",
+									  "duration" : "x",
+									  "rest" : "x",
+									  "pace" : "x",
+									  "watt" : "x",
+									  "split" : "x",
+									  "distance" : "x"
+                                    })
                        }
                    }
                 }
