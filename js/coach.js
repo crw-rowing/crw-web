@@ -95,9 +95,11 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     };
 
     $scope.updateHealthData = function() {
+        // Add average series
         $scope.crew.push('average');
         $scope.HRdata.series = $scope.crew;
 
+        // Accumulate dates and order them correctly
         var dates = [];
         for(var rower of $scope.healthRows) {
             for(var d of rower[1])
@@ -107,16 +109,19 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         dates = mergeAndSortDateList(dates);
         $scope.HRdata.labels = dates.map(d => d.day + '-' + d.month);
 
-        var avgs = [];
+        // Initialize average counters
+        var hrAvg = [];
         for(var i in dates)
-            avgs.push({
+            hrAvg.push({
                 total: 0,
                 count: 0
             });
 
+        // Clear graph data
         $scope.HRdata.data = [];
         $scope.HRdata.datasetOverride = [];
 
+        // Counter used for HSL coloring
         var c = 0;
         for(var rower of $scope.healthRows) {
             var row = [];
@@ -124,41 +129,52 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             for(var d of dates)
                 row.push(null);
 
+            // Add all health data in the right places
             for(var h of rower[1]) {
                 var date = h[0],
                     hr = h[1];
 
+                // Find the right column index
                 for(var i = 0; i < row.length; ++i) {
                     if(dates[i].year === date.year &&
-                       dates[i].month === date.month &&
-                       dates[i].day === date.day) {
+                            dates[i].month === date.month &&
+                            dates[i].day === date.day) {
                         row[i] = hr;
-                        avgs[i].count++;
-                        avgs[i].total += hr;
+                        hrAvg[i].count++;
+                        hrAvg[i].total += hr;
                     }
                 }
             }
             $scope.HRdata.data.push(row);
             
-            var dOverride = angular.copy($scope.datasetOverride);
+            // color the series
+            var hue = ((c++) * 220) % 360,
+                hsl = 'hsl(' + hue + ', 100%, 70%)',
+                hsla = 'hsla(' + hue + ', 100%, 70%, 0.4)',
+                dOverride = angular.copy($scope.datasetOverride);
 
-            var hue = ((c++) * 220) % 360;
-            dOverride.borderColor = 'hsl(' + hue + ', 100%, 70%)';
-            dOverride.backgroundColor = 'hsl(' + hue + ', 100%, 70%)';
-            dOverride.pointBorderColor = 'hsla(' + hue + ', 100%, 70%, 0.4)';
-            dOverride.pointHoverBorderColor = 'hsla(' + hue + ', 100%, 70%, 0.4)';
-            dOverride.pointHoverBackgroundColor = 'hsla(' + hue + ', 100%, 70%, 0.4)';
+            dOverride.borderColor = hsl;
+            dOverride.backgroundColor = hsl;
+            dOverride.pointBorderColor = hsla;
+            dOverride.pointHoverBorderColor = hsla;
+            dOverride.pointHoverBackgroundColor = hsla;
+
             $scope.HRdata.datasetOverride.push(dOverride);
         }
 
-        avgs = avgs.map(x => x.count > 0 ? x.total / x.count : null);
-        $scope.HRdata.data.push(avgs);
-        var dOverride = angular.copy($scope.datasetOverride);
-        dOverride.borderColor = 'rgba(0,0,0,0.8)';
-        dOverride.backgroundColor = 'rgba(0,0,0,0.8)';
-        dOverride.pointBorderColor = 'rgba(0,0,0,0.4)';
-        dOverride.pointHoverBorderColor = 'rgba(0,0,0,0.4)';
-        dOverride.pointHoverBackgroundColor = 'rgba(0,0,0,0.4)';
+        // calculate the averages and fill them in
+        hrAvg = hrAvg.map(x => x.count > 0 ? x.total / x.count : null);
+        $scope.HRdata.data.push(hrAvg);
+
+        var dOverride = angular.copy($scope.datasetOverride),
+            bc = 'rgba(0,0,0,0.8)',
+            pbc = 'rgba(0,0,0,0.4)';
+
+        dOverride.borderColor = bc;
+        dOverride.backgroundColor = bc;
+        dOverride.pointBorderColor = pbc;
+        dOverride.pointHoverBorderColor = pbc; 
+        dOverride.pointHoverBackgroundColor = pbc;
         dOverride.borderDash = [10, 10];
         $scope.HRdata.datasetOverride.push(dOverride);
     };
