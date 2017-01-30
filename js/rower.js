@@ -250,11 +250,11 @@ angular.module('crwApp').component('rowerOverview', {
                             $scope.performance_table_data.push([
                                 format_datetime(t[0]),
                                 t[1] ? 'ED' : 'AT',
-                                format_time(i[0]),
+                                i[0] && format_time(i[0]),
                                 i[1],
-                                Math.round(Math.pow(3.5e9 / i[1], 1/3)),
+                                i[1] && Math.round(Math.pow(3.5e9 / i[1], 1/3)),
                                 i[2],
-                                format_time(i[3].seconds)
+                                i[3] && format_time(i[3].seconds)
                             ]);
                         }
                     }
