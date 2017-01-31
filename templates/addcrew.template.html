@@ -52,7 +52,7 @@
                                     <div class="input-group input-group-xs">
                                         <input ng-model="newRowerEmail" ng-disabled="newRowerSubmitting" class="form-control" type="email" ng-model="addRowerEmail" placeholder="Add a {{ newRowerCoach ? 'coach' : 'rower' }}..." />
                                         <span class="input-group-btn">
-                                            <a class="btn btn-default" ng-click="toggleNewRowerCoach()" title="{{ newRowerCoach ? 'Coach' : 'User' }}">
+                                            <a class="btn btn-default" ng-click="toggleNewRowerCoach()" title="{{ newRowerCoach ? 'Coach' : 'Rower' }}">
                                                 <i ng-class="['glyphicon', {'glyphicon-bullhorn': newRowerCoach, 'glyphicon-user': !newRowerCoach}]"></i>
                                             </a>
                                             <button type="submit" class="btn btn-primary" title="Add">
