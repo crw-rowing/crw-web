@@ -41,7 +41,11 @@
                     crw-id="coach-performance"
                     view="['watt', 'split']"
                     chart-data="performanceData"
-                    on-update-view="updatePerformanceView(timespan, view)" />
+                    on-update-view="updatePerformanceView(timespan, view)"
+                    table-filter="crew"
+                    table-columns="[]"
+                    table-data="[]"
+                    on-update-filter="updatePerformanceFilter(filter)" />
             </div>
         </div>
     </div>

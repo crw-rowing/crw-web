@@ -40,6 +40,15 @@
             </div>
         </div>
         <div ng-show="$ctrl.pane == 1" id="table-{{ crwId }}" class="tab-pane fade">
+            <div class="row" style="margin-top: 1em;">
+                <div class="col-xs-12" ng-show="tableFilter">
+                    <div class="btn-group btn-group-xs" data-toggle="buttons">
+                        <label ng-class="['btn', 'btn-default', {active: $index === 0}]" ng-repeat="f in tableFilter track by $index" ng-click="updateTableFilter({filter: f})">
+                            <input name="filter" type="radio">{{ f }}
+                        </label>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-hover table-striped">
                     <thead>

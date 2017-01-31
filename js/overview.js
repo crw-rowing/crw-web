@@ -8,7 +8,9 @@ app.directive('overview', function() {
             chartData: '<',
             view: '<',
             updateView: '&onUpdateView',
-            tableColumns: '<'
+            tableColumns: '<',
+            tableFilter: '<',
+            updateTableFilter: '&onUpdateFilter'
         },
         bindToController: {
             tableData: '<'

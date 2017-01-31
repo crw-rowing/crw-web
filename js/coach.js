@@ -100,11 +100,14 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     $scope.performanceTimespan = 7;
     $scope.performanceView = 'watt';
 
+    $scope.crew = [];
+
     // Returns all graph data for the specified tracked variable
     function createGraphData(rowers, getVal) {
         var out = angular.copy($scope.baseGraphData);
 
         var crew = rowers.map(r => r[0]);
+        $scope.crew = angular.copy(crew);
         crew.push('average');
 
         out.series = crew;
@@ -305,5 +308,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         if(timespan) $scope.performanceTimespan = timespan;
         if(view) $scope.performanceView = view;
         $scope.refreshPerformanceData(!view || view === 'watt');
+    };
+
+    $scope.updatePerformanceFilter = function(filter) {
     };
 });
