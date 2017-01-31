@@ -1,6 +1,8 @@
 angular.module('crwApp').controller('coachController', function($scope, rpc) {
+    // Helper function to create a sorted date list from all rower data
     function mergeAndSortDateList(dates) {
         var isDateTime = dates[0].__type__ === 'datetime',
+            // Convert all dicts to Date instances to allow sorting
             a = dates.map(d => {
                 if(isDateTime)
                     return new Date(d.year, d.month - 1, d.day, d.hours, d.minutes, d.seconds);
@@ -9,6 +11,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             });
 
         a = a.sort((a, b) => a - b);
+
+        // Filter out uniques
         var out = [];
         for(var d of a) {
             var inc = false;
@@ -19,6 +23,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                 out.push(d);
         }
 
+        // Convert back to dicts
         return out.map(d => {
             if(isDateTime)
                 return {
@@ -40,6 +45,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         });
     }
 
+    // Base series styling
     $scope.datasetOverride = {
         yAxisID: 'y-axis-1',
         fill: false,
@@ -57,6 +63,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         spanGaps: false,
     };
 
+    // Base graph data to be copied to the graphs
     $scope.baseGraphData = {
         labels: [],
         series: [],
@@ -79,16 +86,14 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         }
     };
 
-    $scope.weightData = angular.copy($scope.HRdata);
-
-    $scope.crew = [];
-
+    // Table data
     $scope.hrTableColumns = [];
     $scope.hrTableRows = [];
 
     $scope.weightTableColumns = [];
     $scope.weightTableRows = [];
 
+    // Timespans
     $scope.hrTimespan = 7;
     $scope.weightTimespan = 7;
 
@@ -201,11 +206,11 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         // Table data
         // TODO
         rpc.get_team_health_data(365).then(function(response) {
-            $scope.crew = response.result.map(r => r[0]);
+            var crew = response.result.map(r => r[0]);
 
             $scope.hrTableColumns = ['date'];
             $scope.hrTableColumns.push('average');
-            Array.prototype.push.apply($scope.hrTableColumns, $scope.crew);
+            Array.prototype.push.apply($scope.hrTableColumns, crew);
 
             $scope.weightTableColumns = $scope.hrTableColumns;
 
@@ -254,7 +259,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                     else
                         r.push(null);
 
-                    for(var c of $scope.crew) {
+                    for(var c of crew) {
                         if(d in data && c in data[d])
                             r.push(data[d][c]);
                         else
