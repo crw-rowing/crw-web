@@ -1,105 +1,79 @@
 angular.module('crwApp').controller('addcrewController', function($scope, rpc) {
-	$scope.addcrewStatus = {
+	$scope.error = {
         show: false,
-        type: 'danger',
         text: ''
     };
-	$scope.addcoachStatus = {
-		show: false,
-		type: 'danger',
-		text: ''
-	};
-	$scope.deleterowerStatus = {
-		show: false,
-		type: 'danger',
-		text: ''
-	};
-	
-	//Submit handlers
-	$scope.addcrewHandler = function() {
-		$scope.addcrewStatus.show = false;
-		rpc.add_to_team($scope.addroweremail).then(function(response) {
-			if('result' in response) {
-				$scope.addcrewStatus = {
-                    show: true,
-                    type: 'success',
-                    strong: 'Success!',
-                    text: 'The rower has been added to your crew.'
-				};
-			} else {
-                $scope.addcrewStatus = {
-                    show: true,
-                    type: 'danger',
-                    strong: 'Error:',
-                    text: response.error.message
-                };
-            }
-            refresh_team_info();
-		});
-	};
-	$scope.addcoachHandler = function() {
-		$scope.addcoachStatus.show = false;
-		var coach = false;
-		if (document.getElementById('rowerbtn').checked){
-			coach = false;
-		}else if(document.getElementById('coachbtn').checked){
-			coach = true;
-		}
-		rpc.set_coach_status($scope.coachemail, coach).then(function(response) {
-			if('result' in response) {
-				$scope.addcoachStatus = {
-                    show: true,
-                    type: 'success',
-                    strong: 'Success!',
-                    text: 'The status of this member has been changed.'
-				};
-			} else {
-                $scope.createteamStatus = {
-                    show: true,
-                    type: 'danger',
-                    strong: 'Error:',
-                    text: response.error.message
-                };
-            }
-            refresh_team_info();
-		});
-	};
-	
-	$scope.deleterowerHandler = function() {
-		$scope.deleterowerStatus.show = false;
-		rpc.remove_from_team($scope.deleteroweremail).then(function(response) {
-			if('result' in response) {
-				$scope.deleterowerStatus = {
-                    show: true,
-                    type: 'success',
-                    strong: 'Success!',
-                    text: 'The rower has been removed from your crew.'
-				};
-			} else {
-                $scope.deleterowerStatus = {
-                    show: true,
-                    type: 'danger',
-                    strong: 'Error:',
-                    text: response.error.message
-                };
-            }
-            refresh_team_info();
-		});
-	};
-	
-	
-	refresh_team_info = function() {
+
+    $scope.members = [];
+
+	function refreshTeamInfo() {
 		rpc.team_info().then(function(response) {
-			$scope.members = [];
 			if('result' in response) {
-				for(i = 2; i < response.result.length; i++){
-					$scope.members.push({
-                        "Email" : response.result[i][1],
-                        "Coachstat": response.result[i][2]
-					});
-                }
+                $scope.members = response.result.slice(2).map(x => Object({
+                    email: x[1],
+                    coach: x[2]
+                }));
+            } else {
+                $scope.error = {
+                    show: true,
+                    text: response.error.message
+                };
             }
 		});
 	};
-	refresh_team_info();
+	refreshTeamInfo();
+	
+    $scope.newRowerEmail = '';
+    $scope.newRowerCoach = false;
+    $scope.newRowerSubmitting = false;
+    $scope.toggleNewRowerCoach = function() {
+        $scope.newRowerCoach = !$scope.newRowerCoach;
+    };
+
+    $scope.addUser = function() {
+        $scope.error.show = false;
+        $scope.newRowerSubmitting = true;
+        rpc.add_to_team($scope.newRowerEmail).then(function(response) {
+            function resume() {
+                $scope.newRowerSubmitting = false;
+                $scope.newRowerEmail = '';
+                refreshTeamInfo();
+            }
+
+            if('result' in response) {
+                if($scope.newRowerCoach)
+                    rpc.set_coach_status($scope.newRowerEmail, true).then(resume);
+                else resume();
+            } else {
+                $scope.error = {
+                    show: true,
+                    text: response.error.message
+                };
+                resume();
+            }
+        });
+    };
+
+    $scope.toggleCoach = function(x) {
+        $scope.error.show = false;
+        rpc.set_coach_status(x.email, !x.coach).then(function(response) {
+            if('result' in response)
+                refreshTeamInfo();
+            else $scope.error = {
+                show: true,
+                text: response.error.message
+            };
+        });
+    };
+
+    $scope.removeUser = function(x) {
+        rpc.remove_from_team(x.email).then(function(response) {
+            if('result' in response)
+                refreshTeamInfo();
+            else $scope.error = {
+                show: true,
+                text: response.error.message
+            };
+        });
+    };
 });

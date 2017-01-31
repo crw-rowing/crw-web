@@ -4,121 +4,66 @@
 			<div class="col-lg-6">
 				<div class="well-lg well">
 					<div class="row">
-						<div class="col-sm-7" ><h1>Welcome, coach!</h1>
-							<p>You can add your crew here.</p>
-						</div>
-						<div class="col-md-5">
-							<div class="row">
-								<div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#addcrew">Add your crew</button></div>
-							</div>
-							<div class="row">
-								<div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#makecoach">Change status of member</button></div>
-							</div>
-							<div class="row">
-								<div><button class="btn btn-lg btn-block btn-crw" data-toggle="modal" data-target="#deleterower">Delete team member</button></div>
-							</div>
-						</div>								   
+                        <div class="col-xs-3">
+                            <img src="favicon.ico" class="img-responsive">
+                        </div>
+                        <div class="col-xs-9">
+                            <h1>Welcome, coach!</h1>
+                            <p>You can manage your crew here.</p>
+                        </div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="modal fade" id="addcrew" tabindex="-1" role="dialog" aria-labelledby="addcrew">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h3 class="modal-title" id="addcrew">Add your crew</h3>
-					</div>
-
-				<div class="modal-body">
-					<div class="caption">
-						<div class="form-group">
-							<label for="inputcrewmember">E-mail adress</label>
-							<input type="text" class="inputcrewmember form-control" ng-model="addroweremail" placeholder="Enter the e-mail adress of the member you want to add here."></label>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="form-group">
-						<button type="submit" class="btn btn-crw" ng-click="addcrewHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<div class="modal fade" id="makecoach" tabindex="-1" role="dialog" aria-labelledby="makecoach">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h3 class="modal-title" id="addcrew">Add coach</h3>
-					</div>
-					<div class="modal-body">
-						<div class="caption">
-							<form>
-								<div class="form-group">
-									<label for="inputcrewcoach">Change status.</label>
-									<input type="text" class="inputcrewcoach form-control" ng-model="coachemail" placeholder="Enter the e-mail adress of the member you want to change the status of."></label>
-								</div>
-								<div class="form-group">
-									<label class="radio-inline"><input type="radio" name="optradio" id="rowerbtn" checked="checked">Rower</label>
-									<label class="radio-inline"><input type="radio" name="optradio" id="coachbtn">Coach</label>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-crw" ng-click="addcoachHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="modal fade" id="deleterower" tabindex="-1" role="dialog" aria-labelledby="deleterower">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h3 class="modal-title" id="deleterower">Delete a rower</h3>
-					</div>
-
-				<div class="modal-body">
-					<div class="caption">
-						<div class="form-group">
-							<label for="inputdeleterower">E-mail adress</label>
-							<input type="text" class="inputdeleterower form-control" ng-model="deleteroweremail" placeholder="Enter the e-mail adress of the member you want to remove from your team here."></label>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="form-group">
-						<button type="submit" class="btn btn-crw" ng-click="deleterowerHandler()" data-dismiss="modal"><span aria-hidden="true"></span>Submit</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		
-		<div ng-class="['alert', 'alert-' + addcrewStatus.type]" ng-show="addcrewStatus.show"><strong>{{ addcrewStatus.strong }}</strong> {{ addcrewStatus.text }}</div>
-		<div ng-class="['alert', 'alert-' + addcoachStatus.type]" ng-show="addcoachStatus.show"><strong>{{ addcoachStatus.strong }}</strong> {{ addcoachStatus.text }}</div>
-		<div ng-class="['alert', 'alert-' + deleterowerStatus.type]" ng-show="deleterowerStatus.show"><strong>{{ deleterowerStatus.strong }}</strong> {{ deleterowerStatus.text }}</div>
+        <div class="row">
+            <div class="col-md-6">
+                <alert ng-show="error.show" type="danger">{{ error.text }}</alert>
+            </div>
+        </div>
 					
 		<div class="row">
 			<div class="col-md-6">
-				<table id="yourcrew" class="table table-bordered table-hover table-striped table-responsive">
+				<table class="table table-bordered table-hover table-striped table-responsive">
 					<thead>
 						<tr>
-							<th class="email">Name</th>
-							<th class="coach">Coach</th>
+							<th>
+                                E-mail
+                                <span class="pull-right">
+                                    Actions
+                                </span>
+                            </th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="x in members">
-							<td class="email">{{x.Email}}</td>
-							<td class="coach"><input type="checkbox" ng-model="x.Coachstat" disabled /></td>
+						<tr ng-repeat="x in members | orderBy: 'email'">
+							<td>{{ x.email }}
+                                <div class="pull-right btn-group btn-group-xs">
+                                    <a ng-click="toggleCoach(x)" title="Coach" class="btn btn-default"><i ng-class="['glyphicon', {'glyphicon-bullhorn': x.coach, 'glyphicon-user': !x.coach}]"></i> {{ x.coach ? 'Coach' : 'Rower' }}</a>
+                                    <a ng-click="removeUser(x)" title="Remove" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </td>
 						</tr>
-					</tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <form ng-submit="addUser()">
+                                    <div class="input-group input-group-xs">
+                                        <input ng-model="newRowerEmail" ng-disabled="newRowerSubmitting" class="form-control" type="email" ng-model="addRowerEmail" placeholder="Add a {{ newRowerCoach ? 'coach' : 'rower' }}..." />
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-default" ng-click="toggleNewRowerCoach()" title="{{ newRowerCoach ? 'Coach' : 'User' }}">
+                                                <i ng-class="['glyphicon', {'glyphicon-bullhorn': newRowerCoach, 'glyphicon-user': !newRowerCoach}]"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-primary" title="Add">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>			
