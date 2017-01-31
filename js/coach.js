@@ -58,9 +58,10 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointHoverBorderWidth: 2,
+        pointHoverBackgroundColor: '#fff',
         pointRadius: 1,
         pointHitRadius: 10,
-        spanGaps: false,
+        spanGaps: true,
     };
 
     // Base graph data to be copied to the graphs
@@ -97,8 +98,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     $scope.hrTimespan = 7;
     $scope.weightTimespan = 7;
 
-    // Returns all graph data for the specified tracked variable (1: hr, 2: weight)
-    function createGraphData(rowers, ind) {
+    // Returns all graph data for the specified tracked variable
+    function createGraphData(rowers, getVal) {
         var out = angular.copy($scope.baseGraphData);
 
         var crew = rowers.map(r => r[0]);
@@ -136,7 +137,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             // Add all health data in the right places
             for(var h of rower[1]) {
                 var date = h[0],
-                    val = h[ind];
+                    val = getVal(h);
 
                 // Find the right column index
                 for(var i = 0; i < dates.length; ++i) {
@@ -155,28 +156,24 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             // color the series
             var hue = ((c++) * 220) % 360,
                 hsl = 'hsl(' + hue + ', 100%, 70%)',
-                hsla = 'hsla(' + hue + ', 100%, 70%, 0.4)',
                 dOverride = angular.copy($scope.datasetOverride);
 
             dOverride.borderColor = hsl;
             dOverride.backgroundColor = hsl;
-            dOverride.pointBorderColor = hsla;
-            dOverride.pointHoverBorderColor = hsla;
-            dOverride.pointHoverBackgroundColor = hsla;
+            dOverride.pointBorderColor = hsl;
+            dOverride.pointHoverBorderColor = hsl;
 
             out.datasetOverride.push(dOverride);
         }
 
         // calculate the averages and fill them in
         var dOverride = angular.copy($scope.datasetOverride),
-            bc = 'rgba(0,0,0,0.8)',
-            pbc = 'rgba(0,0,0,0.4)';
+            bc = 'rgba(0,0,0,0.8)';
 
         dOverride.borderColor = bc;
         dOverride.backgroundColor = bc;
-        dOverride.pointBorderColor = pbc;
-        dOverride.pointHoverBorderColor = pbc; 
-        dOverride.pointHoverBackgroundColor = pbc;
+        dOverride.pointBorderColor = bc;
+        dOverride.pointHoverBorderColor = bc; 
         dOverride.borderDash = [10, 10];
         
         avg = avg.map(x => x.count > 0 ? x.total / x.count : null);
@@ -189,13 +186,13 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     // Graph data
     $scope.refreshHRData = function() {
         rpc.get_team_health_data($scope.hrTimespan).then(function(response) {
-            $scope.HRdata = createGraphData(response.result, 1);
+            $scope.HRdata = createGraphData(response.result, h => h[1]);
         });
     };
 
     $scope.refreshWeightData = function() {
         rpc.get_team_health_data($scope.weightTimespan).then(function(response) {
-            $scope.weightData = createGraphData(response.result, 2);
+            $scope.weightData = createGraphData(response.result, h => h[2]);
         });
     };
 
