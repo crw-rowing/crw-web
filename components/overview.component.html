@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="r in $ctrl.tableView">
-                            <td class="text-center" ng-repeat="d in r">
+                            <td class="text-center" ng-repeat="d in r track by $index">
                                 {{ d }}
                             </td>
                         </tr>

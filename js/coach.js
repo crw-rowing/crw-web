@@ -57,7 +57,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         spanGaps: false,
     };
 
-    $scope.HRdata = {
+    $scope.baseGraphData = {
         labels: [],
         series: [],
         data: [],
@@ -79,73 +79,73 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         }
     };
 
+    $scope.weightData = angular.copy($scope.HRdata);
+
     $scope.crew = [];
-    $scope.healthRows = [];
+
+    $scope.hrTableColumns = [];
+    $scope.hrTableRows = [];
+
+    $scope.weightTableColumns = [];
+    $scope.weightTableRows = [];
 
     $scope.hrTimespan = 7;
     $scope.weightTimespan = 7;
 
-    $scope.refreshHealthData = function() {
-        rpc.get_team_health_data(Math.max($scope.hrTimespan, $scope.weightTimespan)).then(function(response) {
-            $scope.crew = response.result.map(r => r[0]);
-            $scope.healthRows = response.result;
+    // Returns all graph data for the specified tracked variable (1: hr, 2: weight)
+    function createGraphData(rowers, ind) {
+        var out = angular.copy($scope.baseGraphData);
 
-            $scope.updateHealthData();
-        });
-    };
+        var crew = rowers.map(r => r[0]);
+        crew.push('average');
 
-    $scope.updateHealthData = function() {
-        // Add average series
-        $scope.crew.push('average');
-        $scope.HRdata.series = $scope.crew;
+        out.series = crew;
 
         // Accumulate dates and order them correctly
         var dates = [];
-        for(var rower of $scope.healthRows) {
+        for(var rower of rowers)
             for(var d of rower[1])
                 dates.push(d[0]);
-        }
 
         dates = mergeAndSortDateList(dates);
-        $scope.HRdata.labels = dates.map(d => d.day + '-' + d.month);
+        out.labels = dates.map(d => d.day + '-' + d.month);
 
         // Initialize average counters
-        var hrAvg = [];
+        var avg = [];
         for(var i in dates)
-            hrAvg.push({
+            avg.push({
                 total: 0,
                 count: 0
             });
 
-        // Clear graph data
-        $scope.HRdata.data = [];
-        $scope.HRdata.datasetOverride = [];
+        out.data = [];
 
         // Counter used for HSL coloring
         var c = 0;
-        for(var rower of $scope.healthRows) {
-            var row = [];
+        for(var rower of rowers) {
+            var series = [];
 
             for(var d of dates)
-                row.push(null);
+                series.push(null);
 
             // Add all health data in the right places
             for(var h of rower[1]) {
                 var date = h[0],
-                    hr = h[1];
+                    val = h[ind];
 
                 // Find the right column index
-                for(var i = 0; i < row.length; ++i) {
+                for(var i = 0; i < dates.length; ++i) {
                     if(dates[i].year === date.year &&
                             dates[i].month === date.month &&
                             dates[i].day === date.day) {
-                        row[i] = hr;
-                        hrAvg[i].count++;
-                        hrAvg[i].total += hr;
+                        series[i] = val;
+                        avg[i].count++;
+                        avg[i].total += val;
                     }
                 }
             }
-            $scope.HRdata.data.push(row);
+
+            out.data.push(series);
             
             // color the series
             var hue = ((c++) * 220) % 360,
@@ -159,13 +159,10 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             dOverride.pointHoverBorderColor = hsla;
             dOverride.pointHoverBackgroundColor = hsla;
 
-            $scope.HRdata.datasetOverride.push(dOverride);
+            out.datasetOverride.push(dOverride);
         }
 
         // calculate the averages and fill them in
-        hrAvg = hrAvg.map(x => x.count > 0 ? x.total / x.count : null);
-        $scope.HRdata.data.push(hrAvg);
-
         var dOverride = angular.copy($scope.datasetOverride),
             bc = 'rgba(0,0,0,0.8)',
             pbc = 'rgba(0,0,0,0.4)';
@@ -176,13 +173,110 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         dOverride.pointHoverBorderColor = pbc; 
         dOverride.pointHoverBackgroundColor = pbc;
         dOverride.borderDash = [10, 10];
-        $scope.HRdata.datasetOverride.push(dOverride);
+        
+        avg = avg.map(x => x.count > 0 ? x.total / x.count : null);
+        out.data.push(avg);
+        out.datasetOverride.push(dOverride);
+
+        return out;
+    }
+
+    // Graph data
+    $scope.refreshHRData = function() {
+        rpc.get_team_health_data($scope.hrTimespan).then(function(response) {
+            $scope.HRdata = createGraphData(response.result, 1);
+        });
     };
 
-    $scope.refreshHealthData();
+    $scope.refreshWeightData = function() {
+        rpc.get_team_health_data($scope.weightTimespan).then(function(response) {
+            $scope.weightData = createGraphData(response.result, 2);
+        });
+    };
+
+    $scope.refreshHealthData = function() {
+        $scope.refreshHRData();
+        $scope.refreshWeightData();
+
+        // Table data
+        // TODO
+        rpc.get_team_health_data(365).then(function(response) {
+            $scope.crew = response.result.map(r => r[0]);
+
+            $scope.hrTableColumns = ['date'];
+            $scope.hrTableColumns.push('average');
+            Array.prototype.push.apply($scope.hrTableColumns, $scope.crew);
+
+            $scope.weightTableColumns = $scope.hrTableColumns;
+
+            var hrData = {}, weightData = {};
+
+            $scope.hrTableRows = [];
+            $scope.weightTableRows = [];
+            for(var rower of response.result)
+                for(var h of rower[1]) {
+                    $scope.hrTableRows.push(h[0]);
+                    $scope.weightTableRows.push(h[0]);
+
+                    var date = h[0].day + '-' + h[0].month;
+                    if(date in hrData) {
+                        hrData[date][rower[0]] = h[1];
+                        hrData[date].__count__++;
+                        hrData[date].__total__ += h[1];
+                    } else
+                        hrData[date] = {
+                            [rower[0]]: h[1],
+                            __count__: 1,
+                            __total__: h[1]
+                        };
+                    
+                    if(date in weightData) {
+                        weightData[date][rower[0]] = h[2];
+                        weightData[date].__count__++;
+                        weightData[date].__total__ += h[2];
+                    } else
+                        weightData[date] = {
+                            [rower[0]]: h[2],
+                            __count__: 1,
+                            __total__: h[2]
+                        };
+                }
+
+            $scope.hrTableRows = mergeAndSortDateList($scope.hrTableRows).map(d => [d.day + '-' + d.month]).reverse();
+            $scope.weightTableRows = mergeAndSortDateList($scope.weightTableRows).map(d => [d.day + '-' + d.month]).reverse();
+
+            function fill(rows, data) {
+                for(var r of rows) {
+                    d = r[0];
+
+                    if(d in data)
+                        r.push(data[d].__total__ / data[d].__count__);
+                    else
+                        r.push(null);
+
+                    for(var c of $scope.crew) {
+                        if(d in data && c in data[d])
+                            r.push(data[d][c]);
+                        else
+                            r.push(null);
+                    }
+                }
+            }
+
+            fill($scope.hrTableRows, hrData);
+            fill($scope.weightTableRows, weightData);
+        });
+    };
+
+    $scope.refreshHealthData(true, true);
 
     $scope.updateHRView = function(timespan, view) {
         $scope.hrTimespan = timespan;
-        $scope.refreshHealthData();
+        $scope.refreshHRData();
+    };
+
+    $scope.updateWeightView = function(timespan, view) {
+        $scope.weightTimespan = timespan;
+        $scope.refreshWeightData();
     };
 });

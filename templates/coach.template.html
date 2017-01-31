@@ -19,11 +19,17 @@
                 <overview
                     type="Heartrate"
                     chart-data="HRdata"
-                    on-update-view="updateHRView(timespan, view)" />
+                    on-update-view="updateHRView(timespan, view)" 
+                    table-columns="hrTableColumns"
+                    table-data="hrTableRows" />
             </div>
 			<div class="col-lg-6">
                 <overview
-                    type="Weight" />
+                    type="Weight"
+                    chart-data="weightData"
+                    on-update-view="updateWeightView(timespan, view)"
+                    table-columns="weightTableColumns"
+                    table-data="weightTableRows" />
             </div>
         </div>
         <div class="row">
