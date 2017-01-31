@@ -214,7 +214,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
 
         if(update)
             rpc.get_team_training_data($scope.performanceTimespan).then(function(response) {
-                $scope.performanceData = createGraphData(response.result, h => h[3][0][1]);
+                $scope.performanceData =
+                    createGraphData(response.result, h => (h[3] && h[3][0] && h[3][0][1] || null));
                 convert();
             });
         else convert();
