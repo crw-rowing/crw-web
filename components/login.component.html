@@ -12,7 +12,7 @@
         <div id="login" class="tab-pane fade">
             <div class="col-md-4">
                 <h1>Login</h1>
-                <alert type="'danger'" ng-show="loginError.show">{{ loginError.text }}</alert>
+                <alert type="danger" ng-show="loginError.show">{{ loginError.text }}</alert>
                 <form id="login_form" class="form-horizontal">
                     <div class="form-group">
                         <div class="input-group">
@@ -36,7 +36,7 @@
         <div id="register" class="tab-pane fade">
             <div class="col-md-4">
                 <h1>Register</h1>
-                <alert type="registerStatus.type" ng-show="registerStatus.show">{{ registerStatus.text }}</alert>
+                <alert type="{{ registerStatus.type }}" ng-show="registerStatus.show">{{ registerStatus.text }}</alert>
                 <form name="registerForm" class="form-horizontal">
                     <div class="form-group">
                         <div class="input-group">

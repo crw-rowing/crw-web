@@ -3,7 +3,7 @@ angular.module('crwApp').directive('alert', function() {
     return {
         templateUrl: 'components/alert.component.html',
         scope: {
-            type: '='
+            type: '@'
         },
         transclude: true,
         restrict: 'E',
