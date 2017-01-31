@@ -39,7 +39,7 @@
     <![endif]-->
 </head>
 <body ng-controller="mainController as ctrl">
-    <div id="wrapper">
+    <div ng-class="{toggled: menuToggled}" id="wrapper">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
@@ -57,7 +57,7 @@
                 </li>
             </ul>
         </div>
-        <a id="toggleMenu" class="btn btn-default glyphicon glyphicon-menu-hamburger"></a>
+        <a id="toggleMenu" ng-click="toggleMenu()" class="btn btn-default glyphicon glyphicon-menu-hamburger"></a>
 
         <ng-view id="page-content-wrapper"></ng-view>
     </div>

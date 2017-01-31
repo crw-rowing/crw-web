@@ -59,11 +59,9 @@ crwApp.controller('mainController', function($scope, rpc) {
             window.location = '#!/home';
         });
     };
-});
 
-// TODO don't use jquery for this
-$(document).ready(function() {
-    $('#toggleMenu').click(function() {
-        $('#wrapper').toggleClass('toggled');
-    });
+    $scope.menuToggled = false;
+    $scope.toggleMenu = function() {
+        $scope.menuToggled = !$scope.menuToggled;
+    };
 });
