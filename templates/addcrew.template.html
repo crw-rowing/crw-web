@@ -116,7 +116,7 @@
 					<tbody>
 						<tr ng-repeat="x in members">
 							<td class="email">{{x.Email}}</td>
-							<td class="coach">{{x.Coachstat}}</td>
+							<td class="coach"><input type="checkbox" ng-model="x.Coachstat" disabled /></td>
 						</tr>
 					</tbody>
 				</table>
