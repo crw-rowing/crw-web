@@ -1,11 +1,11 @@
 angular.module('crwApp').controller('coachController', function($scope, rpc) {
     // Helper function to create a sorted date list from all rower data
     function mergeAndSortDateList(dates) {
-        var isDateTime = dates[0].__type__ === 'datetime',
+        var isDateTime = false; // TODO dates[0].__type__ === 'datetime',
             // Convert all dicts to Date instances to allow sorting
             a = dates.map(d => {
                 if(isDateTime)
-                    return new Date(d.year, d.month - 1, d.day, d.hours, d.minutes, d.seconds);
+                    return new Date(d.year, d.month - 1, d.day, d.hour, d.minute, d.second);
                 else
                     return new Date(d.year, d.month - 1, d.day);
             });
@@ -31,9 +31,9 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                     year: d.getYear() + 1900,
                     month: d.getMonth() + 1,
                     day: d.getDate(),
-                    hours: d.getHours(),
-                    minutes: d.getMinutes(),
-                    seconds: d.getSeconds()
+                    hour: d.getHours(),
+                    minute: d.getMinutes(),
+                    second: d.getSeconds()
                 };
             else
                 return {
@@ -97,6 +97,8 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     // Timespans
     $scope.hrTimespan = 7;
     $scope.weightTimespan = 7;
+    $scope.performanceTimespan = 7;
+    $scope.performanceView = 'watt';
 
     // Returns all graph data for the specified tracked variable
     function createGraphData(rowers, getVal) {
@@ -147,6 +149,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
                         series[i] = val;
                         avg[i].count++;
                         avg[i].total += val;
+                        break;
                     }
                 }
             }
@@ -196,9 +199,25 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
         });
     };
 
+    $scope.refreshPerformanceData = function(update) {
+        function convert() {
+            if($scope.performanceView === 'split')
+                $scope.performanceData.data = $scope.performanceData.data.map(
+                    d => d.map(x => Math.pow(3.5e9/x, 1/3)));
+        }
+
+        if(update)
+            rpc.get_team_training_data($scope.performanceTimespan).then(function(response) {
+                $scope.performanceData = createGraphData(response.result, h => h[3][0][1]);
+                convert();
+            });
+        else convert();
+    };
+
     $scope.refreshHealthData = function() {
         $scope.refreshHRData();
         $scope.refreshWeightData();
+        $scope.refreshPerformanceData(true);
 
         // Table data
         // TODO
@@ -280,5 +299,11 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     $scope.updateWeightView = function(timespan, view) {
         $scope.weightTimespan = timespan;
         $scope.refreshWeightData();
+    };
+
+    $scope.updatePerformanceView = function(timespan, view) {
+        if(timespan) $scope.performanceTimespan = timespan;
+        if(view) $scope.performanceView = view;
+        $scope.refreshPerformanceData(!view || view === 'watt');
     };
 });

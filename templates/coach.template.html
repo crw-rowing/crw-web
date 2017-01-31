@@ -39,7 +39,9 @@
                 <overview
                     caption="Performance Overview"
                     crw-id="coach-performance"
-                    view="['watt', 'split']" />
+                    view="['watt', 'split']"
+                    chart-data="performanceData"
+                    on-update-view="updatePerformanceView(timespan, view)" />
             </div>
         </div>
     </div>
