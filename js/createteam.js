@@ -10,12 +10,7 @@ angular.module('crwApp').controller('createteamController', function($scope, rpc
 		$scope.createteamStatus.show = false;
 		rpc.create_team($scope.teamname).then(function(response) {
 			if('result' in response) {
-				$scope.createteamStatus = {
-                    show: true,
-                    type: 'success',
-                    strong: 'Success!',
-                    text: 'Your team has been created.'
-				};
+				window.location = "#!/addcrew";
 			} else {
                 $scope.createteamStatus = {
                     show: true,
