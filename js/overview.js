@@ -9,11 +9,11 @@ app.directive('overview', function() {
             view: '<',
             updateView: '&onUpdateView',
             tableColumns: '<',
-            tableFilter: '<',
-            updateTableFilter: '&onUpdateFilter'
+            tableFilter: '<'
         },
         bindToController: {
-            tableData: '<'
+            tableData: '=',
+            onUpdateTableFilter: '&'
         },
         restrict: 'E',
         controllerAs: '$ctrl',
@@ -38,6 +38,11 @@ app.directive('overview', function() {
                         (this.tablePage + 1) * this.ROWS_PER_PAGE);
                     this.numPages = Math.ceil(this.tableData.length / this.ROWS_PER_PAGE);
                 }
+            };
+
+            this.updateTableFilter = function(filter) {
+                this.tableData = this.onUpdateTableFilter({filter: filter});
+                this.updateTableView();
             };
 
             this.updateTableView();

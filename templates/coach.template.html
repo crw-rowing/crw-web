@@ -43,9 +43,9 @@
                     chart-data="performanceData"
                     on-update-view="updatePerformanceView(timespan, view)"
                     table-filter="crew"
-                    table-columns="[]"
-                    table-data="[]"
-                    on-update-filter="updatePerformanceFilter(filter)" />
+                    table-columns="['Date', 'Type', 'Duration', 'Power', 'Split', 'Pace', 'Rest']"
+                    table-data="selectedRowerPerformance"
+                    on-update-table-filter="updatePerformanceFilter(filter)" />
             </div>
         </div>
     </div>

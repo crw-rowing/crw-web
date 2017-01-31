@@ -94,6 +94,9 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     $scope.weightTableColumns = [];
     $scope.weightTableRows = [];
 
+    $scope.performanceRowers = {};
+    $scope.selectedRowerPerformance = [];
+
     // Timespans
     $scope.hrTimespan = 7;
     $scope.weightTimespan = 7;
@@ -290,6 +293,29 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
             fill($scope.hrTableRows, hrData);
             fill($scope.weightTableRows, weightData);
         });
+
+        rpc.get_team_training_data(365).then(function(response) {
+            $scope.performanceRowers = {};
+            for(var rower of response.result) {
+                $scope.performanceRowers[rower[0]] = [];
+                var rows = $scope.performanceRowers[rower[0]];
+                for(var training of rower[1]) {
+                    var date = training[0].day + '-' + training[0].month + ' ' + training[0].hour + (training[0].minute < 10 ? ':0' : ':') + training[0].minute;
+                    for(var interval of training[3])
+                        rows.push([
+                            date,
+                            training[1] ? 'ED' : 'AT',
+                            interval[0],
+                            interval[1],
+                            Math.pow(3.5e9/interval[1], 1/3),
+                            interval[2],
+                            interval[3].seconds
+                        ]);
+                }
+                rows.reverse();
+            }
+            $scope.selectedRowerPerformance = $scope.performanceRowers[$scope.crew[0]];
+        });
     };
 
     $scope.refreshHealthData(true, true);
@@ -311,5 +337,7 @@ angular.module('crwApp').controller('coachController', function($scope, rpc) {
     };
 
     $scope.updatePerformanceFilter = function(filter) {
+        $scope.selectedRowerPerformance = $scope.performanceRowers[filter];
+        return $scope.selectedRowerPerformance;
     };
 });
