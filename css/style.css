@@ -73,3 +73,10 @@ fieldset[disabled] .btn-crw.focus {
 .nav-tabs li a {
     cursor: pointer;
 }
+
+#toggleMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+}

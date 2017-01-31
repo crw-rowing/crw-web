@@ -57,9 +57,10 @@
                 </li>
             </ul>
         </div>
-        <a id="toggleMenu" ng-click="toggleMenu()" class="btn btn-default glyphicon glyphicon-menu-hamburger"></a>
-
-        <ng-view id="page-content-wrapper"></ng-view>
+        <div id="page-content-wrapper">
+            <button id="toggleMenu" ng-click="toggleMenu()" class="btn btn-default glyphicon glyphicon-menu-hamburger visible-xs"></button>
+            <ng-view></ng-view>
+        </div>
     </div>
 </body>
 </html>
