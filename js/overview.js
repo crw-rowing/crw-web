@@ -4,6 +4,7 @@ app.directive('overview', function() {
         templateUrl: 'components/overview.component.html',
         scope: {
             caption: '@',
+            crwId: '@',
             chartData: '<',
             view: '<',
             updateView: '&onUpdateView',

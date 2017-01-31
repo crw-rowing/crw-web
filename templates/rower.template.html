@@ -19,6 +19,7 @@
                 <overview
                     on-update-view="updateHealthTimespan(timespan)"
                     caption="Health Overview"
+                    crw-id="rower-health"
                     chart-data="HRdata"
                     table-columns="['Date', 'Heart Rate (bpm)', 'Weight (kg)', 'Feeling']"
                     table-data="health_data"></overview>
@@ -27,6 +28,7 @@
                 <overview
                     on-update-view="updatePerformanceView(timespan, view)"
                     caption="Performance Overview"
+                    crw-id="rower-performance"
                     view="['watt', 'split']"
                     chart-data="Perfdata"
                     table-columns="['Date', 'Type', 'Duration', 'Power', 'Split', 'Pace', 'Rest']"

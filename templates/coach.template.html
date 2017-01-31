@@ -18,6 +18,7 @@
 			<div class="col-lg-6">
                 <overview
                     caption="Heart Rate Overview"
+                    crw-id="coach-hr"
                     chart-data="HRdata"
                     on-update-view="updateHRView(timespan, view)" 
                     table-columns="hrTableColumns"
@@ -26,6 +27,7 @@
 			<div class="col-lg-6">
                 <overview
                     caption="Weight Overview"
+                    crw-id="coach-weight"
                     chart-data="weightData"
                     on-update-view="updateWeightView(timespan, view)"
                     table-columns="weightTableColumns"
@@ -36,6 +38,7 @@
             <div class="col-lg-12">
                 <overview
                     caption="Performance Overview"
+                    crw-id="coach-performance"
                     view="['watt', 'split']" />
             </div>
         </div>

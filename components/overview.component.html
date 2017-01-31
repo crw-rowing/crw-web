@@ -3,14 +3,14 @@
         <h3>{{ caption }}</h3>
     </div>
     <ul class="nav nav-tabs">
-        <li ng-click="$ctrl.tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ type }}">graph</a></li>
-        <li ng-show="tableColumns" ng-click="$ctrl.tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ type }}">table</a></li>
+        <li ng-click="$ctrl.tabClick(0)" role="presentation" class="active"><a data-toggle="tab" data-target="#graph-{{ crwId }}">graph</a></li>
+        <li ng-show="tableColumns" ng-click="$ctrl.tabClick(1)" role="presentation"><a data-toggle="tab" data-target="#table-{{ crwId }}">table</a></li>
     </ul>
     
     <div class="table-content">
-        <div ng-show="$ctrl.pane == 0" id="graph-{{ type }}" class="tab-pane fade in active">
+        <div ng-show="$ctrl.pane == 0" id="graph-{{ crwId }}" class="tab-pane fade in active">
             <canvas
-            id="chart-{{ type }}"
+            id="chart-{{ crwId }}"
             class="chart chart-line"
             chart-data="chartData.data"
             chart-labels="chartData.labels"
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div ng-show="$ctrl.pane == 1" id="table-{{ type }}" class="tab-pane fade">
+        <div ng-show="$ctrl.pane == 1" id="table-{{ crwId }}" class="tab-pane fade">
             <div class="table-responsive">
                 <table class="table table-condensed table-hover table-striped">
                     <thead>
