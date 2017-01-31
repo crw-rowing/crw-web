@@ -3,7 +3,7 @@ app.directive('overview', function() {
     return {
         templateUrl: 'components/overview.component.html',
         scope: {
-            type: '@',
+            caption: '@',
             chartData: '<',
             view: '<',
             updateView: '&onUpdateView',

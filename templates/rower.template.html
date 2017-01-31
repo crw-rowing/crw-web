@@ -18,7 +18,7 @@
             <div class="col-lg-6">
                 <overview
                     on-update-view="updateHealthTimespan(timespan)"
-                    type="Health"
+                    caption="Health Overview"
                     chart-data="HRdata"
                     table-columns="['Date', 'Heart Rate (bpm)', 'Weight (kg)', 'Feeling']"
                     table-data="health_data"></overview>
@@ -26,7 +26,7 @@
             <div class="col-lg-6">
                 <overview
                     on-update-view="updatePerformanceView(timespan, view)"
-                    type="Performance"
+                    caption="Performance Overview"
                     view="['watt', 'split']"
                     chart-data="Perfdata"
                     table-columns="['Date', 'Type', 'Duration', 'Power', 'Split', 'Pace', 'Rest']"

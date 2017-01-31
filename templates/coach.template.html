@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-lg-6">
                 <overview
-                    type="Heartrate"
+                    caption="Heart Rate Overview"
                     chart-data="HRdata"
                     on-update-view="updateHRView(timespan, view)" 
                     table-columns="hrTableColumns"
@@ -25,7 +25,7 @@
             </div>
 			<div class="col-lg-6">
                 <overview
-                    type="Weight"
+                    caption="Weight Overview"
                     chart-data="weightData"
                     on-update-view="updateWeightView(timespan, view)"
                     table-columns="weightTableColumns"
@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <overview
-                    type="Performance"
+                    caption="Performance Overview"
                     view="['watt', 'split']" />
             </div>
         </div>
